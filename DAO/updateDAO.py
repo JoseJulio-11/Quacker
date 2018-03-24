@@ -2,7 +2,7 @@
 class UpdateDAO:
 
     def __init__(self):
-
+        print('alejandra')
 
     def updateUser(self, uID, fName, lName, ctime,cdate,pseudonym):
         return uID
