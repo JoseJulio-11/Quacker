@@ -1,5 +1,5 @@
 
-class CreateDAO:
+class UpdateDAO:
 
     def __init__(self):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
@@ -71,39 +71,33 @@ class CreateDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def insertUser(self, fName, lName, ctime, cdate, pseudonym):
-        # Create a new user
-        uID = 7
+    def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
+        # the user has the option of updating its own information
         return uID
 
-    def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
-        # Create a chat
-        cID = 5
+    def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
+        # This method is supposed to be used to change the chat name
+        # Also to that its admin 'deletes' chats by changing it to false
         return cID
 
-    def insertCredential(self, uID, username, password, uemail, cuphone):
-        # create credentials for user
+    def updateCredential(self, uID, username, password, uemail,cuphone):
+        # the user can edit its credential when needed
         return uID, username
 
-    def insertAtivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
-        # Create activity for user
-        aid = 7
+    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime, uID):
+        # This method is used to update the user last db access
+        # After 30 days of last time active in the app the user will be establish as inactive
+        # Also if the user decides to close the account it will be set to false
         return aid, uID
 
-    def insertParticipant(self, cID, uID, pdate, ptime):
-        # Insert a participant to a chat
-        return cID, uID
-
-    def insertReacted(self, uID, mID, rdate, rtime, vote):
-        # Create an user reaction to a message
+    def updateReacted(self, uID, mID, rdate, rtime, vote):
+        # It will change the reaction of the message,1 liked, -1 disliked
         return uID, mID
 
-    def insertMedia(self, mID, isVideo, location):
-        # Add media to a message
-        medID = 3
+    def updateMedia(self, mID, medID, isVideo, location):
+        # The application may need to change a media's location
         return mID, medID
 
-    def insertMessage(self, text, cdate, ctime, uid, cid, isDeleted, rid):
-        # Create a message to a chat
-        mID = 11
+    def updateMessege(self, mID, text, cdate, ctime, uid, cid, isDeleted, rid):
+        # it will update a message by saying if it deleted or not
         return mID

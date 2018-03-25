@@ -1,14 +1,14 @@
 
-class CreateDAO:
+class DeleteDAO:
 
     def __init__(self):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
         self.users = [[1, "Jack", "Hammer", "2018-1-1", "08:00:00", "The Nail"],
-                      [2, "Sam", "Master", "2018-1-1", "16:00:00", "Miss Master"],
-                      [3, "Barbara", "Berry", "2018-1-5", "12:00:00", "Barb"],
-                      [4, "Jimmy", "Newton", "2018-2-1", "14:35:40", "Newton"],
-                      [5, "Timmy", "Turner", "2017-12-31", "10:15:55", "THe Corner"],
-                      [6, "Mary", "Johnson", "2017-1-1", "15:00:00", "Marge"]]
+                     [2, "Sam", "Master", "2018-1-1", "16:00:00", "Miss Master"],
+                     [3, "Barbara", "Berry", "2018-1-5", "12:00:00", "Barb"],
+                     [4, "Jimmy", "Newton", "2018-2-1", "14:35:40", "Newton"],
+                     [5, "Timmy", "Turner", "2017-12-31", "10:15:55", "THe Corner"],
+                     [6, "Mary", "Johnson", "2017-1-1", "15:00:00", "Marge"]]
 
         # UID, Username, Password, UEmail, UPhone
         self.credentials = [[1, "Jackhammer", "TheHammer32", "jackhammer1@gmail.com", "7873431298"],
@@ -54,8 +54,7 @@ class CreateDAO:
                          [5, "More like ew! #WTF", "2018-1-20", "16:47:41", 3, 6, True, 3],
                          [6, "Yo Dudes!", "2018-1-17", "15:32:13", 1, 1, False, None],
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
-                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False,
-                          None],
+                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
                          [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 1, 1, True, None]]
 
@@ -71,39 +70,37 @@ class CreateDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def insertUser(self, fName, lName, ctime, cdate, pseudonym):
-        # Create a new user
-        uID = 7
+    def deleteUser(self, uID):
+        # Remove an user from the database
         return uID
 
-    def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
-        # Create a chat
-        cID = 5
+    def deleteChat(self, cID):
+        # Remove a chat
         return cID
 
-    def insertCredential(self, uID, username, password, uemail, cuphone):
-        # create credentials for user
+    def deleteCredential(self, uID):
+        # Remove an user's credentials
+        username = "stub"
         return uID, username
 
-    def insertAtivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
-        # Create activity for user
-        aid = 7
-        return aid, uID
+    def deleteActivity(self, uID):
+        # Remove an user's activity
+        aID = 7
+        return uID, aID
 
-    def insertParticipant(self, cID, uID, pdate, ptime):
-        # Insert a participant to a chat
+    def deleteParticipant(self, cID, uID):
+        # Remove an user from a chat
         return cID, uID
 
-    def insertReacted(self, uID, mID, rdate, rtime, vote):
-        # Create an user reaction to a message
+    def deleteReacted(self, uID, mID):
+        # Delete a made reaction
         return uID, mID
 
-    def insertMedia(self, mID, isVideo, location):
-        # Add media to a message
+    def deleteMedia(self, mID):
+        # The application may need to change a media's location
         medID = 3
         return mID, medID
 
-    def insertMessage(self, text, cdate, ctime, uid, cid, isDeleted, rid):
-        # Create a message to a chat
-        mID = 11
+    def deleteMessege(self, mID):
+        # Delete a message
         return mID

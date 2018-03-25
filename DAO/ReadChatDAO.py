@@ -1,5 +1,5 @@
 
-class DeleteDAO:
+class ReadChatDAO:
 
     def __init__(self):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
