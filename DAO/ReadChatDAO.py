@@ -49,14 +49,17 @@ class ReadChatDAO:
         # mid, text, cdate, ctime, cid, uid, isdeleted, rid
         self.messages = [[1, "Hey", "2018-1-20", "16:43:41", 3, 6, True, None],
                          [2, "Whats Up?", "2018-1-20", "16:44:41", 3, 2, True, None],
-                         [3, "OMG Look at this Vid!!!", "2018-1-20", "16:45:41", 3, 3, True, None],
+                         [3, "OMG LotAccessToDBTiok at this Vid!!!", "2018-1-20", "16:45:41", 3, 3, True, None],
                          [4, "Wow!!!!! #MindBlowing", "2018-1-20", "16:46:41", 3, 2, True, 3],
                          [5, "More like ew! #WTF", "2018-1-20", "16:47:41", 3, 6, True, 3],
                          [6, "Yo Dudes!", "2018-1-17", "15:32:13", 1, 1, False, None],
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
                          [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
-                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None]]
+                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None]
+                         [11, "Hey!!!", "2018-1-10", "08:13:45", 2, 3, False, None],
+                         [12, "YO", "2018-1-10", "08:17:45", 2, 2, True, None]]
+
 
         # hashtag, mid
         self.topic = [["mindblowing", 4], ["wtf", 5], ["doyouevenlift?", 9]]
@@ -70,16 +73,123 @@ class ReadChatDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def getChatActiveMessages(self,cID,isDeleted):
-       #This method will only return all the messages in all the active chats
-       #It will also return the messages in the chat 3 which is active, but because they are
-       #deleted we will not return anything
-        if cID == 1 and isDeleted:
-            return self.messages[6:9]
-        return []
+    def geActivetChatMessages(self,cID,isDeleted):
+       #This method will only return all the messages in all the active single chats
+       #Wether they are deleted or not
+        if cID == 2 and not isDeleted:
+           return self.messages[11]
+        if cID == 2 and isDeleted:
+            return self.messages[11]
 
-    def getChatMesseges(self, cID,isDeleted):
-        #This method will return all the deleted messages on the active chat or inactive chat
-        if cID == 3 and isDeleted
-            return self.messages[1:5]
+    def getNonActiveChatMessages(self, cID,isDeleted):
+        #This method will return all the messages in single chats that are inactive
+        #There is no example of a not deleted message on a inactive chat!!!!!!!!!
+        if cID == 4 and isDeleted:
+            return self.messages[9]
+        return[]
+
+    def getActiveGroupChatMessages(self,cID,isDeleted):
+        #This method will give all the messages on a group chat, deleted or not
+        if cID == 1 and isDeleted:
+            return[]
+        elif cID == 1 and not isDeleted:
+            return self.messages[5:9]
+        return[]
+
+    def getNonActiveGroupChatMessages(self,cID,isDeleted):
+        if cID == 3 and isDeleted:
+            return self.messages[0:5]
+        return[]
+
+    def getActiveChatMessagesBetween(self,cID,isGroup,isDeleted,bDate,aDate):
+        #This method will return the messages in a chat between established the
+        #dates of group/single chat and deleted/notDeleted messages
+
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+
+        if cID == 1 and isGroup and not isDeleted:
+            if bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <= 17 and aDate[0]>=2018 and aDate[1]>=1 and aDate[2]>=17:
+                return self.messages[5:9]
+            return []
+        if cID == 2 and isGroup and isDeleted:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 10:
+                return self.messages[11]
+            return[]
+
+        if cID == 2 and not isGroup and not isDeleted:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 10:
+                return self.messages[10]
+            return[]
+
+
+    def getNonActiveChatMessagesBeteween(self,cID,isGroup,isDeleted,bDate,aDate):
+        # This method will return the messages in a non-active chat between the established the
+        # dates of group/single chat and deleted/notDeleted messages
+
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+
+        if cID == 3 and isGroup and isDeleted:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
+                return self.messages[0:5]
+            return[]
+        if cID == 4 and not isGroup and isDeleted:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
+                return self.messages[9]
+            return[]
+
+    def getChatParticipant(self,cID):
+        #THis method will return the active participants of a specified chat ( active or nonactive chat)
+         if cID == 1:
+            return self.participants[0:3]
+         elif cID == 2:
+            return self.participants[3:5]
+         elif cID == 3:
+             return self.participants[5:8]
+         elif cID == 4:
+             return self.participants[8:10]
+         return[]
+
+    def getChatActivePartipant(self,cID):
+        #This method will give the active participants in a desired chat
+        if cID == 1:
+            return self.participants[0:3]
+        elif cID == 2:
+            return self.participants[3:5]
+        elif cID == 3:
+            return self.participants[6:8]
+        elif cID == 4
+            return self.participants[9]
+        return[]
+
+    def getChatNonActiveParticipant(self,cID):
+      #THis method will return the non active users in a certain chat
+        if cID == 1:
+            return[]
+        if cID == 2:
+            return[]
+        if cID == 3:
+            return self.participants[5]
+        if cID == 4:
+            return self.participants[8]
+        return[]
+
+    def getChatInfo(self,cID):
+        #This method will return the information of a desired chat
+        if cID == 1:
+            return self.chat[0]
+        if cID == 2:
+            return self.chat[1]
+        if cID == 3:
+            return self.chat[2]
+        if cID == 4:
+            return self.chat[3]
+
+    def getChatTopic(self,cID):
+        #This method will return the topics of a active chat
+        if cID == 1:
+            return self.topic[2]
+        if cID == 3:
+            return self.topic[0,2]
         return[]
