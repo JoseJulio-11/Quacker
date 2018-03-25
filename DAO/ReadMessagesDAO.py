@@ -319,5 +319,31 @@ class ReadMessagesDAO:
             return []
 
     def getAllTopicsBetween(self, bDate, aDate):
-        return self.topic[:]
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.topic[0:2])
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.topic[2])
+        return result
 
+    def getAllLikeReactionsBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+             result.append(self.reacted[0])
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+             result.append(self.reacted[2])
+        return result
+
+    def getAllDislikeReactionsBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+             result.append(self.reacted[1])
+        return result
+
+    def getAllMediaBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.reacted[0])
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.media[1])
+        return result
