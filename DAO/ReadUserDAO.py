@@ -56,7 +56,7 @@ class ReadUserDAO:
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
                          [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
-                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 1, 1, True, None]]
+                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None]]
 
         # hashtag, mid
         self.topic = [["mindblowing", 4], ["wtf", 5], ["doyouevenlift?", 9]]
@@ -69,3 +69,41 @@ class ReadUserDAO:
         # mid, mediaid, isVideo, location
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
+
+    #Returns all users
+    def getAllUsers(self):
+        return self.users
+
+    #Returns a list with the personal information of the user with ID uid
+    def getUserInfo(self, uID):
+        for r in self.users:
+            if uID == r[0]:
+                return r
+        return None
+
+    #Returns a list with the credentials of the user with ID uid
+    def getUserCredentials(self, uID):
+        for r in self.credentials:
+            if uID == r[0]:
+                return r
+        return None
+
+    #Returns a list with the activity of the user with ID uid
+    def getUserActivity(self, uID):
+        for r in self.activity:
+            if uID == r[4]:
+                return r
+        return None
+
+    #Returns a list with the contacts of the user with ID uid
+    def getUserContacts(self, uID):
+        contactlist = []
+        for r in self.contacts:
+            if uID == r[0]:
+                contactlist.append(r)
+        return contactlist
+
+    #Return a list with the chats of the admin user with ID uid
+    #def getChatsAsAdmin(self, uID):
+
+
