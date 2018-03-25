@@ -193,3 +193,19 @@ class ReadChatDAO:
         if cID == 3:
             return self.topic[0,2]
         return[]
+
+    def getChatMedia(self,cID):
+        #THis method will return the media sended in that determined chat
+        if cID == 1:
+            return self.media[2]
+        if cID == 3:
+            return self.media[1]
+        return[]
+
+    def getChatReactions(self,cID):
+        #It will return the reactions based on the chat
+        if cID == 3:
+            return self.reacted[0,2]
+        if cID == 1:
+            return self.reacted[3]
+        return[]
