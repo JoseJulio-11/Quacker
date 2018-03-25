@@ -80,6 +80,6 @@ class ReadChatDAO:
 
     def getChatMesseges(self, cID,isDeleted):
         #This method will return all the deleted messages on the active chat or inactive chat
-        if cID == 3 and isActive
+        if cID == 3 and isDeleted
             return self.messages[1:5]
         return[]
