@@ -75,28 +75,28 @@ class ReadUserDAO:
     def getAllUsers(self):
         return self.users
 
-    #Returns a list with the personal information of the user with ID uid
+    #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
         for r in self.users:
             if uID == r[0]:
                 return r
         return []
 
-    #Returns a list with the credentials of the user with ID uid
+    #Returns a list with the credentials of the user with ID uID
     def getUserCredentials(self, uID):
         for r in self.credentials:
             if uID == r[0]:
                 return r
         return []
 
-    #Returns a list with the activity of the user with ID uid
+    #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
         for r in self.activity:
             if uID == r[4]:
                 return r
         return []
 
-    #Returns a list with the contacts of the user with ID uid
+    #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
         contactList = []
         for r in self.contacts:
@@ -104,7 +104,7 @@ class ReadUserDAO:
                 contactList.append(r)
         return contactList
 
-    #Returns a list with the chats of the admin user with ID uid
+    #Returns a list with the chats of the admin user with ID uID
     def getChatsAsAdmin(self, uID):
         adminChatsList = []
         for r in self.chat:
@@ -112,7 +112,7 @@ class ReadUserDAO:
                 adminChatsList.append(r)
         return adminChatsList
 
-    #Returns the list of all chats which the user with ID uid is member of.
+    #Returns the list of all chats which the user with ID uID is member of.
     def getChatAsMember(self, uID):
         memberChatsList = []
         for r in self.participants:
@@ -120,13 +120,23 @@ class ReadUserDAO:
                 memberChatsList.append(r)
         return memberChatsList
 
-    #Returns the list
+    #Returns the list of members with ID uID that are contacts of another member.
     def getParticipationAsContact(self, uID):
-
-
+        if uID == 1:
+            return [self.contacts[4], self.contacts[6]]
+        elif uID == 2:
+            return [self.contacts[0],self.contacts[3], self.contacts[5]]
+        elif uID == 3:
+            return self.contacts[9]
+        elif uID == 4:
+            return self.contacts[1]
+        elif uID == 5:
+            return self.contacts[2]
+        else:
+            return []
 
     #Returns the list of reactions between the
-    #date and time specified of the user with ID uid
+    #date and time specified of the user with ID uID
     def getUserReactionsBetween(self, uID, bDate, aDate):
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -139,7 +149,7 @@ class ReadUserDAO:
         else:
             return []
 
-    #Returns the list of messages posted by user with ID uid
+    #Returns the list of messages posted by user with ID uID
     def getUserMessagesBetween(self, uID, bDate, aDate):
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -188,7 +198,7 @@ class ReadUserDAO:
             return []
 
 
-    #Returns the list of topics posted by the user with ID uid
+    #Returns the list of topics posted by the user with ID uID
     def getUserTopicsBetween(self, uID, bDate, aDate):
         messagesList = []
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
