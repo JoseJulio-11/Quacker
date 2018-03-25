@@ -56,7 +56,9 @@ class ReadMessagesDAO:
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
                          [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
-                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 1, 1, True, None]]
+                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None],
+                         [11, "Hey!!!", "2018-1-10", "08:13:45", 2, 3, False, None],
+                         [12, "YO", "2018-1-10", "08:17:45", 2, 2, True, None]]
 
         # hashtag, mid
         self.topic = [["mindblowing", 4], ["wtf", 5], ["doyouevenlift?", 9]]
@@ -69,3 +71,49 @@ class ReadMessagesDAO:
         # mid, mediaid, isVideo, location
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
+
+    def getAllMessagesWithChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
+                return self.messages[5:9]
+            return []
+        elif (not isGroupChat) and isActive:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
+                return self.messages[10]
+            return []
+        elif isGroupChat and (not isActive):
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
+                return self.messages[10]
+            return []
+        else:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=25 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=25:
+                return self.messages[9]
+            return []
+
+    def getAllDeletedMessagesWithChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 10 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 10:
+                return self.messages[11]
+            return []
+        else:
+            return []
+
+    def getAllChatMessages(self):
+        # Give all messages that belong to a chat
+        return self.messages[0:9]
+
+    def getAllActiveMessages(self):
+        # Give all messages that are not deleted
+        return self.messages[5:9]
+
+    def getAllChatActiveMessages(self):
+        # Give all messages that are not deleted from chats
+        return self.messages[5:9]
