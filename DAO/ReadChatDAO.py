@@ -56,7 +56,7 @@ class ReadChatDAO:
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
                          [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
-                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 1, 1, True, None]]
+                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None]]
 
         # hashtag, mid
         self.topic = [["mindblowing", 4], ["wtf", 5], ["doyouevenlift?", 9]]
@@ -69,3 +69,17 @@ class ReadChatDAO:
         # mid, mediaid, isVideo, location
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
+
+    def getChatActiveMessages(self,cID,isDeleted):
+       #This method will only return all the messages in all the active chats
+       #It will also return the messages in the chat 3 which is active, but because they are
+       #deleted we will not return anything
+        if cID == 1 and isDeleted:
+            return self.messages[6:9]
+        return []
+
+    def getChatMesseges(self, cID,isDeleted):
+        #This method will return all the deleted messages on the active chat or inactive chat
+        if cID == 3 and isActive
+            return self.messages[1:5]
+        return[]
