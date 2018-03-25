@@ -97,13 +97,53 @@ class ReadUserDAO:
 
     #Returns a list with the contacts of the user with ID uid
     def getUserContacts(self, uID):
-        contactlist = []
+        contactList = []
         for r in self.contacts:
             if uID == r[0]:
-                contactlist.append(r)
-        return contactlist
+                contactList.append(r)
+        return contactList
 
-    #Return a list with the chats of the admin user with ID uid
-    #def getChatsAsAdmin(self, uID):
+    #Returns a list with the chats of the admin user with ID uid
+    def getChatsAsAdmin(self, uID):
+        adminChatsList = []
+        for r in self.chat:
+            if uID == r[6]:
+                adminChatsList.append(r)
+        return adminChatsList
+
+    #Returns the number of reactions between the
+    #date and time specified of the user with ID uid
+    def getUserReactionsBetween(self, uID, bDate, aDate):
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
+            return self.reacted[0]
+        else:
+            return None
+
+    def getUserMessageBetween(self, uID, bDate, aDate):
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+
+
+    #Returns the number of topics posted by the user with ID uid
+    def getUserTopicsBetween(self, uID, bDate, aDate):
+        messagesList = []
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        for r in self.messages:
+            if uID == r[5]:
+                messagesList.append(r)
+        if messagesList[0] == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
+            return self.topic[1]
+        else:
+            return None
+
+
+
+
+
+
+
 
 
