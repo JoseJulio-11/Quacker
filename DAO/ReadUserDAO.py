@@ -118,6 +118,10 @@ class ReadUserDAO:
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
             return self.reacted[0]
+        elif uID == 6 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
+            return self.reacted[1]
+        elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
+            return self.reacted[2]
         else:
             return None
 
@@ -136,6 +140,10 @@ class ReadUserDAO:
                 messagesList.append(r)
         if messagesList[0] == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
             return self.topic[1]
+        elif messagesList[0] == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
+            return self.topic[0]
+        elif messagesList[0] == 9 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate >=1 and aDate >=17:
+            return self.topic[2]
         else:
             return None
 
