@@ -72,29 +72,20 @@ class ReadMessagesDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def getAllMessagesWithChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        # Give all existing messages
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesInChatTypeBetween(self, isGroupChat, bDate, aDate):
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat and isActive:
+        if isGroupChat:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
                 return self.messages[5:9]
             return []
-        elif (not isGroupChat) and isActive:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
-                return self.messages[10]
-            return []
-        elif isGroupChat and (not isActive):
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
-                return self.messages[10]
-            return []
         else:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=25 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=25:
-                return self.messages[9]
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
+                return self.messages[10]
             return []
 
-    def getAllDeletedMessagesWithChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        # Give all existing messages
+    def getAllDeletedMessagesInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if isGroupChat and isActive:
@@ -103,17 +94,256 @@ class ReadMessagesDAO:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 10 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 10:
                 return self.messages[11]
             return []
+        elif isGroupChat and (not isActive):
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+                return self.messages[0:6]
+            return []
+        else:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 25 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 25:
+                return self.messages[9]
+            return []
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithReplyInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
+                return self.messages[8]
+            return []
         else:
             return []
 
-    def getAllChatMessages(self):
-        # Give all messages that belong to a chat
-        return self.messages[0:9]
+    def getAllDeletedMessagesWithReplyInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            return []
+        elif isGroupChat and (not isActive):
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+                return self.messages[4:6]
+            return []
+        else:
+            return []
 
-    def getAllActiveMessages(self):
-        # Give all messages that are not deleted
-        return self.messages[5:9]
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithMediaInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
+                return self.messages[7]
+            return []
+        else:
+            return []
 
-    def getAllChatActiveMessages(self):
-        # Give all messages that are not deleted from chats
-        return self.messages[5:9]
+    def getAllDeletedMessagesWithMediaInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            return []
+        elif isGroupChat and (not isActive):
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+                return self.messages[2]
+            return []
+        else:
+            return []
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithReactionsInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
+                return self.messages[7]
+            return []
+        else:
+            return []
+
+    def getAllDeletedMessagesWithReactionsInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+
+            return []
+        elif isGroupChat and (not isActive):
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+                return self.messages[2]
+            return []
+        else:
+            return []
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithReplyAndReactionInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            return []
+        else:
+            return []
+
+    def getAllDeletedMessagesWithReplyAndReactionInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            return []
+        elif isGroupChat and (not isActive):
+            return []
+        else:
+            return []
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithReplyAndMediaInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            return []
+        else:
+            return []
+
+    def getAllDeletedMessagesWithReplyAndMediaInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            return []
+        elif isGroupChat and (not isActive):
+            return []
+        else:
+            return []
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithMediaAndReactionInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
+                return self.messages[7]
+            return []
+        else:
+            return []
+
+    def getAllDeletedMessagesWithMediaAndReactionInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            return []
+        elif isGroupChat and (not isActive):
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+                return self.messages[2]
+        else:
+            return []
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+    def getAllMessagesWithReplyReactionAndMediaInChatTypeBetween(self, isGroupChat, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat:
+            return []
+        else:
+            return []
+
+    def getAllDeletedMessagesWithReplyReactionAndMediaInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
+        # Give all existing messages
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if isGroupChat and isActive:
+            return []
+        elif (not isGroupChat) and isActive:
+            return []
+        elif isGroupChat and (not isActive):
+            return []
+        else:
+            return []
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+    def getMessageTopics(self, mID):
+        if mID == 4:
+            return self.topic[0]
+        elif mID == 5:
+            return self.topic[1]
+        elif mID == 9:
+            return self.topic[2]
+        else:
+            return []
+
+    def getMessageInfo(self, mID):
+        if mID >= 0 and mID <= 11:
+            return self.messages[mID]
+        return []
+
+    def getRepliedMessage(self, mID):
+        if mID == 4:
+            return self.messages[2]
+        elif mID == 5:
+            return self.messages[2]
+        elif mID == 9:
+            return self.messages[7]
+        else:
+            return []
+
+    def getMessageMedia(self, mID):
+        if mID == 3:
+            return self.media[0]
+        elif mID == 8:
+            return self.media[1]
+        else:
+            return []
+
+    def getMessageReacts(self, mID):
+        if mID == 3:
+            return self.reacted[0:2]
+        elif mID == 8:
+            return self.reacted[2]
+        else:
+            return []
+
+    def getAllTopicsBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.topic[0:2])
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.topic[2])
+        return result
+
+    def getAllLikeReactionsBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+             result.append(self.reacted[0])
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+             result.append(self.reacted[2])
+        return result
+
+    def getAllDislikeReactionsBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+             result.append(self.reacted[1])
+        return result
+
+    def getAllMediaBetween(self, bDate, aDate):
+        result = []
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.reacted[0])
+        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
+            result.append(self.media[1])
+        return result
