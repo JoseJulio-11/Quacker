@@ -346,4 +346,8 @@ class ReadChatDAO:
             return self.messages[9]
         return[]
     def getUnlikedMessagesByChat(self,cID):
-        
+        #This method will return the unliked messages in a determined chat
+        if cID == 3:
+            return self.messages[4]
+        return[]
+
