@@ -149,6 +149,17 @@ class ReadUserDAO:
         else:
             return []
 
+    # Returns the list of reactions of the user with ID uID
+    def getUserReactions(self, uID):
+        if uID == 2:
+            return self.reacted[0]
+        elif uID == 6:
+            return self.reacted[1]
+        elif uID == 1:
+            return self.reacted[2]
+        else:
+            return []
+
     #Returns the list of messages posted by user with ID uID
     def getUserMessagesBetween(self, uID, bDate, aDate):
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
@@ -171,6 +182,23 @@ class ReadUserDAO:
             return [self.messages[6], self.messages[8]]
         elif uID == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
             return self.messages[7]
+        else:
+            return []
+
+    # Returns the list of messages posted by user with ID uID
+    def getUserMessages(self, uID):
+        if uID == 1:
+            return [self.messages[5],self.messages[9]]
+        elif uID == 2:
+            return [self.message[1], self.message[3],self.messages[11]]
+        elif uID == 3:
+            return [self.messages[2],self.messages[10]]
+        elif uID == 4:
+            return self.messages[7]
+        elif uID == 5:
+            return [self.messages[6], self.messages[8]]
+        elif uID == 6:
+            return [self.messages[0], self.messages[4]]
         else:
             return []
 
@@ -199,7 +227,6 @@ class ReadUserDAO:
         else:
             return []
 
-
     #Returns the list of topics posted by the user with ID uID
     def getUserTopicsBetween(self, uID, bDate, aDate):
         messagesList = []
@@ -216,6 +243,7 @@ class ReadUserDAO:
             return self.topic[2]
         else:
             return []
+
 
 
 
