@@ -248,7 +248,67 @@ class ReadChatDAO:
 
         if cID == 3:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-            return self.messages[]
+                return self.messages[5:6]
+
         if cID == 1:
-            return[]
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 17:
+                return[10]
+        return[]
+
+    def getChatReactionsBetween(self,cID,bTime,aTime):
+        #This method will return the reactions of a chat between a determined date
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if cID == 3:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
+                return self.reacted[0, 2]
+        if cID == 1:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
+                 return self.reacted[3]
+        return []
+
+    def getChatRepliedMessagesBetween(self,cID,bTime,aTime):
+        #THis method will give the replies in a chat between a determined date
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if cID == 3:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
+                 return self.messages[5:6]
+        elif cID == 1:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
+             return self.messages[10]
+        return []
+
+    def getChatMessagesRepliedWithMediaBetween(self,cID,bTime,aTime):
+        #This method is supposed to return the messages that contain a media
+        #and at the same time is being replied, and viceversa between a specified date
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if cID == 3:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
+                return self.messages[5:6]
+        if cID == 1:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
+                return self.messages[10]
+        return[]
+
+
+    def getChatMessageWithReplyAndReactionBetween(self,cID,bTime,aTime):
+        #This method will select the messages in a defined chat that have reaction and reply between a specified date
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if cID == 3:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
+                return self.messages[4]
+        if cID == 1:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
+                return self.messages[9]
+        return[]
+    def getChatMessagesWithReplyReactionMediaBetween(self,cID,bTime,aTime):
+        #This method will return the messages on a desired chat that have reaction,media and reply between a date
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+        if cID == 3:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
+                return self.messages[4]
         return[]
