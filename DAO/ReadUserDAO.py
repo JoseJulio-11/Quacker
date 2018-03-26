@@ -77,24 +77,27 @@ class ReadUserDAO:
 
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
+        userInfo = []
         for r in self.users:
             if uID == r[0]:
-                return r
-        return []
+                userInfo.append(r)
+        return userInfo
 
     #Returns a list with the credentials of the user with ID uID
     def getUserCredentials(self, uID):
+        userCredentials = []
         for r in self.credentials:
             if uID == r[0]:
-                return r
-        return []
+                userCredentials.append(r)
+        return userCredentials
 
     #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
+        userActivity = []
         for r in self.activity:
             if uID == r[3]:
-                return r
-        return []
+                userActivity.append(r)
+        return userActivity
 
     #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
@@ -122,18 +125,11 @@ class ReadUserDAO:
 
     #Returns the list of members with ID uID that are contacts of another member.
     def getParticipationAsContact(self, uID):
-        if uID == 1:
-            return [self.contacts[4], self.contacts[6]]
-        elif uID == 2:
-            return [self.contacts[0],self.contacts[3], self.contacts[5]]
-        elif uID == 3:
-            return self.contacts[9]
-        elif uID == 4:
-            return self.contacts[1]
-        elif uID == 5:
-            return self.contacts[2]
-        else:
-            return []
+        userContactOfAnotherUser = []
+        for r in self.contacts:
+            if uID == r[1]:
+                userContactOfAnotherUser.append(r)
+        return userContactOfAnotherUser
 
     #Returns the list of reactions between the
     #date and time specified of the user with ID uID
@@ -141,22 +137,22 @@ class ReadUserDAO:
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return self.reacted[0]
+            return [self.reacted[0]]
         elif uID == 6 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return self.reacted[1]
+            return [self.reacted[1]]
         elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return self.reacted[2]
+            return [self.reacted[2]]
         else:
             return []
 
     # Returns the list of reactions of the user with ID uID
     def getUserReactions(self, uID):
         if uID == 2:
-            return self.reacted[0]
+            return [self.reacted[0]]
         elif uID == 6:
-            return self.reacted[1]
+            return [self.reacted[1]]
         elif uID == 1:
-            return self.reacted[2]
+            return [self.reacted[2]]
         else:
             return []
 
@@ -170,19 +166,19 @@ class ReadUserDAO:
         elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
             return [self.messages[1], self.messages[3]]
         elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
-            return self.messages[11]
+            return [self.messages[11]]
         elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
-            return self.messages[10]
+            return [self.messages[10]]
         elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return self.messages[2]
+            return [self.messages[2]]
         elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return self.messages[5]
+            return [self.messages[5]]
         elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=25 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=25:
-            return self.messages[9]
+            return [self.messages[9]]
         elif uID == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
             return [self.messages[6], self.messages[8]]
         elif uID == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return self.messages[7]
+            return [self.messages[7]]
         else:
             return []
 
@@ -195,7 +191,7 @@ class ReadUserDAO:
         elif uID == 3:
             return [self.messages[2],self.messages[10]]
         elif uID == 4:
-            return self.messages[7]
+            return [self.messages[7]]
         elif uID == 5:
             return [self.messages[6], self.messages[8]]
         elif uID == 6:
@@ -218,48 +214,52 @@ class ReadUserDAO:
         if bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=1 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=1:
             return [self.users[0], self.users[1]]
         elif bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 5 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 5:
-            return self.users[2]
+            return [self.users[2]]
         elif bDate[0] <= 2018 and bDate[1] <= 2 and bDate[2] <= 1 and aDate[0] >= 2018 and aDate[1] >= 2 and aDate[2] >= 1:
-            return self.users[3]
+            return [self.users[3]]
         elif bDate[0] <= 2017 and bDate[1] <= 12 and bDate[2] <= 31 and aDate[0] >= 2017 and aDate[1] >= 12 and aDate[2] >= 31:
-            return self.users[4]
+            return [self.users[4]]
         elif bDate[0] <= 2017 and bDate[1] <= 1 and bDate[2] <= 1 and aDate[0] >= 2017 and aDate[1] >= 1 and aDate[2] >= 1:
-            return self.users[5]
+            return [self.users[5]]
         else:
             return []
 
     #Returns the list of topics posted by the user with ID uID
     #between the time frame bDate and aDate
     def getUserTopicsBetween(self, uID, bDate, aDate):
+        #This list will hold the records of messages
         messagesList = []
+        #This list will hold the topics of the specified user
+        userTopicsList = []
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         for r in self.messages:
             if uID == r[5]:
                 messagesList.append(r)
         if messagesList[0] == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
-            return self.topic[1]
+            userTopicsList.append(self.topic[1])
         elif messagesList[0] == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
-            return self.topic[0]
+            userTopicsList.append(self.topic[0])
         elif messagesList[0] == 9 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate >=1 and aDate >=17:
-            return self.topic[2]
-        else:
-            return []
+            userTopicsList.append(self.topic[2])
+        return userTopicsList
 
     #Returns the list of topics posted by the user with ID uID
     def getUserTopics(self, uID):
+        # This list will hold the records of messages
         messagesList = []
+        # This list will hold the topics of the specified user
+        userTopicsList = []
         for r in self.messages:
             if uID == r[5]:
                 messagesList.append(r)
         if messagesList[0] == 5:
-            return self.topic[1]
+            userTopicsList.append(self.topic[1])
         elif messagesList[0] == 4:
-            return self.topic[0]
+            userTopicsList.append(self.topic[0])
         elif messagesList[0] == 9:
-            return self.topic[2]
-        else:
-            return []
+            userTopicsList.append(self.topic[2])
+        return userTopicsList
 
 
 
