@@ -18,13 +18,13 @@ class ReadUserDAO:
                             [5, "timtim", "fairlyodd12", "timmy.turner12@gmail.com", "5463126732"],
                             [6, "mary64", "maryjesus25", "mary.johnson25@gmail.com", "8763417641"]]
 
-        # AID, lastAccessToDBDate, lastAccessToDBTime, isActive, uid
-        self.activity = [[1, "2018-3-21", "10:30:56", True, 1],
-                         [2, "2018-3-21", "10:20:25", True, 2],
-                         [3, "2018-3-21", "10:40:10", True, 3],
-                         [4, "2018-3-17", "13:17:12", False, 4],
-                         [5, "2018-3-21", "10:20:30", True, 5],
-                         [6, "2018-2-05", "11:33:10", False, 6]]
+        # lastAccessToDBDate, lastAccessToDBTime, isActive, uid
+        self.activity = [["2018-3-21", "10:30:56", True, 1],
+                         ["2018-3-21", "10:20:25", True, 2],
+                         ["2018-3-21", "10:40:10", True, 3],
+                         ["2018-3-17", "13:17:12", False, 4],
+                         ["2018-3-21", "10:20:30", True, 5],
+                         ["2018-2-05", "11:33:10", False, 6]]
 
         # ownerid, memberid
         self.contacts = [[1, 2], [1, 4], [1, 5],
@@ -92,7 +92,7 @@ class ReadUserDAO:
     #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
         for r in self.activity:
-            if uID == r[4]:
+            if uID == r[3]:
                 return r
         return []
 
@@ -161,13 +161,14 @@ class ReadUserDAO:
             return []
 
     #Returns the list of messages posted by user with ID uID
+    #between the date frame bDate and aDate
     def getUserMessagesBetween(self, uID, bDate, aDate):
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if uID == 6 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
             return [self.messages[0], self.messages[4]]
         elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.message[1], self.message[3]]
+            return [self.messages[1], self.messages[3]]
         elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
             return self.messages[11]
         elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
@@ -190,7 +191,7 @@ class ReadUserDAO:
         if uID == 1:
             return [self.messages[5],self.messages[9]]
         elif uID == 2:
-            return [self.message[1], self.message[3],self.messages[11]]
+            return [self.messages[1], self.messages[3],self.messages[11]]
         elif uID == 3:
             return [self.messages[2],self.messages[10]]
         elif uID == 4:
@@ -203,10 +204,10 @@ class ReadUserDAO:
             return []
 
     #Returns the list of all active users
-    def getActiveUser(self):
+    def getActiveUsers(self):
         activeUsersList = []
         for r in self.activity:
-            if r[3]:
+            if r[2]:
                 activeUsersList.append(r)
         return activeUsersList
 
@@ -228,6 +229,7 @@ class ReadUserDAO:
             return []
 
     #Returns the list of topics posted by the user with ID uID
+    #between the time frame bDate and aDate
     def getUserTopicsBetween(self, uID, bDate, aDate):
         messagesList = []
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
@@ -240,6 +242,21 @@ class ReadUserDAO:
         elif messagesList[0] == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
             return self.topic[0]
         elif messagesList[0] == 9 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate >=1 and aDate >=17:
+            return self.topic[2]
+        else:
+            return []
+
+    #Returns the list of topics posted by the user with ID uID
+    def getUserTopics(self, uID):
+        messagesList = []
+        for r in self.messages:
+            if uID == r[5]:
+                messagesList.append(r)
+        if messagesList[0] == 5:
+            return self.topic[1]
+        elif messagesList[0] == 4:
+            return self.topic[0]
+        elif messagesList[0] == 9:
             return self.topic[2]
         else:
             return []
