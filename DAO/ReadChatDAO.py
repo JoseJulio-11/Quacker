@@ -209,3 +209,46 @@ class ReadChatDAO:
         if cID == 1:
             return self.reacted[3]
         return[]
+
+    def getChatRepliedMessages(self,cID):
+        #THis method will give the list of replied messages in a determined chat
+        if cID == 3:
+            return self.messages[5:6]
+        elif cID == 1:
+            return self.messages[10]
+        return[]
+
+    def getChatMessagesRepliedWithMedia(self,cID):
+        #This method is supposed to return the messages that contain a media
+        #and at the same time is being replied, and viceversa
+        if cID == 3:
+            return self.messages[5:6]
+        if cID == 1:
+            return self.messages[10]
+        return[]
+
+    def getChatMessageWithReplyAndReaction(self,cID):
+        #This method will select the messages in a defined chat that have reaction and reply
+        if cID == 3:
+            return self.messages[4]
+        if cID == 1:
+            return self.messages[9]
+        return[]
+    def getChatMessagesWithReplyReactionMedia(self,cID):
+        #This method will return the messages on a desired chat that have reaction,media and reply
+        if cID == 3:
+            return self.messages[4]
+        return[]
+
+    def getChatTopicsBetween(self,cID,bTime,aTime):
+        #This method will return the messages on a desired chat that have media
+        #between the stablished dates, regardless if there is a Active or non-Active chat
+        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
+        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+
+        if cID == 3:
+            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
+            return self.messages[]
+        if cID == 1:
+            return[]
+        return[]
