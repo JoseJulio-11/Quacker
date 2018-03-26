@@ -154,21 +154,23 @@ class ReadUserDAO:
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if uID == 6 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.reacted[0], self.reacted[4]]
+            return [self.messages[0], self.messages[4]]
         elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.reacted[1], self.reacted[3]]
+            return [self.message[1], self.message[3]]
         elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
-            return self.reacted[11]
+            return self.messages[11]
         elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
-            return self.reacted[10]
+            return self.messages[10]
         elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return self.reacted[2]
+            return self.messages[2]
         elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return [self.reacted[5], self.reacted[9]]
+            return self.messages[5]
+        elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=25 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=25:
+            return self.messages[9]
         elif uID == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return [self.reacted[6], self.reacted[8]]
+            return [self.messages[6], self.messages[8]]
         elif uID == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return self.reacted[7]
+            return self.messages[7]
         else:
             return []
 
