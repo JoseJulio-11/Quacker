@@ -107,13 +107,20 @@ class UserHandler:
             mapped_result.append(DictionaryBuilder.build_topic_dict(r))
         return jsonify(UserTopics = mapped_result)
 
-    def getActiveUser(self):
+    def getActiveUsers(self):
         dao = UserDAO()
         result = dao.getActiveUsers()
         mapped_result = []
         for r in result:
             mapped_result.append(DictionaryBuilder.build_activity_dict(r))
-        return jsonify(UserTopics = mapped_result)
+        return jsonify(ActiveUsers = mapped_result)
 
+    def getUsersCreatedBetween(self, bDate, aDate):
+        dao = UserDAO()
+        result = dao.getUsersCreatedBetween(bDate,aDate)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_user_dict(r))
+        return jsonify(UserCreated = mapped_result)
     
 
