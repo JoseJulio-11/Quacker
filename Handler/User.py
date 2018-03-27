@@ -53,7 +53,7 @@ class UserHandler:
 
     def getChatAsMember(self, uID):
         dao = UserDAO()
-        result = dao.getChatsAsMember(uID)
+        result = dao.getChatAsMember(uID)
         mapped_result = []
         for r in result:
             mapped_result.append(DictionaryBuilder.build_participants_dict(r))
@@ -64,7 +64,7 @@ class UserHandler:
         result = dao.getParticipationAsContact(uID)
         mapped_result = []
         for r in result:
-                mapped_result.append(DictionaryBuilder.build_contact_dict(r))
+            mapped_result.append(DictionaryBuilder.build_contact_dict(r))
         return jsonify(MemberChats=mapped_result)
 
     def getUserReactionsBetween(self, uID, bDate, aDate):
@@ -81,7 +81,7 @@ class UserHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(DictionaryBuilder.build_reacted_dict(r))
-        return jsonify(UserReactions=mapped_result)
+        return jsonify(UserReactions = mapped_result)
 
     def getUserMessagesBetween(self, uID, bDate, aDate):
         dao = UserDAO()
@@ -98,3 +98,22 @@ class UserHandler:
         for r in result:
             mapped_result.append(DictionaryBuilder.build_message_dict(r))
         return jsonify(UserMessages = mapped_result)
+
+    def getUserTopics(self, uID):
+        dao = UserDAO()
+        result = dao.getUserTopics(uID)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_topic_dict(r))
+        return jsonify(UserTopics = mapped_result)
+
+    def getActiveUser(self):
+        dao = UserDAO()
+        result = dao.getActiveUsers()
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_activity_dict(r))
+        return jsonify(UserTopics = mapped_result)
+
+    
+
