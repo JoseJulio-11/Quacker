@@ -53,8 +53,7 @@ class ReadChatDAO:
                          [5, "More like ew! #WTF", "2018-1-20", "16:47:41", 3, 6, True, 3],
                          [6, "Yo Dudes!", "2018-1-17", "15:32:13", 1, 1, False, None],
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
-                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False,
-                          None],
+                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
                          [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None],
                          [11, "Hey!!!", "2018-1-10", "08:13:45", 2, 3, False, None],
@@ -353,3 +352,16 @@ class ReadChatDAO:
             return self.messages[4]
         return[]
 
+    def getChatByID(self,cID):
+        #This method will return the chat given its ID
+        #I THINK we should get a chat by NAME instead of by chatID
+        if cID == 1:
+            return self.chat[2]
+        if cID == 2:
+            return self.chat[3]
+        if cID == 3:
+            return self.chat[4]
+        if cID == 4:
+            return self.chat[5]
+        return[]
+    
