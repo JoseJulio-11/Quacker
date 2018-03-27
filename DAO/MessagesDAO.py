@@ -77,6 +77,15 @@ class ReadMessagesDAO:
         mID = 11
         return mID
 
+    def insertReacted(self, uID, mID, rdate, rtime, vote):
+        # Create an user reaction to a message
+        return uID, mID
+
+    def insertMedia(self, mID, isVideo, location):
+        # Add media to a message
+        medID = 3
+        return mID, medID
+
     # ====================== Get Message Records ============================================ #
     def getMessageInfo(self, mID):
         if mID >= 0 and mID <= 11:
@@ -430,9 +439,26 @@ class ReadMessagesDAO:
         # it will update a message by saying if it deleted or not
         return mID
 
+    def updateReacted(self, uID, mID, rdate, rtime, vote):
+        # It will change the reaction of the message,1 liked, -1 disliked
+        return uID, mID
+
+    def updateMedia(self, mID, medID, isVideo, location):
+        # The application may need to change a media's location
+        return mID, medID
+
     # ============================== Delete Methods =============================== #
     def deleteMessage(self, mID):
         # Delete a message
         return mID
+
+    def deleteReacted(self, uID, mID):
+        # Delete a made reaction
+        return uID, mID
+
+    def deleteMedia(self, mID):
+        # The application may need to change a media's location
+        medID = 3
+        return mID, medID
 
 

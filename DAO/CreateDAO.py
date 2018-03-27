@@ -76,26 +76,12 @@ class CreateDAO:
 
 
 
-    def insertCredential(self, uID, username, password, uemail, cuphone):
-        # create credentials for user
-        return uID, username
 
-    def insertAtivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
-        # Create activity for user
-        aid = 7
-        return aid, uID
 
-    def insertParticipant(self, cID, uID, pdate, ptime):
-        # Insert a participant to a chat
-        return cID, uID
 
-    def insertReacted(self, uID, mID, rdate, rtime, vote):
-        # Create an user reaction to a message
-        return uID, mID
 
-    def insertMedia(self, mID, isVideo, location):
-        # Add media to a message
-        medID = 3
-        return mID, medID
+
+
+
 
 

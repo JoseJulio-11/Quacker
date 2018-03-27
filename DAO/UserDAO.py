@@ -76,6 +76,15 @@ class ReadUserDAO:
         uID = 7
         return uID
 
+    def insertCredential(self, uID, username, password, uemail, cuphone):
+        # create credentials for user
+        return uID, username
+
+    def insertAtivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
+        # Create activity for user
+        aid = 7
+        return aid, uID
+
     #Returns the list of all users
     def getAllUsers(self):
         return self.users
@@ -270,6 +279,26 @@ class ReadUserDAO:
         # the user has the option of updating its own information
         return uID
 
+    def updateCredential(self, uID, username, password, uemail,cuphone):
+        # the user can edit its credential when needed
+        return uID, username
+
+    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime, uID):
+        # This method is used to update the user last db access
+        # After 30 days of last time active in the app the user will be establish as inactive
+        # Also if the user decides to close the account it will be set to false
+        return aid, uID
+
     def deleteUser(self, uID):
         # Remove an user from the database
         return uID
+
+    def deleteCredential(self, uID):
+        # Remove an user's credentials
+        username = "stub"
+        return uID, username
+
+    def deleteActivity(self, uID):
+        # Remove an user's activity
+        aID = 7
+        return uID, aID

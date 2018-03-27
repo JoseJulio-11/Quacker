@@ -77,6 +77,10 @@ class ReadChatDAO:
         cID = 5
         return cID
 
+    def insertParticipant(self, cID, uID, pdate, ptime):
+        # Insert a participant to a chat
+        return cID, uID
+
     def geActivetChatMessages(self,cID,isDeleted):
        #This method will only return all the messages in all the active single chats
        #Wether they are deleted or not
@@ -365,4 +369,8 @@ class ReadChatDAO:
     def deleteChat(self, cID):
         # Remove a chat
         return cID
+
+    def deleteParticipant(self, cID, uID):
+        # Remove an user from a chat
+        return cID, uID
 

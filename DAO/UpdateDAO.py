@@ -74,21 +74,8 @@ class UpdateDAO:
 
 
 
-    def updateCredential(self, uID, username, password, uemail,cuphone):
-        # the user can edit its credential when needed
-        return uID, username
 
-    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime, uID):
-        # This method is used to update the user last db access
-        # After 30 days of last time active in the app the user will be establish as inactive
-        # Also if the user decides to close the account it will be set to false
-        return aid, uID
 
-    def updateReacted(self, uID, mID, rdate, rtime, vote):
-        # It will change the reaction of the message,1 liked, -1 disliked
-        return uID, mID
 
-    def updateMedia(self, mID, medID, isVideo, location):
-        # The application may need to change a media's location
-        return mID, medID
+
 

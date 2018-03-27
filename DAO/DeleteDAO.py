@@ -76,26 +76,11 @@ class DeleteDAO:
 
 
 
-    def deleteCredential(self, uID):
-        # Remove an user's credentials
-        username = "stub"
-        return uID, username
 
-    def deleteActivity(self, uID):
-        # Remove an user's activity
-        aID = 7
-        return uID, aID
 
-    def deleteParticipant(self, cID, uID):
-        # Remove an user from a chat
-        return cID, uID
 
-    def deleteReacted(self, uID, mID):
-        # Delete a made reaction
-        return uID, mID
 
-    def deleteMedia(self, mID):
-        # The application may need to change a media's location
-        medID = 3
-        return mID, medID
+
+
+
 
