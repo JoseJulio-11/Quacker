@@ -66,3 +66,11 @@ class UserHandler:
         for r in result:
             mapped_result.append(self.build_contact_dict(r))
         return jsonify(MemberChats=mapped_result)
+
+    def getUserReactionsBetween(self, uID, bDate, aDate):
+        dao = UserDAO()
+        result = dao.getUserReactions(uID, bDate, aDate)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(self.build_reacted_dict(r))
+        return jsonify(UserReactions = mapped_result)
