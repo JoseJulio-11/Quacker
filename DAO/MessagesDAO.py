@@ -83,7 +83,7 @@ class ReadMessagesDAO:
 
     def insertTopic(self, mID, hashtag):
         # Create a topic in a message
-        return hashtag
+        return mID, hashtag
 
     def insertMedia(self, mID, isVideo, location):
         # Add media to a message
@@ -447,10 +447,10 @@ class ReadMessagesDAO:
         # It will change the reaction of the message, 1 liked, -1 disliked
         return uID, mID
 
-    # Not sure what this does
-    def updateTopic(self, hashtag, mID):
 
-        return hashtag
+    def updateTopic(self, mID, hashtag):
+        # Update a topic record
+        return mID, hashtag
 
     def updateMedia(self, mID, medID, isVideo, location):
         # The application may need to change a media's location

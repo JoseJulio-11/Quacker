@@ -72,6 +72,7 @@ class ReadChatDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
+    # ============================== Create Methods ============================= #
     def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
         # Create a chat
         cID = 5
@@ -81,6 +82,7 @@ class ReadChatDAO:
         # Insert a participant to a chat
         return cID, uID
 
+    # ============================= Get Methods ================================= #
     def geActivetChatMessages(self,cID,isDeleted):
        #This method will only return all the messages in all the active single chats
        #Wether they are deleted or not
@@ -361,11 +363,13 @@ class ReadChatDAO:
             return self.messages[4]
         return[]
 
+    # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
         # This method is supposed to be used to change the chat name
         # Also to that its admin 'deletes' chats by changing it to false
         return cID
 
+    # ======================= Delete Methods ========================= #
     def deleteChat(self, cID):
         # Remove a chat
         return cID
