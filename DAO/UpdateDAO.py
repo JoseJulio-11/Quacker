@@ -74,11 +74,6 @@ class UpdateDAO:
 
 
 
-    def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
-        # This method is supposed to be used to change the chat name
-        # Also to that its admin 'deletes' chats by changing it to false
-        return cID
-
     def updateCredential(self, uID, username, password, uemail,cuphone):
         # the user can edit its credential when needed
         return uID, username
@@ -97,6 +92,3 @@ class UpdateDAO:
         # The application may need to change a media's location
         return mID, medID
 
-    def updateMessege(self, mID, text, cdate, ctime, uid, cid, isDeleted, rid):
-        # it will update a message by saying if it deleted or not
-        return mID

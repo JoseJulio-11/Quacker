@@ -71,6 +71,12 @@ class ReadMessagesDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
+    # ====================== Create Method ================================================== #
+    def insertMessage(self, text, cdate, ctime, uid, cid, isDeleted, rid):
+        # Create a message to a chat
+        mID = 11
+        return mID
+
     # ====================== Get Message Records ============================================ #
     def getMessageInfo(self, mID):
         if mID >= 0 and mID <= 11:
@@ -418,4 +424,15 @@ class ReadMessagesDAO:
         if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
             result.append(self.media[1])
         return result
+
+    # ============================== Update Methods =============================== #
+    def updateMessage(self, mID, text, cdate, ctime, uid, cid, isDeleted, rid):
+        # it will update a message by saying if it deleted or not
+        return mID
+
+    # ============================== Delete Methods =============================== #
+    def deleteMessage(self, mID):
+        # Delete a message
+        return mID
+
 

@@ -72,6 +72,11 @@ class ReadChatDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
+    def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
+        # Create a chat
+        cID = 5
+        return cID
+
     def geActivetChatMessages(self,cID,isDeleted):
        #This method will only return all the messages in all the active single chats
        #Wether they are deleted or not
@@ -337,6 +342,7 @@ class ReadChatDAO:
         if cID == 1:
             return self.messages[10]
         return[]
+
     def getLikedMessagesByChat(self,cID):
         #This method will return the liked messages on a determined chat
         if cID == 3:
@@ -344,9 +350,19 @@ class ReadChatDAO:
         if cID == 1:
             return self.messages[9]
         return[]
+
     def getUnlikedMessagesByChat(self,cID):
         #This method will return the unliked messages in a determined chat
         if cID == 3:
             return self.messages[4]
         return[]
+
+    def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
+        # This method is supposed to be used to change the chat name
+        # Also to that its admin 'deletes' chats by changing it to false
+        return cID
+
+    def deleteChat(self, cID):
+        # Remove a chat
+        return cID
 

@@ -74,9 +74,7 @@ class DeleteDAO:
 
 
 
-    def deleteChat(self, cID):
-        # Remove a chat
-        return cID
+
 
     def deleteCredential(self, uID):
         # Remove an user's credentials
@@ -101,6 +99,3 @@ class DeleteDAO:
         medID = 3
         return mID, medID
 
-    def deleteMessege(self, mID):
-        # Delete a message
-        return mID

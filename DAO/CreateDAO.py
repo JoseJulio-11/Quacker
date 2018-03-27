@@ -74,10 +74,7 @@ class CreateDAO:
 
 
 
-    def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
-        # Create a chat
-        cID = 5
-        return cID
+
 
     def insertCredential(self, uID, username, password, uemail, cuphone):
         # create credentials for user
@@ -101,7 +98,4 @@ class CreateDAO:
         medID = 3
         return mID, medID
 
-    def insertMessage(self, text, cdate, ctime, uid, cid, isDeleted, rid):
-        # Create a message to a chat
-        mID = 11
-        return mID
+
