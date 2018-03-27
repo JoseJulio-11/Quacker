@@ -79,11 +79,11 @@ class ReadMessagesDAO:
 
     def getRepliedMessage(self, mID):
         if mID == 4:
-            return self.messages[2]
+            return [self.messages[2]]
         elif mID == 5:
-            return self.messages[2]
+            return [self.messages[2]]
         elif mID == 9:
-            return self.messages[7]
+            return [self.messages[7]]
         else:
             return []
 
@@ -93,23 +93,23 @@ class ReadMessagesDAO:
         if isGroupChat:
             return self.messages[5:9]
         else:
-            return self.messages[10]
+            return [self.messages[10]]
 
     def getAllDeletedMessagesInChatType(self, isGroupChat, isActive):
         if isGroupChat and isActive:
             return []
         elif (not isGroupChat) and isActive:
-            return self.messages[11]
+            return [self.messages[11]]
         elif isGroupChat and (not isActive):
             return self.messages[0:6]
         else:
-            return self.messages[9]
+            return [self.messages[9]]
 
     # ======= Methods For Reply Messages In Chat types ============ #
     def getAllReplyMessagesInChatType(self, isGroupChat):
         # Give all existing messages
         if isGroupChat:
-            return self.messages[8]
+            return [self.messages[8]]
         else:
             return []
 
@@ -128,7 +128,7 @@ class ReadMessagesDAO:
     def getAllMessagesWithReplyInChatType(self, isGroupChat):
         # Give all existing messages
         if isGroupChat:
-            return self.messages[7]
+            return [self.messages[7]]
         else:
             return []
 
@@ -139,14 +139,14 @@ class ReadMessagesDAO:
         elif (not isGroupChat) and isActive:
             return []
         elif isGroupChat and (not isActive):
-            return self.messages[2]
+            return [self.messages[2]]
         else:
             return []
 
     # ======= Methods For Messages With Media In Chat types ============ #
     def getAllMessagesWithMediaInChatType(self, isGroupChat):
         if isGroupChat:
-            return self.messages[7]
+            return [self.messages[7]]
         else:
             return []
 
@@ -156,24 +156,24 @@ class ReadMessagesDAO:
         elif (not isGroupChat) and isActive:
             return []
         elif isGroupChat and (not isActive):
-            return self.messages[2]
+            return [self.messages[2]]
         else:
             return []
 
     # ======= Methods For Messages With Reactions In Chat types ============ #
-    def getAllMessagesWithReactionsInChatTypeBetween(self, isGroupChat):
+    def getAllMessagesWithReactionsInChatType(self, isGroupChat):
         if isGroupChat:
-            return self.messages[7]
+            return [self.messages[7]]
         else:
             return []
 
-    def getAllDeletedMessagesWithReactionsInChatTypeBetween(self, isGroupChat, isActive):
+    def getAllDeletedMessagesWithReactionsInChatType(self, isGroupChat, isActive):
         if isGroupChat and isActive:
             return []
         elif (not isGroupChat) and isActive:
             return []
         elif isGroupChat and (not isActive):
-            return self.messages[2]
+            return [self.messages[2]]
         else:
             return []
 
@@ -188,7 +188,7 @@ class ReadMessagesDAO:
             return []
         else:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
-                return self.messages[10]
+                return [self.messages[10]]
             return []
 
     def getAllDeletedMessagesInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
@@ -198,7 +198,7 @@ class ReadMessagesDAO:
             return []
         elif (not isGroupChat) and isActive:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 10 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 10:
-                return self.messages[11]
+                return [self.messages[11]]
             return []
         elif isGroupChat and (not isActive):
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
@@ -206,7 +206,7 @@ class ReadMessagesDAO:
             return []
         else:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 25 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 25:
-                return self.messages[9]
+                return [self.messages[9]]
             return []
 
     # ======= Methods For Reply Messages In Chat types ============ #
@@ -216,7 +216,7 @@ class ReadMessagesDAO:
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if isGroupChat:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
-                return self.messages[8]
+                return [self.messages[8]]
             return []
         else:
             return []
@@ -243,7 +243,7 @@ class ReadMessagesDAO:
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if isGroupChat:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
-                return self.messages[7]
+                return [self.messages[7]]
             return []
         else:
             return []
@@ -258,7 +258,7 @@ class ReadMessagesDAO:
             return []
         elif isGroupChat and (not isActive):
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return self.messages[2]
+                return [self.messages[2]]
             return []
         else:
             return []
@@ -269,7 +269,7 @@ class ReadMessagesDAO:
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if isGroupChat:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
-                return self.messages[7]
+                return [self.messages[7]]
             return []
         else:
             return []
@@ -283,7 +283,7 @@ class ReadMessagesDAO:
             return []
         elif isGroupChat and (not isActive):
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return self.messages[2]
+                return [self.messages[2]]
             return []
         else:
             return []
@@ -294,7 +294,7 @@ class ReadMessagesDAO:
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
         if isGroupChat:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
-                return self.messages[7]
+                return [self.messages[7]]
             return []
         else:
             return []
@@ -309,12 +309,25 @@ class ReadMessagesDAO:
             return []
         elif isGroupChat and (not isActive):
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return self.messages[2]
+                return [self.messages[2]]
             return []
         else:
             return []
 
-    # ====================== Get Topics ===================================== #
+    # ================================== Get Topics ===================================== #
+    def getMessageTopics(self, mID):
+        if mID == 4:
+            return [self.topic[0]]
+        elif mID == 5:
+            return [self.topic[1]]
+        elif mID == 9:
+            return [self.topic[2]]
+        else:
+            return []
+
+    def getAllTopics(self):
+        return self.topic
+
     def getAllTopicsBetween(self, bDate, aDate):
         result = []
         if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
@@ -323,7 +336,50 @@ class ReadMessagesDAO:
             result.append(self.topic[2])
         return result
 
-    # ===================== Get Reactions =================================== #
+    # =================================== Get Reactions =================================== #
+    def getReaction(self, uID, mID):
+        if uID ==2 and mID == 3:
+            return [self.reacted[0]]
+        elif uID == 6 and mID == 3:
+            return [self.reacted[1]]
+        elif uID == 1 and mID == 8:
+            return [self.reacted[2]]
+        else:
+            return []
+
+    def getMessageReaction(self, mID):
+        if mID == 3:
+            return self.reacted[0:2]
+        elif mID == 8:
+            return [self.reacted[2]]
+        else:
+            return []
+
+    def getMessageLike(self, mID):
+        if mID == 3:
+            return [self.reacted[0]]
+        elif mID == 8:
+            return [self.reacted[2]]
+        else:
+            return []
+
+    def getMessageDislike(self, mID):
+        if mID == 3:
+            return [self.reacted[1]]
+        else:
+            return []
+
+    def getAllLikeReactions(self):
+        result = []
+        result.append(self.reacted[0])
+        result.append(self.reacted[2])
+        return result
+
+    def getAllDislikeReactions(self):
+        result = []
+        result.append(self.reacted[1])
+        return result
+
     def getAllLikeReactionsBetween(self, bDate, aDate):
         result = []
         if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
@@ -338,6 +394,23 @@ class ReadMessagesDAO:
              result.append(self.reacted[1])
         return result
 
+    # =================================== Get Media ============================= #
+    def getMessageMedia(self, mID):
+        if mID == 3:
+            return [self.media[0]]
+        elif mID == 8:
+            return [self.media[1]]
+        else:
+            return []
+
+    def getMedia(self, mediaID):
+        if mediaID == 1:
+            return [self.media[0]]
+        elif mediaID == 2:
+            return [self.media[1]]
+        else:
+            return []
+
     def getAllMediaBetween(self, bDate, aDate):
         result = []
         if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
@@ -345,33 +418,4 @@ class ReadMessagesDAO:
         if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
             result.append(self.media[1])
         return result
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    def getMessageTopics(self, mID):
-        if mID == 4:
-            return self.topic[0]
-        elif mID == 5:
-            return self.topic[1]
-        elif mID == 9:
-            return self.topic[2]
-        else:
-            return []
-
-
-
-    def getMessageMedia(self, mID):
-        if mID == 3:
-            return self.media[0]
-        elif mID == 8:
-            return self.media[1]
-        else:
-            return []
-
-    def getMessageReacts(self, mID):
-        if mID == 3:
-            return self.reacted[0:2]
-        elif mID == 8:
-            return self.reacted[2]
-        else:
-            return []
 

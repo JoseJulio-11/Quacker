@@ -190,7 +190,7 @@ class ReadChatDAO:
         if cID == 1:
             return self.topic[2]
         if cID == 3:
-            return self.topic[0,2]
+            return self.topic[0:2]
         return[]
 
     def getChatMedia(self,cID):
@@ -204,26 +204,26 @@ class ReadChatDAO:
     def getChatReactions(self,cID):
         #It will return the reactions based on the chat
         if cID == 3:
-            return self.reacted[0,2]
+            return self.reacted[0:2]
         if cID == 1:
             return self.reacted[3]
         return[]
 
-    def getChatRepliedMessages(self,cID):
+    def getChatReplyMessages(self,cID):
         #THis method will give the list of replied messages in a determined chat
         if cID == 3:
-            return self.messages[5:6]
+            return self.messages[3:6]
         elif cID == 1:
-            return self.messages[10]
+            return self.messages[7]
         return[]
 
     def getChatMessagesRepliedWithMedia(self,cID):
         #This method is supposed to return the messages that contain a media
         #and at the same time is being replied, and viceversa
         if cID == 3:
-            return self.messages[5:6]
+            return self.messages[3:6]
         if cID == 1:
-            return self.messages[10]
+            return self.messages[7]
         return[]
 
     def getChatMessageWithReplyAndReaction(self,cID):
@@ -330,7 +330,7 @@ class ReadChatDAO:
             return self.chat[4]
         return[]
 
-    def getChatOriginalMessages(self,cID):
+    def getChatRepliedMessages(self,cID):
         #THis method will return the messages that have been replied in a determined chat
         if cID == 3:
             return self.messages[5:6]
