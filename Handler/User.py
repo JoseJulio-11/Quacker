@@ -4,7 +4,7 @@ from Handler.DictionaryBuilder import DictionaryBuilder
 class UserHandler:
 
     def getAllUsers(self):
-        dao = UserDAO()
+        dao = ReadUserDAO()
         result = dao.getAllUsers()
         mapped_result = []
         for r in result:
