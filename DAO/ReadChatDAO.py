@@ -311,3 +311,42 @@ class ReadChatDAO:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
                 return self.messages[4]
         return[]
+
+    def getChatWithMedia(self,mID):
+        #THis method will return the chat on which determined media is located in
+        if mID == 1:
+            return self.chat[4]
+        if mID == 2:
+            return self.chat[2]
+        return[]
+
+    def getChatByTopic(self,hashtag):
+        #This method will return the chat on which the hashtag was seneded
+        if hashtag == 'mindblowing':
+            return self.chat[4]
+        if hashtag == 'doyouevenlift?':
+            return self.chat[2]
+        if hashtag == 'wtf':
+            return self.chat[4]
+        return[]
+
+    def getChatOriginalMessages(self,cID):
+        #THis method will return the messages that have been replied in a determined chat
+        if cID == 3:
+            return self.messages[5:6]
+        if cID == 1:
+            return self.messages[10]
+        return[]
+    def getLikedMessagesByChat(self,cID):
+        #This method will return the liked messages on a determined chat
+        if cID == 3:
+            return self.messages[4]
+        if cID == 1:
+            return self.messages[9]
+        return[]
+    def getUnlikedMessagesByChat(self,cID):
+        #This method will return the unliked messages in a determined chat
+        if cID == 3:
+            return self.messages[4]
+        return[]
+
