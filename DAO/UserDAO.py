@@ -77,13 +77,17 @@ class ReadUserDAO:
         return uID
 
     def insertCredential(self, uID, username, password, uemail, cuphone):
-        # create credentials for user
+        # Create credentials for user
         return uID, username
 
-    def insertAtivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
+    def insertActivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
         # Create activity for user
         aid = 7
         return aid, uID
+
+    def insertContact(self, ownerid, memberid):
+        #Create contacts for user
+        return ownerid
 
     #Returns the list of all users
     def getAllUsers(self):
@@ -279,7 +283,7 @@ class ReadUserDAO:
         # the user has the option of updating its own information
         return uID
 
-    def updateCredential(self, uID, username, password, uemail,cuphone):
+    def updateCredential(self, uID, username, password, uemail, cuphone):
         # the user can edit its credential when needed
         return uID, username
 
@@ -288,6 +292,10 @@ class ReadUserDAO:
         # After 30 days of last time active in the app the user will be establish as inactive
         # Also if the user decides to close the account it will be set to false
         return aid, uID
+
+    def updateContact(self, uID, ownerid, memberid):
+        # the user can update its contact list when needed
+        return uID, ownerid, memberid
 
     def deleteUser(self, uID):
         # Remove an user from the database
@@ -302,3 +310,7 @@ class ReadUserDAO:
         # Remove an user's activity
         aID = 7
         return uID, aID
+
+    def deleteContact(self, ownerid, memberid):
+        # Remove the desired contact from the contact's list.
+        return ownerid, memberid
