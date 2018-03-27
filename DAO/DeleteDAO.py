@@ -72,9 +72,7 @@ class DeleteDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def deleteUser(self, uID):
-        # Remove an user from the database
-        return uID
+
 
     def deleteChat(self, cID):
         # Remove a chat

@@ -71,6 +71,11 @@ class ReadUserDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
+    def insertUser(self, fName, lName, ctime, cdate, pseudonym):
+        # Create a new user
+        uID = 7
+        return uID
+
     #Returns the list of all users
     def getAllUsers(self):
         return self.users
@@ -261,12 +266,10 @@ class ReadUserDAO:
             userTopicsList.append(self.topic[2])
         return userTopicsList
 
+    def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
+        # the user has the option of updating its own information
+        return uID
 
-
-
-
-
-
-
-
-
+    def deleteUser(self, uID):
+        # Remove an user from the database
+        return uID

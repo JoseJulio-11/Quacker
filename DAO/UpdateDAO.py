@@ -72,9 +72,7 @@ class UpdateDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
-        # the user has the option of updating its own information
-        return uID
+
 
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
         # This method is supposed to be used to change the chat name

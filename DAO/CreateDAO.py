@@ -72,10 +72,7 @@ class CreateDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-    def insertUser(self, fName, lName, ctime, cdate, pseudonym):
-        # Create a new user
-        uID = 7
-        return uID
+
 
     def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
         # Create a chat
