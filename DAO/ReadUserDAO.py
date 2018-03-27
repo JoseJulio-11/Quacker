@@ -261,12 +261,44 @@ class ReadUserDAO:
             userTopicsList.append(self.topic[2])
         return userTopicsList
 
+    #Returns the user with name and email specified
+    def getUserByNameAndEmail(self, fName, lName, uemail):
+        #List containing user record with full name
+        userRecords = []
+        #List containing the user with the provided email
+        desiredUser = []
+        for r in self.users:
+            if fName == r[1] and lName == r[2]:
+                userRecords.append(r)
+        for j in self.credentials:
+            if uemail == j[3]:
+                desiredUser.append(j)
+        return desiredUser
 
+    #Returns the user with name and phone specfied
+    def getUserByNameAndPhone(self, fName, lName, uphone):
+        # List containing user record with full name
+        userRecords = []
+        # List containing the user with the provided phone
+        desiredUser = []
+        for r in self.users:
+            if fName == r[1] and lName == r[2]:
+                userRecords.append(r)
+        for j in self.credentials:
+            if uphone == j[4]:
+                desiredUser.append(j)
+        return desiredUser
 
-
-
-
-
-
-
-
+    #Returns the user with name and username specified
+    def getUserByNameAndUsername(self, fName, lName, username):
+        # List containing user record with full name
+        userRecords = []
+        # List containing the user with the provided username
+        desiredUser = []
+        for r in self.users:
+            if fName == r[1] and lName == r[2]:
+                userRecords.append(r)
+        for j in self.credentials:
+            if username == j[1]:
+                desiredUser.append(j)
+        return desiredUser
