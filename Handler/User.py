@@ -26,4 +26,16 @@ class UserHandler:
             mapped_result.append(self.build_credential_dict(r))
         return jsonify(UserCredentials = mapped_result)
 
-    def get
+    def getUserActivity(self, uID):
+        dao = ReadUserDAO()
+        result = dao.getUserActivity(uID)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(self.build_activity_dict(r))
+        return jsonify(UserActivity = mapped_result)
+
+    def getUserContacts(self, uID):
+
+    def getChatAsAdmin(self, uID):
+
+    def getChatAsMember(self, uID):
