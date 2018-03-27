@@ -323,6 +323,24 @@ class UserDAO:
                 desiredUser.append(j)
         return desiredUser
 
+    # Returns the user with username and password specified
+    def getUserByUsernameAndPassword(self, username, password):
+        # List containing user record with username
+        userRecord = []
+        for r in self.credentials:
+            if username == r[1] and password == r[2]:
+                userRecord.append(r)
+        return userRecord
+
+    # Returns the user with email and password specified
+    def getUserByEmailAndPassword(self, email, password):
+        # List containing user record with full name
+        userRecord = []
+        for r in self.credentials:
+            if email == r[3] and password == r[2]:
+                userRecord.append(r)
+        return userRecord
+
     # =========================== Update Methods ================================= #
     def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
         # the user has the option of updating its own information
