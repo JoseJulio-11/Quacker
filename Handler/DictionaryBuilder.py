@@ -21,13 +21,12 @@ class DictionaryBuilder:
         return cred
 
     def build_activity_dict(self, userActicity):
-        # AID, lastAccessToDBDate, lastAccessToDBTime, isActive, uid
+        # AID, lastAccessToDBDate, lastAccessToDBTime, isActive
         activity = {}
         activity["aID"] = userActicity[0]
         activity["lastDBAccessDate"] = userActicity[1]
         activity["lastDBAccessTime"] = userActicity[2]
         activity["isActive"] = userActicity[3]
-        activity["uID"] = userActicity[4]
         return activity
 
     def build_contact_dict(self, userContact):
