@@ -1,5 +1,6 @@
 from flask import jsonify, request
 from DAO.UserDAO import UserDAO
+from Handler.DictionaryBuilder import DictionaryBuilder
 class UserHandler:
 
     def getAllUsers(self):
@@ -56,4 +57,12 @@ class UserHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(self.build_participants_dict(r))
-        return jsonify(AdminChats=mapped_result)
+        return jsonify(MemberChats=mapped_result)
+
+    def getParticipationAsContact(self, uID):
+        dao = UserDAO()
+        result = dao.getParticipationAsContact(uID)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(self.build_contact_dict(r))
+        return jsonify(MemberChats=mapped_result)
