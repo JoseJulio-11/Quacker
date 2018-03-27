@@ -71,6 +71,9 @@ class ReadChatDAO:
         # mid, mediaid, isVideo, location
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
+    def getAllChats(self):
+       #This method will return all the chats
+        return self.chat[0:4]
 
     def geActivetChatMessages(self,cID,isDeleted):
        #This method will only return all the messages in all the active single chats
