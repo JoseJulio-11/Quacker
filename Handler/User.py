@@ -1,9 +1,9 @@
 from flask import jsonify, request
-from DAO.UserDAO import ReadUserDAO
+from DAO import UserDAO
 class UserHandler:
 
     def getAllUsers(self):
-        dao = ReadUserDAO()
+        dao = UserDAO()
         result = dao.getAllUsers()
         mapped_result = []
         for r in result:
@@ -11,7 +11,7 @@ class UserHandler:
         return jsonify(UserDAO = mapped_result)
 
     def getUserInfo(self):
-        dao = ReadUserDAO()
+        dao = UserDAO()
         result = dao.getAllUsers()
         mapped_result = []
         for r in result:
