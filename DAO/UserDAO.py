@@ -1,5 +1,5 @@
 
-class ReadUserDAO:
+class UserDAO:
 
     def __init__(self):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
@@ -83,12 +83,12 @@ class ReadUserDAO:
 
     def insertActivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
         # Create activity for user
-        aid = 7
-        return aid, uID
+        aid = uID
+        return aid
 
     def insertContact(self, ownerid, memberid):
         #Create contacts for user
-        return ownerid
+        return ownerid, memberid
 
     # =================================== Read Methods =============================== #
     #Returns the list of all users
@@ -332,11 +332,11 @@ class ReadUserDAO:
         # the user can edit its credential when needed
         return uID, username
 
-    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime, uID):
+    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime):
         # This method is used to update the user last db access
         # After 30 days of last time active in the app the user will be establish as inactive
         # Also if the user decides to close the account it will be set to false
-        return aid, uID
+        return aid
 
     def updateContact(self, uID, ownerid, memberid):
         # the user can update its contact list when needed
