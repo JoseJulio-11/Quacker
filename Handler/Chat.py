@@ -18,5 +18,13 @@ class Chat:
     def removeChatGroup(self,cID):
         #THis method will remove a chat
         dao = ReadChatDAO()
-        if not dao.getChatInfo()
+        if not dao.getChatInfo(cID):
+            return jsonify(Error = "Chat not found"), 404
+        else:
+            #CHECKKKKKKKKKKKK!!-!-!_!_!_!_1!_!!-!:D
+            dao.getAllChats().__getitem__(cID).insert(5, False)
 
+
+    def createChat(self):
+        #This method will create a new chat, group or single
+        

@@ -364,4 +364,11 @@ class ReadChatDAO:
         if cID == 4:
             return self.chat[5]
         return[]
-    
+
+    def getChatDeleted(self):
+        #This method will return the deleted chats
+        return [self.chat[3], self.chat[5]]
+
+
+
+
