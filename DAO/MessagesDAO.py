@@ -74,12 +74,16 @@ class ReadMessagesDAO:
     # ====================== Create Method ================================================== #
     def insertMessage(self, text, cdate, ctime, uid, cid, isDeleted, rid):
         # Create a message to a chat
-        mID = 11
+        mID = 13
         return mID
 
     def insertReacted(self, uID, mID, rdate, rtime, vote):
         # Create an user reaction to a message
         return uID, mID
+
+    def insertTopic(self, mID, hashtag):
+        # Create a topic in a message
+        return hashtag
 
     def insertMedia(self, mID, isVideo, location):
         # Add media to a message
@@ -440,8 +444,13 @@ class ReadMessagesDAO:
         return mID
 
     def updateReacted(self, uID, mID, rdate, rtime, vote):
-        # It will change the reaction of the message,1 liked, -1 disliked
+        # It will change the reaction of the message, 1 liked, -1 disliked
         return uID, mID
+
+    # Not sure what this does
+    def updateTopic(self, hashtag, mID):
+
+        return hashtag
 
     def updateMedia(self, mID, medID, isVideo, location):
         # The application may need to change a media's location
@@ -455,6 +464,10 @@ class ReadMessagesDAO:
     def deleteReacted(self, uID, mID):
         # Delete a made reaction
         return uID, mID
+
+    def deleteTopic(self, hashtag, mID):
+        # Delete a topic hashtag
+        return hashtag, mID
 
     def deleteMedia(self, mID):
         # The application may need to change a media's location
