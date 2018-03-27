@@ -4,11 +4,11 @@ class ReadChatDAO:
     def __init__(self):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
         self.users = [[1, "Jack", "Hammer", "2018-1-1", "08:00:00", "The Nail"],
-                     [2, "Sam", "Master", "2018-1-1", "16:00:00", "Miss Master"],
-                     [3, "Barbara", "Berry", "2018-1-5", "12:00:00", "Barb"],
-                     [4, "Jimmy", "Newton", "2018-2-1", "14:35:40", "Newton"],
-                     [5, "Timmy", "Turner", "2017-12-31", "10:15:55", "THe Corner"],
-                     [6, "Mary", "Johnson", "2017-1-1", "15:00:00", "Marge"]]
+                      [2, "Sam", "Master", "2018-1-1", "16:00:00", "Miss Master"],
+                      [3, "Barbara", "Berry", "2018-1-5", "12:00:00", "Barb"],
+                      [4, "Jimmy", "Newton", "2018-2-1", "14:35:40", "Newton"],
+                      [5, "Timmy", "Turner", "2017-12-31", "10:15:55", "THe Corner"],
+                      [6, "Mary", "Johnson", "2017-1-1", "15:00:00", "Marge"]]
 
         # UID, Username, Password, UEmail, UPhone
         self.credentials = [[1, "Jackhammer", "TheHammer32", "jackhammer1@gmail.com", "7873431298"],
@@ -18,14 +18,13 @@ class ReadChatDAO:
                             [5, "timtim", "fairlyodd12", "timmy.turner12@gmail.com", "5463126732"],
                             [6, "mary64", "maryjesus25", "mary.johnson25@gmail.com", "8763417641"]]
 
-        # AID, lastAccessToDBDate, lastAccessToDBTime, isActive, uid
-        self.activity = [[1, "2018-3-21", "10:30:56", True, 1],
-                         [2, "2018-3-21", "10:20:25", True, 2],
-                         [3, "2018-3-21", "10:40:10", True, 3],
-                         [4, "2018-3-17", "13:17:12", False, 4],
-                         [5, "2018-3-21", "10:20:30", True, 5],
-                         [6, "2018-2-05", "11:33:10", False, 6]]
-
+        # aID, lastAccessToDBDate, lastAccessToDBTime, isActive
+        self.activity = [[1, "2018-3-21", "10:30:56", True],
+                         [2, "2018-3-21", "10:20:25", True],
+                         [3, "2018-3-21", "10:40:10", True],
+                         [4, "2018-3-17", "13:17:12", False],
+                         [5, "2018-3-21", "10:20:30", True],
+                         [6, "2018-2-05", "11:33:10", False]]
         # ownerid, memberid
         self.contacts = [[1, 2], [1, 4], [1, 5],
                          [4, 2], [4, 1],
@@ -49,17 +48,17 @@ class ReadChatDAO:
         # mid, text, cdate, ctime, cid, uid, isdeleted, rid
         self.messages = [[1, "Hey", "2018-1-20", "16:43:41", 3, 6, True, None],
                          [2, "Whats Up?", "2018-1-20", "16:44:41", 3, 2, True, None],
-                         [3, "OMG LotAccessToDBTiok at this Vid!!!", "2018-1-20", "16:45:41", 3, 3, True, None],
+                         [3, "OMG Look at this Vid!!!", "2018-1-20", "16:45:41", 3, 3, True, None],
                          [4, "Wow!!!!! #MindBlowing", "2018-1-20", "16:46:41", 3, 2, True, 3],
                          [5, "More like ew! #WTF", "2018-1-20", "16:47:41", 3, 6, True, 3],
                          [6, "Yo Dudes!", "2018-1-17", "15:32:13", 1, 1, False, None],
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
-                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
+                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False,
+                          None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
-                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None]
+                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None],
                          [11, "Hey!!!", "2018-1-10", "08:13:45", 2, 3, False, None],
                          [12, "YO", "2018-1-10", "08:17:45", 2, 2, True, None]]
-
 
         # hashtag, mid
         self.topic = [["mindblowing", 4], ["wtf", 5], ["doyouevenlift?", 9]]
@@ -159,7 +158,7 @@ class ReadChatDAO:
             return self.participants[3:5]
         elif cID == 3:
             return self.participants[6:8]
-        elif cID == 4
+        elif cID == 4:
             return self.participants[9]
         return[]
 
@@ -240,7 +239,7 @@ class ReadChatDAO:
             return self.messages[4]
         return[]
 
-    def getChatTopicsBetween(self,cID,bTime,aTime):
+    def getChatTopicsBetween(self,cID,bDate,aDate):
         #This method will return the messages on a desired chat that have media
         #between the stablished dates, regardless if there is a Active or non-Active chat
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
@@ -255,7 +254,7 @@ class ReadChatDAO:
                 return[10]
         return[]
 
-    def getChatReactionsBetween(self,cID,bTime,aTime):
+    def getChatReactionsBetween(self,cID,bDate,aDate):
         #This method will return the reactions of a chat between a determined date
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -267,7 +266,7 @@ class ReadChatDAO:
                  return self.reacted[3]
         return []
 
-    def getChatRepliedMessagesBetween(self,cID,bTime,aTime):
+    def getChatRepliedMessagesBetween(self,cID,bDate,aDate):
         #THis method will give the replies in a chat between a determined date
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -279,7 +278,7 @@ class ReadChatDAO:
              return self.messages[10]
         return []
 
-    def getChatMessagesRepliedWithMediaBetween(self,cID,bTime,aTime):
+    def getChatMessagesRepliedWithMediaBetween(self,cID,bDate,aDate):
         #This method is supposed to return the messages that contain a media
         #and at the same time is being replied, and viceversa between a specified date
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
@@ -293,7 +292,7 @@ class ReadChatDAO:
         return[]
 
 
-    def getChatMessageWithReplyAndReactionBetween(self,cID,bTime,aTime):
+    def getChatMessageWithReplyAndReactionBetween(self,cID,bDate,aDate):
         #This method will select the messages in a defined chat that have reaction and reply between a specified date
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -304,7 +303,7 @@ class ReadChatDAO:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
                 return self.messages[9]
         return[]
-    def getChatMessagesWithReplyReactionMediaBetween(self,cID,bTime,aTime):
+    def getChatMessagesWithReplyReactionMediaBetween(self,cID,bDate,aDate):
         #This method will return the messages on a desired chat that have reaction,media and reply between a date
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -350,4 +349,4 @@ class ReadChatDAO:
         if cID == 3:
             return self.messages[4]
         return[]
-    
+

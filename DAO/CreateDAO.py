@@ -18,14 +18,13 @@ class CreateDAO:
                             [5, "timtim", "fairlyodd12", "timmy.turner12@gmail.com", "5463126732"],
                             [6, "mary64", "maryjesus25", "mary.johnson25@gmail.com", "8763417641"]]
 
-        # AID, lastAccessToDBDate, lastAccessToDBTime, isActive, uid
-        self.activity = [[1, "2018-3-21", "10:30:56", True, 1],
-                         [2, "2018-3-21", "10:20:25", True, 2],
-                         [3, "2018-3-21", "10:40:10", True, 3],
-                         [4, "2018-3-17", "13:17:12", False, 4],
-                         [5, "2018-3-21", "10:20:30", True, 5],
-                         [6, "2018-2-05", "11:33:10", False, 6]]
-
+        # aID, lastAccessToDBDate, lastAccessToDBTime, isActive
+        self.activity = [[1, "2018-3-21", "10:30:56", True],
+                         [2, "2018-3-21", "10:20:25", True],
+                         [3, "2018-3-21", "10:40:10", True],
+                         [4, "2018-3-17", "13:17:12", False],
+                         [5, "2018-3-21", "10:20:30", True],
+                         [6, "2018-2-05", "11:33:10", False]]
         # ownerid, memberid
         self.contacts = [[1, 2], [1, 4], [1, 5],
                          [4, 2], [4, 1],
@@ -57,7 +56,9 @@ class CreateDAO:
                          [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False,
                           None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
-                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 1, 1, True, None]]
+                         [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None],
+                         [11, "Hey!!!", "2018-1-10", "08:13:45", 2, 3, False, None],
+                         [12, "YO", "2018-1-10", "08:17:45", 2, 2, True, None]]
 
         # hashtag, mid
         self.topic = [["mindblowing", 4], ["wtf", 5], ["doyouevenlift?", 9]]
