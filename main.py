@@ -158,7 +158,6 @@ def getChatParticipantsByID(cid):
 @app.route('/messages', methods=['GET'])
 def getAllMessages():
     if request.method == 'GET':
-
         result = Message.getAllMessages()
         return result
     else:
@@ -221,7 +220,7 @@ def getUserTopicsByID(uid):
 @app.route('/topics/chat/<int:cid>', methods=['GET'])
 def getChatTopicsByID(cid):
     if request.method == 'GET':
-        result = Chat.getChatMediaByID(cid)
+        result = Chat.getChatTopicByID(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
