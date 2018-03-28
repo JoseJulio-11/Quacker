@@ -32,7 +32,7 @@ database using app routes.
 * /chats
 * /chats/[int:cid]
 * /chats/user/[int:uid]
-* /chats/admin/user/[int:uid]
+* /chats/admin/[int:uid]
 ##### Get Participant Locations:
 * /participants
 * /participants/chat/[int:cid]

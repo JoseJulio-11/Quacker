@@ -126,7 +126,7 @@ def getUserChatsByID(uid):
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/chats/admin/user/<int:uid>', methods=['GET'])
+@app.route('/chats/admin/<int:uid>', methods=['GET'])
 def getChatsAsAdminByID(uid):
     if request.method == 'GET':
 

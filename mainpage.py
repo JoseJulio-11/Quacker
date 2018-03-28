@@ -19,7 +19,7 @@ mainpage =  '<head> ' \
             '<ul><li>/contacts</li><li>/contacts/user/[int:uid]</li></ul>' \
             '<h3>Get Chat Locations:</h3>' \
             '<ul><li>/chats</li><li>/chats/[int:cid]</li>' \
-            '<li>/chats/user/[int:uid]</li><li>/chats/admin/user/[int:uid]</li></ul>' \
+            '<li>/chats/user/[int:uid]</li><li>/chats/admin/[int:uid]</li></ul>' \
             '<h3>Get Participant Locations:</h3>' \
             '<ul><li>/participants</li><li>/participants/chat/[int:cid]</li></ul>' \
             '<h3>Get Message Locations:</h3>' \
