@@ -221,7 +221,7 @@ def getUserTopicsByID(uid):
 @app.route('/topics/chat/<int:cid>', methods=['GET'])
 def getChatTopicsByID(cid):
     if request.method == 'GET':
-        result = Chat.getChatTopicsByID(cid)
+        result = Chat.getChatTopicByID(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
