@@ -2,32 +2,13 @@ from flask import Flask, jsonify, request
 from Handler import Chat
 from Handler import Message
 from Handler import User
-
+from mainpage import mainpage
 
 app = Flask(__name__)
 
 @app.route('/')
 def mainPage():
-    return '<p><b>Welcome</b>, this is the main page for our project application <b>Quacker!!!</b></p>' \
-           '<p>Currently you can navigate to the following addresses in the app:</p>' \
-           '<ul>' \
-           '<li>/users</li> <li>/users/[int:uid]</li> <li>/users/active</li>' \
-           '<li>/credentials</li> <li>/credentials/user/[int:uid]</li>' \
-           '<li>/activities</li> <li>/activities/user/[int:uid]</li>' \
-           '<li>/contacts</li> <li>/contacts/user/[int:uid]</li>' \
-           '<li>/chats</li> <li>/chats/[int:cid]</li> <li>/chats/user/[int:uid]</li> ' \
-           '<li>/chats/admin/user/[int:uid]</li>' \
-           '<li>/participants</li> <li>/participants/chats/[int:cid]</li>' \
-           '<li>/messages</li> <li>/messages/[int:mid]</li> <li>/messages/user/[int:uid]</li>' \
-           '<li>/messages/chat/[int:cid]</li>' \
-           '<li>/medias</li> <li>/medias/chat/[int:cid]</li> <li>/medias/messages/[int:mid]</li>' \
-           '<li>/topics</li> <li>/topics/chat/[int:cid]</li> <li>/topics/messages/[int:mid]</li>' \
-           '<li>/topics/user/[int:mid]</li>' \
-           '<li>/reactions</li> <li>/reactions/messages/[int:mid]</li> <li>/reactions/user/[int:uid]</li>' \
-           '<li>/reactions/likes</li> <li>/reactions/likes/messages/[int:mid]</li> ' \
-           '<li>/reactions/dislikes</li> <li>/reactions/dislikes/messages/[int:mid]</li> ' \
-           '</ul>'
-
+    return mainpage
 
 # ==================== User Methods ====================== #
 @app.route('/users', methods=['GET'])

@@ -35,7 +35,7 @@ database using app routes.
 * /chats/admin/user/[int:uid]
 ##### Get Participant Locations:
 * /participants
-* /participants/chats/[int:cid]
+* /participants/chat/[int:cid]
 ##### Get Messages Locations:
 * /messages
 * /messages/[int:mid]
@@ -44,18 +44,18 @@ database using app routes.
 ##### Get Media Locations:
 * /medias
 * /medias/chat/[int:cid]
-* /medias/messages/[int:mid]
+* /medias/message/[int:mid]
 ##### Get Topic Locations:
 * /topics
 * /topics/chat/[int:cid]
-* /topics/messages/[int:mid]
+* /topics/message/[int:mid]
 * /topics/user/[int:mid]
 ##### Get Reaction Locations:
 * /reactions
-* /reactions/messages/[int:mid]
+* /reactions/message/[int:mid]
 * /reactions/user/[int:uid]
-* /reactions/likes
-* /reactions/likes/messages/[int:mid]
-* /reactions/dislikes
-* /reactions/dislikes/messages/[int:mid]
+* /reactions/like
+* /reactions/like/message/[int:mid]
+* /reactions/dislike
+* /reactions/dislike/message/[int:mid]
 
