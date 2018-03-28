@@ -123,7 +123,7 @@ def getMessageTopics(mID):
         return jsonify(Error="Message does not contain Topics"), 404
     result = []
     for row in rows:
-        result.append(Dic.build_reacted_dict(row))
+        result.append(Dic.build_topic_dict(row))
     return jsonify(Topics=result)
 
 
