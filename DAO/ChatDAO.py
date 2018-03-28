@@ -73,7 +73,6 @@ class ChatDAO:
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
 
-
     # ============================== Create Methods ============================= #
     def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
         # Create a chat
@@ -96,17 +95,17 @@ class ChatDAO:
         if uID == 2:
             return self.chat[1:4]
         if uID == 3:
-            return None
+            return []
         if uID == 4:
             return [self.chat[3], self.chat[0]]
         if uID == 5:
             return [self.chat[2]]
         if uID == 6:
-            return None
-        return None
+            return []
+        return []
 
     def getChatMessages(self, cID):
-        # THis method will return the messafes on a determined chat
+        # This method will return the messafes on a determined chat
         if cID == 1:
             return self.messages[5:10]
         if cID == 2:
@@ -114,40 +113,40 @@ class ChatDAO:
         if cID == 3:
             return self.messages[0:6]
         if cID == 4:
-            return self.messages[11]
+            return [self.messages[11]]
 
     def geActivetChatMessages(self,cID,isDeleted):
-       #This method will only return all the messages in all the active single chats
-       #Wether they are deleted or not
+        # This method will only return all the messages in all the active single chats
+        # Whether they are deleted or not
         if cID == 2 and not isDeleted:
-           return self.messages[11]
+            return [self.messages[11]]
         if cID == 2 and isDeleted:
-            return self.messages[11]
+            return [self.messages[11]]
 
     def getNonActiveChatMessages(self, cID,isDeleted):
-        #This method will return all the messages in single chats that are inactive
-        #There is no example of a not deleted message on a inactive chat!!!!!!!!!
+        # This method will return all the messages in single chats that are inactive
+        # There is no example of a not deleted message on a inactive chat!!!!!!!!!
         if cID == 4 and isDeleted:
-            return self.messages[9]
-        return None
+            return [self.messages[9]]
+        return []
 
     def getActiveGroupChatMessages(self,cID,isDeleted):
-        #This method will give all the messages on a group chat, deleted or not
+        # This method will give all the messages on a group chat, deleted or not
         if cID == 1 and isDeleted:
-            return[]
+            return []
         elif cID == 1 and not isDeleted:
             return self.messages[5:9]
-        return None
+        return []
 
     def getNonActiveGroupChatMessages(self,cID,isDeleted):
-        #This method will return the messages of a deleted chat
+        # This method will return the messages of a deleted chat
         if cID == 3 and isDeleted:
             return self.messages[0:5]
-        return None
+        return []
 
     def getActiveChatMessagesBetween(self,cID,isGroup,isDeleted,bDate,aDate):
-        #This method will return the messages in a chat between established the
-        #dates of group/single chat and deleted/notDeleted messages
+        # This method will return the messages in a chat between established the
+        # dates of group/single chat and deleted/notDeleted messages
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -155,17 +154,16 @@ class ChatDAO:
         if cID == 1 and isGroup and not isDeleted:
             if bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <= 17 and aDate[0]>=2018 and aDate[1]>=1 and aDate[2]>=17:
                 return self.messages[5:9]
-            return None
+            return []
         if cID == 2 and isGroup and isDeleted:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 10:
-                return self.messages[11]
-            return None
+                return [self.messages[11]]
+            return []
 
         if cID == 2 and not isGroup and not isDeleted:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 10:
-                return self.messages[10]
-            return None
-
+                return [self.messages[10]]
+            return []
 
     def getNonActiveChatMessagesBeteween(self,cID,isGroup,isDeleted,bDate,aDate):
         # This method will return the messages in a non-active chat between the established the
@@ -177,30 +175,30 @@ class ChatDAO:
         if cID == 3 and isGroup and isDeleted:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
                 return self.messages[0:5]
-            return None
+            return []
         if cID == 4 and not isGroup and isDeleted:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return self.messages[9]
-            return None
+                return [self.messages[9]]
+            return []
 
     def getAllParticipants(self):
-        #This method will give all the participants in the application
+        # This method will give all the participants in the application
         return self.participants
 
     def getChatParticipant(self,cID):
-        #THis method will return the active participants of a specified chat ( active or nonactive chat)
-         if cID == 1:
+        # THis method will return the active participants of a specified chat ( active or nonactive chat)
+        if cID == 1:
             return self.participants[0:3]
-         elif cID == 2:
+        elif cID == 2:
             return self.participants[3:5]
-         elif cID == 3:
-             return self.participants[5:8]
-         elif cID == 4:
-             return self.participants[8:10]
-         return None
+        elif cID == 3:
+            return self.participants[5:8]
+        elif cID == 4:
+            return self.participants[8:10]
+        return []
 
     def getChatActivePartipant(self,cID):
-        #This method will give the active participants in a desired chat
+        # This method will give the active participants in a desired chat
         if cID == 1:
             return self.participants[0:3]
         elif cID == 2:
@@ -208,19 +206,19 @@ class ChatDAO:
         elif cID == 3:
             return self.participants[6:8]
         elif cID == 4:
-            return self.participants[9]
-        return None
+            return [self.participants[9]]
+        return []
 
     def getChatNonActiveParticipant(self,cID):
-      #THis method will return the non active users in a certain chat
+        # This method will return the non active users in a certain chat
         if cID == 3:
-            return self.participants[5]
+            return [self.participants[5]]
         if cID == 4:
-            return self.participants[8]
-        return None
+            return [self.participants[8]]
+        return []
 
     def getChatInfo(self,cID):
-        #This method will return the information of a desired chat
+        # This method will return the information of a desired chat
         if cID == 1:
             return self.chat[0]
         if cID == 2:
@@ -231,62 +229,62 @@ class ChatDAO:
             return self.chat[3]
 
     def getChatTopic(self,cID):
-        #This method will return the topics of a active chat
+        # This method will return the topics of a active chat
         if cID == 1:
-            return self.topic[2]
+            return [self.topic[2]]
         if cID == 3:
             return self.topic[0:2]
-        return None
+        return []
 
     def getChatMedia(self,cID):
-        #THis method will return the media sended in that determined chat
+        # This method will return the media sended in that determined chat
         if cID == 1:
-            return self.media[2]
+            return [self.media[2]]
         if cID == 3:
-            return self.media[1]
-        return None
+            return [self.media[1]]
+        return []
 
     def getChatReactions(self,cID):
-        #It will return the reactions based on the chat
+        # It will return the reactions based on the chat
         if cID == 3:
             return self.reacted[0:2]
         if cID == 1:
-            return self.reacted[3]
-        return None
+            return [self.reacted[3]]
+        return []
 
     def getChatReplyMessages(self,cID):
-        #THis method will give the list of replied messages in a determined chat
+        # This method will give the list of replied messages in a determined chat
         if cID == 3:
             return self.messages[3:6]
         elif cID == 1:
-            return self.messages[7]
-        return None
+            return [self.messages[7]]
+        return []
 
     def getChatMessagesRepliedWithMedia(self,cID):
-        #This method is supposed to return the messages that contain a media
-        #and at the same time is being replied, and viceversa
+        # This method is supposed to return the messages that contain a media
+        # and at the same time is being replied, and viceversa
         if cID == 3:
             return self.messages[3:6]
         if cID == 1:
-            return self.messages[7]
-        return None
+            return [self.messages[7]]
+        return []
 
     def getChatMessageWithReplyAndReaction(self,cID):
-        #This method will select the messages in a defined chat that have reaction and reply
+        # This method will select the messages in a defined chat that have reaction and reply
         if cID == 3:
-            return self.messages[4]
+            return [self.messages[4]]
         if cID == 1:
-            return self.messages[9]
-        return None
+            return [self.messages[9]]
+        return []
     def getChatMessagesWithReplyReactionMedia(self,cID):
-        #This method will return the messages on a desired chat that have reaction,media and reply
+        # This method will return the messages on a desired chat that have reaction,media and reply
         if cID == 3:
-            return self.messages[4]
-        return None
+            return [self.messages[4]]
+        return []
 
     def getChatTopicsBetween(self,cID,bDate,aDate):
-        #This method will return the messages on a desired chat that have media
-        #between the stablished dates, regardless if there is a Active or non-Active chat
+        # This method will return the messages on a desired chat that have media
+        # between the stablished dates, regardless if there is a Active or non-Active chat
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -297,40 +295,40 @@ class ChatDAO:
 
         if cID == 1:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 17:
-                return[10]
-        return None
+                return [self.messages[10]]
+        return []
 
     def getChatReactionsBetween(self,cID,bDate,aDate):
-        #This method will return the reactions of a chat between a determined date
+        # This method will return the reactions of a chat between a determined date
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
 
         if cID == 3:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
-                return self.reacted[0, 2]
+                return self.reacted[0:2]
         if cID == 1:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
-                 return self.reacted[3]
-        return None
+                return [self.reacted[3]]
+        return []
 
     def getChatRepliedMessagesBetween(self,cID,bDate,aDate):
-        #THis method will give the replies in a chat between a determined date
+        # THis method will give the replies in a chat between a determined date
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
 
         if cID == 3:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
-                 return self.messages[5:6]
+                return self.messages[5:6]
         elif cID == 1:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
-             return self.messages[10]
-        return None
+                return [self.messages[10]]
+        return []
 
     def getChatMessagesRepliedWithMediaBetween(self,cID,bDate,aDate):
-        #This method is supposed to return the messages that contain a media
-        #and at the same time is being replied, and viceversa between a specified date
+        # This method is supposed to return the messages that contain a media
+        # and at the same time is being replied, and viceversa between a specified date
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -340,44 +338,44 @@ class ChatDAO:
                 return self.messages[5:6]
         if cID == 1:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
-                return self.messages[10]
-        return None
-
+                return [self.messages[10]]
+        return []
 
     def getChatMessageWithReplyAndReactionBetween(self,cID,bDate,aDate):
-        #This method will select the messages in a defined chat that have reaction and reply between a specified date
+        # This method will select the messages in a defined chat that have reaction and reply between a specified date
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
 
         if cID == 3:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
-                return self.messages[4]
+                return [self.messages[4]]
         if cID == 1:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
-                return self.messages[9]
-        return None
+                return [self.messages[9]]
+        return []
+
     def getChatMessagesWithReplyReactionMediaBetween(self,cID,bDate,aDate):
-        #This method will return the messages on a desired chat that have reaction,media and reply between a date
+        # This method will return the messages on a desired chat that have reaction,media and reply between a date
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
 
         if cID == 3:
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
-                return self.messages[4]
-        return None
+                return [self.messages[4]]
+        return []
 
     def getChatWithMedia(self,mID):
-        #THis method will return the chat on which determined media is located in
+        # This method will return the chat on which determined media is located in
         if mID == 1:
             return self.chat[4]
         if mID == 2:
             return self.chat[2]
-        return None
+        return []
 
     def getChatByTopic(self,hashtag):
-        #This method will return the chat on which the hashtag was seneded
+        # This method will return the chat on which the hashtag was seneded
         if hashtag == 'mindblowing':
             return self.chat[4]
         if hashtag == 'doyouevenlift?':
@@ -387,30 +385,29 @@ class ChatDAO:
         return[]
 
     def getChatRepliedMessages(self,cID):
-        #THis method will return the messages that have been replied in a determined chat
+        # This method will return the messages that have been replied in a determined chat
         if cID == 3:
             return self.messages[5:6]
         if cID == 1:
-            return self.messages[10]
-        return None
+            return [self.messages[10]]
+        return []
 
     def getLikedMessagesByChat(self,cID):
-        #This method will return the liked messages on a determined chat
+        # This method will return the liked messages on a determined chat
         if cID == 3:
-            return self.messages[4]
+            return [self.messages[4]]
         if cID == 1:
-            return self.messages[9]
-        return None
+            return [self.messages[9]]
+        return []
 
     def getUnlikedMessagesByChat(self,cID):
-        #This method will return the unliked messages in a determined chat
+        # This method will return the unliked messages in a determined chat
         if cID == 3:
-            return self.messages[4]
-        return None
+            return [self.messages[4]]
+        return []
 
     def getChatByID(self,cID):
-        #This method will return the chat given its ID
-        #I THINK we should get a chat by NAME instead of by chatID
+        # This method will return the chat given its ID
         if cID == 1:
             return self.chat[2]
         if cID == 2:
@@ -419,12 +416,11 @@ class ChatDAO:
             return self.chat[4]
         if cID == 4:
             return self.chat[5]
-        return None
+        return []
 
     def getChatDeleted(self):
-        #This method will return the deleted chats
+        # This method will return the deleted chats
         return [self.chat[3], self.chat[5]]
-
 
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
