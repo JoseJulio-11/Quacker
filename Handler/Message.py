@@ -4,7 +4,7 @@ from DAO.MessagesDAO import MessagesDAO
 dao = MessagesDAO()
 class Message():
     def getMessagesByID(self, mID):
-    #TODO This method return the message requested by its ID
+    #This method return the message requested by its ID
         row = dao.getMessageInfo(mID)
         if not row:
             return jsonify(Error = " Message not found"), 404
@@ -12,7 +12,7 @@ class Message():
             message = Dic.build_message_dic(row)
             return jsonify(Message = message)
     def getReactionsByMessage(self,mID):
-        #TODO THis method return the reaction of a determined message
+        #THis method return the reaction of a determined message
         row = dao.getMessageReaction(mID)
         if not row:
             return jsonify(Error = " Message does not contain reaction"), 404
