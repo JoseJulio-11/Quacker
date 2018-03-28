@@ -2,45 +2,53 @@ from flask import jsonify
 from DAO.UserDAO import UserDAO
 from Handler import DictionaryBuilder
 
+dao = UserDAO()
+
 
 def getAllUsers():
-    dao = UserDAO()
     result = dao.getAllUsers()
+    if not result:
+        return jsonify(Error="No Users Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_user_dict(r))
-    return jsonify(Users = mapped_result)
+    return jsonify(Users=mapped_result)
+
 
 def getAllCredentials():
-    dao = UserDAO()
     result = dao.getAllCredentials()
+    if not result:
+        return jsonify(Error="No Credentials Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
-    return jsonify(Credentials = mapped_result)
+    return jsonify(Credentials=mapped_result)
 
 
 def getAllContacts():
-    dao = UserDAO()
     result = dao.getAllContacts()
+    if not result:
+        return jsonify(Error="No Contacts Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_contact_dict(r))
-    return jsonify(Contacts = mapped_result)
+    return jsonify(Contacts=mapped_result)
 
 
 def getAllActivity():
-    dao = UserDAO()
     result = dao.getAllActivity()
+    if not result:
+        return jsonify(Error="No Activity Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_activity_dict(r))
-    return jsonify(Activity = mapped_result)
+    return jsonify(Activity=mapped_result)
 
 
 def getUserInfo(uID):
-    dao = UserDAO()
     result = dao.getUserInfo(uID)
+    if not result:
+        return jsonify(Error="No Records Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_user_dict(r))
