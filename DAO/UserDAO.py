@@ -95,6 +95,14 @@ class UserDAO:
     def getAllUsers(self):
         return self.users
 
+    #Returns the list of all credentials
+    def getAllCredentials(self):
+        return self.credentials
+
+    #Returns the list of all contacts
+    def getAllContacs(self):
+        return self.contacts
+
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
         userInfo = []

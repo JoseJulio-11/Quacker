@@ -11,6 +11,22 @@ class UserHandler:
             mapped_result.append(DictionaryBuilder.build_user_dict(r))
         return jsonify(Users = mapped_result)
 
+    def getAllCredentials(self):
+        dao = UserDAO()
+        result = dao.getAllCredentials()
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_credential_dict(r))
+        return jsonify(Credentials = mapped_result)
+
+    def getAllContacts(self):
+        dao = UserDAO()
+        result = dao.getAllContacts()
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_contact_dict(r))
+        return jsonify(COntacts = mapped_result)
+
     def getUserInfo(self, uID):
         dao = UserDAO()
         result = dao.getUserInfo(uID)
