@@ -85,6 +85,17 @@ class ChatDAO:
         if cID == 4:
             return self.messages[]
 
+    # ============================== Create Methods ============================= #
+    def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
+        # Create a chat
+        cID = 5
+        return cID
+
+    def insertParticipant(self, cID, uID, pdate, ptime):
+        # Insert a participant to a chat
+        return cID, uID
+
+    # ============================= Get Methods ================================= #
     def geActivetChatMessages(self,cID,isDeleted):
        #This method will only return all the messages in all the active single chats
        #Wether they are deleted or not
@@ -203,7 +214,7 @@ class ChatDAO:
         if cID == 1:
             return self.topic[2]
         if cID == 3:
-            return self.topic[0,2]
+            return self.topic[0:2]
         return[]
 
     def getChatMedia(self,cID):
@@ -217,26 +228,26 @@ class ChatDAO:
     def getChatReactions(self,cID):
         #It will return the reactions based on the chat
         if cID == 3:
-            return self.reacted[0,2]
+            return self.reacted[0:2]
         if cID == 1:
             return self.reacted[3]
         return[]
 
-    def getChatRepliedMessages(self,cID):
+    def getChatReplyMessages(self,cID):
         #THis method will give the list of replied messages in a determined chat
         if cID == 3:
-            return self.messages[5:6]
+            return self.messages[3:6]
         elif cID == 1:
-            return self.messages[10]
+            return self.messages[7]
         return[]
 
     def getChatMessagesRepliedWithMedia(self,cID):
         #This method is supposed to return the messages that contain a media
         #and at the same time is being replied, and viceversa
         if cID == 3:
-            return self.messages[5:6]
+            return self.messages[3:6]
         if cID == 1:
-            return self.messages[10]
+            return self.messages[7]
         return[]
 
     def getChatMessageWithReplyAndReaction(self,cID):
@@ -343,13 +354,14 @@ class ChatDAO:
             return self.chat[4]
         return[]
 
-    def getChatOriginalMessages(self,cID):
+    def getChatRepliedMessages(self,cID):
         #THis method will return the messages that have been replied in a determined chat
         if cID == 3:
             return self.messages[5:6]
         if cID == 1:
             return self.messages[10]
         return[]
+
     def getLikedMessagesByChat(self,cID):
         #This method will return the liked messages on a determined chat
         if cID == 3:
@@ -357,6 +369,7 @@ class ChatDAO:
         if cID == 1:
             return self.messages[9]
         return[]
+
     def getUnlikedMessagesByChat(self,cID):
         #This method will return the unliked messages in a determined chat
         if cID == 3:
