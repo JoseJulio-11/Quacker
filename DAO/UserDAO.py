@@ -109,6 +109,14 @@ class UserDAO:
     def getAllActivity(self):
         return self.activity
 
+    #Returns the list of all users that are active
+    def getAllUsersByActivity(self):
+        activeUsers = []
+        for r in self.activity:
+            if r[3]:
+                activeUsers.append(r)
+        return activeUsers
+
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
         userInfo = []
@@ -232,14 +240,6 @@ class UserDAO:
             return [self.messages[0], self.messages[4]]
         else:
             return []
-
-    #Returns the list of all active users
-    def getActiveUsers(self):
-        activeUsersList = []
-        for r in self.activity:
-            if r[2]:
-                activeUsersList.append(r)
-        return activeUsersList
 
     #Returns the list of all users created between the provided dates
     def getUsersCreatedBetween(self, bDate, aDate):
