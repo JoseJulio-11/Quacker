@@ -136,10 +136,9 @@ class UserDAO:
     #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
        for r in self.activity:
-            if uID == r[3]:
+            if uID == r[0]:
                 return r
-       else:
-           return []
+       return []
 
     #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
