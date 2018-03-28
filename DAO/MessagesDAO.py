@@ -423,7 +423,7 @@ class MessagesDAO:
     def getMessageMedia(self, mID):
         if mID == 3:
             return self.media[0]
-        elif mID == 8:
+        elif mID == 9:
             return self.media[1]
         else:
             return []
