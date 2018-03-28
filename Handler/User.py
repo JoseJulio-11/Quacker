@@ -157,7 +157,7 @@ def getUserTopicsBetween(uID, bDate, aDate):
 
 def getActiveUsers():
     dao = UserDAO()
-    result = dao.getActiveUsers()
+    result = dao.getAllUsersByActivity()
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_activity_dict(r))
