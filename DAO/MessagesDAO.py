@@ -110,6 +110,9 @@ class MessagesDAO:
 
     # ========================= Methods Independent On Time ======================= #
     # ======= Methods For Messages In Chat types ============ #
+    def getAllMessages(self):
+        return self.messages
+
     def getAllMessagesInChatType(self, isGroupChat):
         if isGroupChat:
             return self.messages[5:9]
@@ -431,6 +434,9 @@ class MessagesDAO:
             return [self.media[1]]
         else:
             return []
+
+    def getAllMedia(self):
+        return self.media
 
     def getAllMediaBetween(self, bDate, aDate):
         result = []

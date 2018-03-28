@@ -8,7 +8,7 @@ dao = ReadChatDAO()
 class Chat:
 
     def getAllChats(self):
-  #This method will return all the chats
+        # This method will return all the chats
 
         chat_lists = dao.getAllChats()
         result_list = []
@@ -44,11 +44,3 @@ class Chat:
             result_messages.append(result)
         return jsonify(Messages = result_messages)
 
-#   def removeChatGroup(self,cID):
-#      #THis method will remove a chat
-#        dao = ReadChatDAO()
-#       if not dao.getChatInfo(cID):
-#            return jsonify(Error = "Chat not found"), 404
-#       else:
-#            #CHECKKKKKKKKKKKK!!-!-!_!_!_!_1!_!!-!:D
-#            dao.getAllChats().__getitem__(cID).insert(5, False)
