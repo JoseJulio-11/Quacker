@@ -202,7 +202,7 @@ def getMessageByChatID(cid):
 def getMessageByUserID(uid):
     if request.method == 'GET':
         result = Message.getMessageByUserID(uid)
-        return jsonify(Messages=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
