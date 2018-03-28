@@ -280,19 +280,14 @@ class UserDAO:
     #Returns the list of topics posted by the user with ID uID
     def getUserTopics(self, uID):
         # This list will hold the records of messages
-        messagesList = []
-        # This list will hold the topics of the specified user
-        userTopicsList = []
-        for r in self.messages:
-            if uID == r[5]:
-                messagesList.append(r)
-        if messagesList[0] == 5:
-            userTopicsList.append(self.topic[1])
-        elif messagesList[0] == 4:
-            userTopicsList.append(self.topic[0])
-        elif messagesList[0] == 9:
-            userTopicsList.append(self.topic[2])
-        return userTopicsList
+        if uID == 2:
+            return [self.topic[0]]
+        elif uID == 6:
+            return [self.topic[1]]
+        elif uID == 5:
+            return [self.topic[2]]
+        else:
+            return []
 
     # Returns the user with name and email specified
     def getUserByNameAndEmail(self, fName, lName, uemail):

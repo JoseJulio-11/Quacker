@@ -16,7 +16,7 @@ def getAllMessages():
 
 
 def getAllReacts():
-    rows = dao.getAllLikeReactions().append(dao.getAllDislikeReactions())
+    rows = dao.getAllReactions()
     if not rows:
         return jsonify(Error="No reaction"), 404
     result = []
@@ -98,7 +98,7 @@ def getMessageLikesByID(mID):
 
 def getMessageDislikesByID(mID):
     # This method return the reaction of a determined message
-    rows = dao.getMessageLike(mID)
+    rows = dao.getMessageDislike(mID)
     if not rows:
         return jsonify(Error="Message does not contain reaction"), 404
     result = []

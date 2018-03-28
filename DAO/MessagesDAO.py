@@ -394,6 +394,9 @@ class MessagesDAO:
         else:
             return []
 
+    def getAllReactions(self):
+        return self.reacted
+
     def getAllLikeReactions(self):
         result = []
         result.append(self.reacted[0])
