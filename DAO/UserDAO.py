@@ -1,4 +1,6 @@
-
+"""
+This Class contain DAO methods for the entities of Users, Activities, Credentials and Contacts
+"""
 class UserDAO:
 
     def __init__(self):
@@ -94,6 +96,18 @@ class UserDAO:
     #Returns the list of all users
     def getAllUsers(self):
         return self.users
+
+    #Returns the list of all credentials
+    def getAllCredentials(self):
+        return self.credentials
+
+    #Returns the list of all contacts
+    def getAllContacts(self):
+        return self.contacts
+
+    #Returns the list of all activity in the app
+    def getAllActivity(self):
+        return self.activity
 
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):

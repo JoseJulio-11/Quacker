@@ -1,5 +1,5 @@
 class DictionaryBuilder:
-    def build_user_dict(userInfo):
+    def build_user_dict(self, userInfo):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONYM
         user = {}
         user["uID"] = userInfo[0]
@@ -10,7 +10,7 @@ class DictionaryBuilder:
         user["pseudonym"] = userInfo[5]
         return user
 
-    def build_credential_dict(userCredential):
+    def build_credential_dict(self, userCredential):
         # UID, Username, Password, UEmail, UPhone
         cred = {}
         cred["uID"] = userCredential[0]
@@ -20,7 +20,7 @@ class DictionaryBuilder:
         cred["uPhone"] = userCredential[4]
         return cred
 
-    def build_activity_dict(userActicity):
+    def build_activity_dict(self, userActicity):
         # AID, lastAccessToDBDate, lastAccessToDBTime, isActive
         activity = {}
         activity["aID"] = userActicity[0]
@@ -29,14 +29,14 @@ class DictionaryBuilder:
         activity["isActive"] = userActicity[3]
         return activity
 
-    def build_contact_dict(userContact):
+    def build_contact_dict(self, userContact):
         # ownerid, memberid
         contact = {}
         contact["ownerID"] = userContact[0]
         contact["memberID"] = userContact[1]
         return contact
 
-    def build_chat_dict(chat):
+    def build_chat_dict(self, chat):
         # cid, cname, cdate, ctime, isgroupchat, isactive, adminid
         chatRecord = {}
         chatRecord["cID"] = chat[0]
@@ -48,7 +48,7 @@ class DictionaryBuilder:
         chatRecord["adminID"] = chat[6]
         return chatRecord
 
-    def build_participants_dict(chatParticipant):
+    def build_participants_dict(self, chatParticipant):
         # cid, uid, pdate, ptime
         participant = {}
         participant["cID"] = chatParticipant[0]
@@ -57,7 +57,7 @@ class DictionaryBuilder:
         participant["pTime"] = chatParticipant[3]
         return participant
 
-    def build_message_dict(chatMessage):
+    def build_message_dict(self, chatMessage):
         # mid, text, cdate, ctime, cid, uid, isdeleted, rid
         Message = {}
         Message["mID"] = chatMessage[0]
@@ -70,7 +70,7 @@ class DictionaryBuilder:
         Message["rID"] = chatMessage[7]
         return Message
 
-    def build_reacted_dict(messageReaction):
+    def build_reacted_dict(self, messageReaction):
         # uid, mid, rdate, rtime, vote
         reaction = {}
         reaction["uID"] = messageReaction[0]
@@ -80,14 +80,14 @@ class DictionaryBuilder:
         reaction["vote"] = messageReaction[4]
         return reaction
 
-    def build_topic_dict(messageTopic):
+    def build_topic_dict(self, messageTopic):
         # hashtag, mid
         topic = {}
         topic["hashtag"] = messageTopic[0]
         topic["mID"] = messageTopic[1]
         return topic
 
-    def build_media_dict(messageMedia):
+    def build_media_dict(self, messageMedia):
         # mid, mediaid, isVideo, location
         media = {}
         media["mID"] = messageMedia[0]
