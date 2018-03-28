@@ -409,13 +409,13 @@ class ChatDAO:
     def getChatByID(self,cID):
         # This method will return the chat given its ID
         if cID == 1:
-            return self.chat[2]
+            return self.chat[0]
         if cID == 2:
-            return self.chat[3]
+            return self.chat[1]
         if cID == 3:
-            return self.chat[4]
+            return self.chat[2]
         if cID == 4:
-            return self.chat[5]
+            return self.chat[3]
         return []
 
     def getChatsDeleted(self):
