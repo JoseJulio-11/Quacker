@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request
-#from Handler.Chat import Chat
-#from Handler.Message import Message
-#from Handler.User import User
-from Handler.DictionaryBuilder import DictionaryBuilder
+from Handler.Chat import Chat
+from Handler.Message import Message
+from Handler.User import User
 
 stub_dict = {'ID': 1, "String": "StringStub", "Date": "2018-02-22"}
 # Activate
@@ -37,8 +36,7 @@ def mainPage():
 @app.route('/users', methods=['GET'])
 def getAllUsers():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getAllUsers()
         return jsonify(Users=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -46,8 +44,7 @@ def getAllUsers():
 @app.route('/users/<int:uid>', methods=['GET'])
 def getUserByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here (GIve uID)
-        result = stub_dict.copy()
+        result = User.getUserInfo(uid)
         return jsonify(User=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -55,8 +52,7 @@ def getUserByID(uid):
 @app.route('/users/active', methods=['GET'])
 def getAllUsersByActivity():
     if request.method == 'GET':
-        # @TODO Add Handler here (GIve active)
-        result = stub_dict.copy()
+        result = User.getActiveUsers()
         return jsonify(Users=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -66,8 +62,7 @@ def getAllUsersByActivity():
 @app.route('/credentials', methods=['GET'])
 def getCredentials():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getAllCredentials()
         return jsonify(Credentials=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -76,8 +71,7 @@ def getCredentials():
 @app.route('/credentials/user/<int:uid>', methods=['GET'])
 def getUserCredentialByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here (GIve uID)
-        result = stub_dict.copy()
+        result = User.getUserCredentials(uid)
         return jsonify(Credential=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -87,8 +81,7 @@ def getUserCredentialByID(uid):
 @app.route('/activities', methods=['GET'])
 def getAllActivities():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getAllActivity()
         return jsonify(Activities=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -97,8 +90,7 @@ def getAllActivities():
 @app.route('/activities/user/<int:uid>', methods=['GET'])
 def getUserActivityByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getUserActivity(uid)
         return jsonify(Activity=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -108,8 +100,7 @@ def getUserActivityByID(uid):
 @app.route('/contacts', methods=['GET'])
 def getAllContacts():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getAllContacts()
         return jsonify(Contacts=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -118,8 +109,7 @@ def getAllContacts():
 @app.route('/contacts/user/<int:uid>', methods=['GET'])
 def getUserContactsByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getUserContacts(uid)
         return jsonify(Contacts=result)
     else:
         return jsonify(Error="Method not allowed"), 404
