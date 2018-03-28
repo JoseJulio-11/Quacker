@@ -345,11 +345,11 @@ class UserDAO:
         return userRecord
 
     # Returns the user with email and password specified
-    def getUserByEmailAndPassword(self, email, password):
+    def getUserByEmailAndPassword(self, uemail, password):
         # List containing user record with full name
         userRecord = []
         for r in self.credentials:
-            if email == r[3] and password == r[2]:
+            if uemail == r[3] and password == r[2]:
                 userRecord.append(r)
         return userRecord
 

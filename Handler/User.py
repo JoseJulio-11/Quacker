@@ -169,6 +169,23 @@ class UserHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(DictionaryBuilder.build_credential_dict(r))
-        return jsonify(Users=mapped_result)
+        return jsonify(Users = mapped_result)
+
+    def getUserByNameAndEmail(self, fName, lName, uemail):
+        dao = UserDAO()
+        result = dao.getUserByNameAndEmail(fName, lName, uemail)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_credential_dict(r))
+        return jsonify(Users = mapped_result)
+
+    def getUserByEmailAndPassword(self, uemail, password):
+        dao = UserDAO()
+        result = dao.getUserByNameAndEmail(uemail, password)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_credential_dict(r))
+        return jsonify(Users = mapped_result)
+
 
 
