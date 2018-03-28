@@ -92,17 +92,17 @@ class ChatDAO:
     def getChatByUserID(self, uID):
         # This method will return the chats on which that user is in
         if uID == 1:
-            return self.chat[2]
+            return [self.chat[2]]
         if uID == 2:
             return self.chat[1:4]
         if uID == 3:
-            return []
+            return None
         if uID == 4:
-            return self.chat[5]
+            return [self.chat[3], self.chat[0]]
         if uID == 5:
-            return [2]
+            return [self.chat[2]]
         if uID == 6:
-            return []
+            return None
         return None
 
     def getChatMessages(self, cID):

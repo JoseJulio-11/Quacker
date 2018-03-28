@@ -17,7 +17,8 @@ def mainPage():
            '<li>/credentials</li> <li>/credentials/user/[int:uid]</li>' \
            '<li>/activities</li> <li>/activities/user/[int:uid]</li>' \
            '<li>/contacts</li> <li>/contacts/user/[int:uid]</li>' \
-           '<li>/chats</li> <li>/chats/[int:cid]</li> <li>/chats/user/[int:uid]</li>' \
+           '<li>/chats</li> <li>/chats/[int:cid]</li> <li>/chats/user/[int:uid]</li> ' \
+           '<li>/chats/admin/user/[int:uid]</li>' \
            '<li>/participants</li> <li>/participants/chats/[int:cid]</li>' \
            '<li>/messages</li> <li>/messages/[int:mid]</li> <li>/messages/user/[int:uid]</li>' \
            '<li>/messages/chat/[int:cid]</li>' \
@@ -145,6 +146,15 @@ def getUserChatsByID(uid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
+@app.route('/chats/admin/user/<int:uid>', methods=['GET'])
+def getUserChatsByID(uid):
+    if request.method == 'GET':
+
+        result = User.getChatAsAdmin(uid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
 
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])
