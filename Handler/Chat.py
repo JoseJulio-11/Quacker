@@ -52,11 +52,14 @@ def getChatByUserID(uID):
     #This method will return the chats on which the user are part of
 
     chats = dao.getChatByUserID(uID)
-    result_list = []
-    for row in chats:
-        result = Dic.build_chat_dict(row)
-        result_list.append(result)
-    return jsonify(Chats = result_list)
+    if chats is not None:
+        result_list = []
+        for row in chats:
+            result = Dic.build_chat_dict(row)
+            result_list.append(result)
+        return jsonify(Chats = result_list)
+    else:
+        return jsonify(Error = "Not Record Found!")
 
 
 def getALlParticipants():
