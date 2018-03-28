@@ -100,8 +100,12 @@ class UserDAO:
         return self.credentials
 
     #Returns the list of all contacts
-    def getAllContacs(self):
+    def getAllContacts(self):
         return self.contacts
+
+    #Returns the list of all activity in the app
+    def getAllActivity(self):
+        return self.activity
 
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
