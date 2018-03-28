@@ -71,7 +71,15 @@ def getALlParticipants():
 
 
 def getChatMediaByID(cid):
-    media = dao.getAllParticipants()
+    media = dao.getChatMedia(cid)
+    result_list = []
+    for row in media:
+        result = Dic.build_media_dict(row)
+        result_list.append(result)
+    return jsonify(Media=result_list)
+
+def getChatTopicByID(cid):
+    media = dao.getChatTopic(cid)
     result_list = []
     for row in media:
         result = Dic.build_media_dict(row)

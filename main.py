@@ -35,23 +35,25 @@ def mainPage():
 def getAllUsers():
     if request.method == 'GET':
         result = User.getAllUsers()
-        return jsonify(Users=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
 
 @app.route('/users/<int:uid>', methods=['GET'])
 def getUserByID(uid):
     if request.method == 'GET':
         result = User.getUserInfo(uid)
-        return jsonify(User=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
 
 @app.route('/users/active', methods=['GET'])
 def getAllUsersByActivity():
     if request.method == 'GET':
         result = User.getActiveUsers()
-        return jsonify(Users=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -61,7 +63,7 @@ def getAllUsersByActivity():
 def getCredentials():
     if request.method == 'GET':
         result = User.getAllCredentials()
-        return jsonify(Credentials=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -70,7 +72,7 @@ def getCredentials():
 def getUserCredentialByID(uid):
     if request.method == 'GET':
         result = User.getUserCredentials(uid)
-        return jsonify(Credential=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -80,7 +82,7 @@ def getUserCredentialByID(uid):
 def getAllActivities():
     if request.method == 'GET':
         result = User.getAllActivity()
-        return jsonify(Activities=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -89,7 +91,7 @@ def getAllActivities():
 def getUserActivityByID(uid):
     if request.method == 'GET':
         result = User.getUserActivity(uid)
-        return jsonify(Activity=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -99,7 +101,7 @@ def getUserActivityByID(uid):
 def getAllContacts():
     if request.method == 'GET':
         result = User.getAllContacts()
-        return jsonify(Contacts=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -108,9 +110,10 @@ def getAllContacts():
 def getUserContactsByID(uid):
     if request.method == 'GET':
         result = User.getUserContacts(uid)
-        return jsonify(Contacts=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
 
 # ================= Chat Methods ===================== #
 @app.route('/chats', methods=['GET'])
@@ -205,9 +208,8 @@ def getMessageByUserID(uid):
 @app.route('/topics', methods=['GET'])
 def getAllTopics():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
-        return jsonify(Topics=result)
+        result = Message.getAllTopics()
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -215,9 +217,8 @@ def getAllTopics():
 @app.route('/topics/message/<int:mid>', methods=['GET'])
 def getMessageTopicsByID(mid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
-        return jsonify(Topics=result)
+        result = Message.getMessageTopics(mid)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -225,9 +226,8 @@ def getMessageTopicsByID(mid):
 @app.route('/topics/user/<int:uid>', methods=['GET'])
 def getUserTopicsByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
-        return jsonify(Topics=result)
+        result = User.getUserTopics(uid)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -235,9 +235,8 @@ def getUserTopicsByID(uid):
 @app.route('/topics/chat/<int:cid>', methods=['GET'])
 def getChatTopicsByID(cid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
-        return jsonify(Topics=result)
+        result = Chat.getChatMediaByID(cid)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -247,7 +246,7 @@ def getChatTopicsByID(cid):
 def getAllMedia():
     if request.method == 'GET':
         result = Message.getAllMedias()
-        return jsonify(Medias=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -256,7 +255,7 @@ def getAllMedia():
 def getMessageMediaByID(mid):
     if request.method == 'GET':
         result = Message.getMessageMedia(mid)
-        return jsonify(Media=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -265,7 +264,7 @@ def getMessageMediaByID(mid):
 def getChatMediaByID(cid):
     if request.method == 'GET':
         result = Chat.getChatMediaByID(cid)
-        return jsonify(Media=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -275,7 +274,7 @@ def getChatMediaByID(cid):
 def getAllReactions():
     if request.method == 'GET':
         result = Message.getAllReacts()
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -284,7 +283,7 @@ def getAllReactions():
 def getAllLikeReactions():
     if request.method == 'GET':
         result = Message.getAllLikes()
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -293,7 +292,7 @@ def getAllLikeReactions():
 def getAllDislikeReactions():
     if request.method == 'GET':
         result = Message.getAllDislikes()
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -302,7 +301,7 @@ def getAllDislikeReactions():
 def getMessageReactionsByID(mid):
     if request.method == 'GET':
         result = Message.getMessageReactionsByID(mid)
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -311,7 +310,7 @@ def getMessageReactionsByID(mid):
 def getUserReactionsByID(uid):
     if request.method == 'GET':
         result = User.getUserReactions(uid)
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -320,7 +319,7 @@ def getUserReactionsByID(uid):
 def getMessageLikeReactionsByID(mid):
     if request.method == 'GET':
         result = Message.getMessageLikesByID(mid)
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -329,7 +328,7 @@ def getMessageLikeReactionsByID(mid):
 def getMessageDisLikeReactionsByID(mid):
     if request.method == 'GET':
         result = Message.getMessageDislikesByID(mid)
-        return jsonify(Reactions=result)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
