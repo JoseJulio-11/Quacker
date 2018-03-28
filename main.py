@@ -4,8 +4,6 @@ from Handler import Message
 from Handler import User
 
 
-stub_dict = {'ID': 1, "String": "StringStub", "Date": "2018-02-22"}
-# Activate
 app = Flask(__name__)
 
 @app.route('/')
