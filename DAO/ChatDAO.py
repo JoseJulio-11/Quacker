@@ -180,6 +180,10 @@ class ChatDAO:
                 return self.messages[9]
             return[]
 
+    def getAllParticipants(self):
+        #This method will give all the participants in the application
+        return self.participants
+
     def getChatParticipant(self,cID):
         #THis method will return the active participants of a specified chat ( active or nonactive chat)
          if cID == 1:

@@ -1,9 +1,9 @@
 from flask import jsonify
 import Handler.DictionaryBuilder as Dic
-from DAO.ReadChatDAO import ReadChatDAO
-from DAO.ReadMessagesDAO import ReadMessagesDAO
+from DAO.ChatDAO import ChatDAO
+from DAO.MessagesDAO import MessagesDAO
 
-dao = ReadChatDAO()
+dao = ChatDAO()
 
 class Chat:
 
@@ -43,6 +43,25 @@ class Chat:
             result = Dic.build_chat_messages(row)
             result_messages.append(result)
         return jsonify(Messages = result_messages)
+
+    def getChatByUserID(self,uID):
+        #This method will return the chats on which the user are part of
+        chats = dao.getChatByUserID(uID)
+        result_list = []
+        for row in chats:
+            result = Dic.build_chat_dict(row)
+            result_list.append(result)
+        return jsonify(Chats = result_list)
+
+    def getALlParticipants(self):
+        #THis method will return all the participants on the application
+        participants = dao.getAllParticipants()
+        result_list =[]
+        for row in participants:
+            result = Dic.build_participants_dict(row)
+            result_list.append(result)
+        return jsonify(Participants = result_list)
+
 
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat

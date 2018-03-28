@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from DAO.UserDAO import UserDAO
 from Handler.DictionaryBuilder import DictionaryBuilder
-class UserHandler:
+class User:
 
     def getAllUsers(self):
         dao = UserDAO()
