@@ -93,7 +93,7 @@ class ChatDAO:
         return []
 
     def getChatMessages(self,cID):
-       #TODO THis method will return the messafes on a determined chat
+       #THis method will return the messafes on a determined chat
         if cID == 1:
             return self.messages[5:10]
         if cID == 2:
