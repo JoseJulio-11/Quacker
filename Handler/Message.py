@@ -140,7 +140,7 @@ def getMessageTopics(mID):
             result.append(Dic.build_reacted_dict(row))
         return jsonify(Reaction = result)
 
-def getMessageByUserID(uID)
+def getMessageByUserID(uID):
     #This method will returnt the messages of a determined user
     dao = UserDAO()
     messages = dao.getUserMessages(uID)
