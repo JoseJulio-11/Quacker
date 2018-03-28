@@ -11,7 +11,6 @@ def getAllUsers():
         mapped_result.append(DictionaryBuilder.build_user_dict(r))
     return jsonify(Users = mapped_result)
 
-
 def getAllCredentials():
     dao = UserDAO()
     result = dao.getAllCredentials()
