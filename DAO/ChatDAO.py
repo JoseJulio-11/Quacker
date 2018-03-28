@@ -109,7 +109,7 @@ class ChatDAO:
         if cID == 1:
             return self.messages[5:10]
         if cID == 2:
-            return self.messages[10:13]
+            return self.messages[9:12]
         if cID == 3:
             return self.messages[0:6]
         if cID == 4:
@@ -420,7 +420,7 @@ class ChatDAO:
 
     def getChatsDeleted(self):
         # This method will return the deleted chats
-        return [self.chat[3], self.chat[5]]
+        return [self.chat[1], self.chat[3]]
 
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
