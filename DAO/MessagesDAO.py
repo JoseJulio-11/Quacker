@@ -102,11 +102,11 @@ class MessagesDAO:
 
     def getRepliedMessage(self, mID):
         if mID == 4:
-            return [self.messages[2]]
+            return self.messages[2]
         elif mID == 5:
-            return [self.messages[2]]
+            return self.messages[2]
         elif mID == 9:
-            return [self.messages[7]]
+            return self.messages[7]
         else:
             return []
 
@@ -331,7 +331,6 @@ class MessagesDAO:
         if isGroupChat and isActive:
             return []
         elif (not isGroupChat) and isActive:
-
             return []
         elif isGroupChat and (not isActive):
             if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
@@ -423,17 +422,17 @@ class MessagesDAO:
     # =================================== Get Media ============================= #
     def getMessageMedia(self, mID):
         if mID == 3:
-            return [self.media[0]]
+            return self.media[0]
         elif mID == 8:
-            return [self.media[1]]
+            return self.media[1]
         else:
             return []
 
     def getMedia(self, mediaID):
         if mediaID == 1:
-            return [self.media[0]]
+            return self.media[0]
         elif mediaID == 2:
-            return [self.media[1]]
+            return self.media[1]
         else:
             return []
 
