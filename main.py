@@ -13,18 +13,18 @@ app = Flask(__name__)
 def mainPage():
     return '<p><b>Welcome</b>, this is the main page for our project application <b>Quacker!!!</b></p>' \
            '<p>Currently you can navigate to the following addresses in the app:</p>' \
-           '<ol>' \
-           '<li>/users</li>' \
-           '<li>/credentials</li>' \
-           '<li>/activities</li> ' \
-           '<li>/contacts</li>' \
+           '<ul>' \
+           '<li>/users</li> <li>/users/[int:uID]</li> <li>/users/[bool:active]</li>' \
+           '<li>/credentials</li> <li>credentials/user/[int:uID]</li>' \
+           '<li>/activities</li> <li>activities/user/[int:uID]</li>' \
+           '<li>/contacts</li> <li>contacts/user/[int:uID]</li>' \
            '<li>/chats</li>' \
            '<li>/participants</li>' \
            '<li>/messages</li> ' \
            '<li>/reactions</li>' \
            '<li>/topics</li> ' \
            '<li>/medias</li>' \
-           '</ol>'
+           '</ul>'
 
 
 # ==================== User Methods ====================== #
@@ -33,17 +33,24 @@ def getAllUsers():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['User'] = 1
         return jsonify(Users=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/users/<int:uID>', methods=['GET'])
-def getUserByID(uID):
+@app.route('/users/<int:uid>', methods=['GET'])
+def getUserByID(uid):
     if request.method == 'GET':
         # @TODO Add Handler here (GIve uID)
         result = stub_dict.copy()
-        result['User'] = uID
+        return jsonify(User=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/users/<bool:active>', methods=['GET'])
+def getAllUsersByActivity(active):
+    if request.method == 'GET':
+        # @TODO Add Handler here (GIve active)
+        result = stub_dict.copy()
         return jsonify(Users=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -55,18 +62,17 @@ def getCredentials():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Credential'] = 1
         return jsonify(Credentials=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/credentials/user/<int:uID>', methods=['GET'])
-def getCredentialsByUserID(uID):
+
+@app.route('/credentials/user/<int:uid>', methods=['GET'])
+def getUserCredentialByID(uid):
     if request.method == 'GET':
         # @TODO Add Handler here (GIve uID)
         result = stub_dict.copy()
-        result['User'] = uID
-        return jsonify(Users=result)
+        return jsonify(Credential=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -77,8 +83,17 @@ def getAllActivities():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Activity'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Activities=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/activities/user/<int:uid>', methods=['GET'])
+def getUserActivityByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Activity=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -89,8 +104,17 @@ def getAllContacts():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Contact'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Contacts=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/contacts/user/<int:uid>', methods=['GET'])
+def getUserContactsByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Contacts=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -100,11 +124,29 @@ def getAllChats():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Chat'] = 1
+        return jsonify(Chats=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/chats/<int:cid>', methods=['GET'])
+def getChatByID(cid):
+    if request.method == 'GET':
+        # @TODO Add Handler here (Use cid)
+        result = stub_dict.copy()
         return jsonify(userCredential=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
+@app.route('/chats/user/<int:uid>', methods=['GET'])
+def getUserChatsByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here (Use uid)
+        result = stub_dict.copy()
+        return jsonify(Chats=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
 
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])
@@ -112,8 +154,17 @@ def getAllParticipants():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Participant'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Participants=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/participants/chat/<int:cid>', methods=['GET'])
+def getChatParticipantsByID(cid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Participants=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -124,8 +175,34 @@ def getAllMessages():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Message'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Messages=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/messages/<int:mid>', methods=['GET'])
+def getMessageByID(mid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Message=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/messages/chat/<int:cid>', methods=['GET'])
+def getMessageByChatID(cid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Messages=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/messages/user/<int:uid>', methods=['GET'])
+def getMessageByChatID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Messages=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -136,11 +213,39 @@ def getAllTopics():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Topic'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Topics=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
+@app.route('/topics/message/<int:mid>', methods=['GET'])
+def getMessageTopicsByID(mid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Topics=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/topics/user/<int:uid>', methods=['GET'])
+def getUserTopicsByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Topics=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/topics/chat/<int:cid>', methods=['GET'])
+def getChatTopicsByID(cid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Topics=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
 
 # =============== Media Methods ========================= #
 @app.route('/media', methods=['GET'])
@@ -148,8 +253,27 @@ def getAllMedia():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['media'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Medias=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/media/message/<int:mid>', methods=['GET'])
+def getMessageMediaByID(mid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Media=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/media/chat/<int:cid>', methods=['GET'])
+def getChatMediaByID(cid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Media=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
