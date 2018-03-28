@@ -1,4 +1,6 @@
-
+"""
+This Class contain DAO methods for the entities of Chats and Participants
+"""
 class ChatDAO:
 
     def __init__(self):
