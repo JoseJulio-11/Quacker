@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
-from Handler.Chat import Chat
-from Handler.Message import Message
-from Handler.User import User
+from Handler import Chat
+from Handler import Message
+from Handler import User
 
 
 stub_dict = {'ID': 1, "String": "StringStub", "Date": "2018-02-22"}

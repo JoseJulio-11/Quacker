@@ -1,6 +1,7 @@
 from flask import jsonify
 import Handler.DictionaryBuilder as Dic
 from DAO.ChatDAO import ChatDAO
+
 from DAO.MessagesDAO import MessagesDAO
 
 dao = ChatDAO()
