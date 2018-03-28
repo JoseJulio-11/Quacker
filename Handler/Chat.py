@@ -8,7 +8,7 @@ dao = ChatDAO()
 class Chat:
 
     def getAllChats(self):
-  #This method will return all the chats
+         #This method will return all the chats
 
         chat_lists = dao.getAllChats()
         result_list = []
@@ -28,6 +28,7 @@ class Chat:
 
     def getParticipantsByChatID(self,cID):
         #TTHis method returns the list of participants in a determined chat
+
         chat_participants = dao.getChatParticipant()
         result_list = []
         for row in chat_participants:
@@ -36,7 +37,8 @@ class Chat:
         return jsonify(Participants = result_list)
 
     def getMessagesByChatID(self,cID):
-    #This method will return the messages in a determined  chat
+         #This method will return the messages in a determined  chat
+
         chat_messages = dao.getChatMessages(cID)
         result_messages = []
         for row in chat_messages:
@@ -46,6 +48,7 @@ class Chat:
 
     def getChatByUserID(self,uID):
         #This method will return the chats on which the user are part of
+
         chats = dao.getChatByUserID(uID)
         result_list = []
         for row in chats:
@@ -55,6 +58,7 @@ class Chat:
 
     def getALlParticipants(self):
         #THis method will return all the participants on the application
+
         participants = dao.getAllParticipants()
         result_list =[]
         for row in participants:
