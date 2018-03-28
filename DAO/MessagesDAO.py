@@ -96,8 +96,8 @@ class MessagesDAO:
 
     # ====================== Get Message Records ============================================ #
     def getMessageInfo(self, mID):
-        if mID >= 0 and mID <= 11:
-            return self.messages[mID]
+        if mID >= 1 and mID <= 12:
+            return self.messages[mID-1]
         return []
 
     def getRepliedMessage(self, mID):
