@@ -1,5 +1,6 @@
 # Quacker
 A hybrid messaging app that is themed with Ducks!
+
 ## Requirements 
 * Install Python 3 or above
 * Install PostgreSQL
@@ -11,6 +12,9 @@ A hybrid messaging app that is themed with Ducks!
 Simply run the main.py program. In this phase we are
 only interested in navigating some queries from the 
 database using app routes. 
+
+## Heroku Website:
+* https://quacker-pr.herokuapp.com/
 
 ## URL Locations:
 ##### Main Page:
