@@ -55,8 +55,7 @@ class ChatDAO:
                          [5, "More like ew! #WTF", "2018-1-20", "16:47:41", 3, 6, True, 3],
                          [6, "Yo Dudes!", "2018-1-17", "15:32:13", 1, 1, False, None],
                          [7, "Hey Man wanna go to the gym?", "2018-1-17", "15:33:13", 1, 5, False, None],
-                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False,
-                          None],
+                         [8, "Already went, look at my ripped muscles Pic!!!", "2018-1-17", "15:34:13", 1, 4, False, None],
                          [9, "Nouce Dude! #DoYouEvenLift?", "2018-1-17", "15:35:13", 1, 5, False, 8],
                          [10, "Hey wanna go out 2nite?", "2018-1-25", "16:35:27", 4, 1, True, None],
                          [11, "Hey!!!", "2018-1-10", "08:13:45", 2, 3, False, None],
@@ -73,6 +72,36 @@ class ChatDAO:
         # mid, mediaid, isVideo, location
         self.media = [[3, 1, True, "c://localhost/videos/weirdVid.mov"],
                       [9, 2, False, "c://localhost/photo/muscle.jpeg"]]
+    def getAllChats(self):
+       #This method will return all the chats
+        return self.chat[0:4]
+
+    def getChatByUserID(self, uID):
+        # TODO This method will return the chats on which that user is in
+        if uID == 1:
+            return self.chat[2]
+        if uID == 2:
+            return self.chat[1:4]
+        if uID == 3:
+            return []
+        if uID == 4:
+            return self.chat[5]
+        if uID == 5:
+            return [2]
+        if uID == 6:
+            return []
+        return []
+
+    def getChatMessages(self,cID):
+       #TODO THis method will return the messafes on a determined chat
+        if cID == 1:
+            return self.messages[5:10]
+        if cID == 2:
+            return self.messages[10:13]
+        if cID == 3:
+            return self.messages[0:6]
+        if cID == 4:
+            return self.messages[11]
 
     # ============================== Create Methods ============================= #
     def insertChat(self, cName, cDate, cTime, isGroupChat, adminID):
@@ -364,6 +393,24 @@ class ChatDAO:
         if cID == 3:
             return self.messages[4]
         return[]
+
+    def getChatByID(self,cID):
+        #This method will return the chat given its ID
+        #I THINK we should get a chat by NAME instead of by chatID
+        if cID == 1:
+            return self.chat[2]
+        if cID == 2:
+            return self.chat[3]
+        if cID == 3:
+            return self.chat[4]
+        if cID == 4:
+            return self.chat[5]
+        return[]
+
+    def getChatDeleted(self):
+        #This method will return the deleted chats
+        return [self.chat[3], self.chat[5]]
+
 
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):

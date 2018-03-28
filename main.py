@@ -14,16 +14,22 @@ def mainPage():
     return '<p><b>Welcome</b>, this is the main page for our project application <b>Quacker!!!</b></p>' \
            '<p>Currently you can navigate to the following addresses in the app:</p>' \
            '<ul>' \
-           '<li>/users</li> <li>/users/[int:uID]</li> <li>/users/[bool:active]</li>' \
-           '<li>/credentials</li> <li>credentials/user/[int:uID]</li>' \
-           '<li>/activities</li> <li>activities/user/[int:uID]</li>' \
-           '<li>/contacts</li> <li>contacts/user/[int:uID]</li>' \
-           '<li>/chats</li>' \
-           '<li>/participants</li>' \
-           '<li>/messages</li> ' \
-           '<li>/reactions</li>' \
-           '<li>/topics</li> ' \
-           '<li>/medias</li>' \
+           '<li>/users</li> <li>/users/[int:uid]</li> <li>/users/active</li>' \
+           '<li>/credentials</li> <li>/credentials/user/[int:uid]</li>' \
+           '<li>/activities</li> <li>/activities/user/[int:uid]</li>' \
+           '<li>/contacts</li> <li>/contacts/user/[int:uid]</li>' \
+           '<li>/chats</li> <li>/chats/[int:cid]</li> <li>/chats/user/[int:uid]</li>' \
+           '<li>/participants</li> <li>/participants/chats/[int:cid]</li>' \
+           '<li>/messages</li> <li>/messages/[int:mid]</li> <li>/messages/user/[int:uid]</li>' \
+           '<li>/messages/chat/[int:cid]</li>' \
+           '<li>/medias</li> <li>/medias/chat/[int:cid]</li> <li>/medias/messages/[int:mid]</li>' \
+           '<li>/topics</li> <li>/topics/chat/[int:cid]</li> <li>/topics/messages/[int:mid]</li>' \
+           '<li>/topics/user/[int:mid]</li>' \
+           '<li>/reactions</li> <li>/reactions/messages/[int:mid]</li> <li>/reactions/user/[int:uid]</li>' \
+           '<li>/reactions/likes</li> <li>/reactions/likes/messages/[int:mid]</li> ' \
+           '<li>/reactions/likes/user/[int:uid]</li>' \
+           '<li>/reactions/dislikes</li> <li>/reactions/dislikes/messages/[int:mid]</li> ' \
+           '<li>/reactions/dislikes/user/[int:uid]</li>' \
            '</ul>'
 
 
@@ -46,8 +52,8 @@ def getUserByID(uid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/users/<bool:active>', methods=['GET'])
-def getAllUsersByActivity(active):
+@app.route('/users/active', methods=['GET'])
+def getAllUsersByActivity():
     if request.method == 'GET':
         # @TODO Add Handler here (GIve active)
         result = stub_dict.copy()
@@ -148,6 +154,7 @@ def getUserChatsByID(uid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])
 def getAllParticipants():
@@ -197,8 +204,9 @@ def getMessageByChatID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
 @app.route('/messages/user/<int:uid>', methods=['GET'])
-def getMessageByChatID(uid):
+def getMessageByUserID(uid):
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
@@ -247,8 +255,9 @@ def getChatTopicsByID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-# =============== Media Methods ========================= #
-@app.route('/media', methods=['GET'])
+
+# ==================== Media Methods ========================= #
+@app.route('/medias', methods=['GET'])
 def getAllMedia():
     if request.method == 'GET':
         # @TODO Add Handler here
@@ -258,7 +267,7 @@ def getAllMedia():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/media/message/<int:mid>', methods=['GET'])
+@app.route('/medias/message/<int:mid>', methods=['GET'])
 def getMessageMediaByID(mid):
     if request.method == 'GET':
         # @TODO Add Handler here
@@ -268,7 +277,7 @@ def getMessageMediaByID(mid):
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/media/chat/<int:cid>', methods=['GET'])
+@app.route('/medias/chat/<int:cid>', methods=['GET'])
 def getChatMediaByID(cid):
     if request.method == 'GET':
         # @TODO Add Handler here
@@ -284,8 +293,87 @@ def getAllReactions():
     if request.method == 'GET':
         # @TODO Add Handler here
         result = stub_dict.copy()
-        result['Reaction'] = 1
-        return jsonify(userCredential=result)
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/like', methods=['GET'])
+def getAllLikeReactions():
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/dislike', methods=['GET'])
+def getAllDislikeReactions():
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/message/<int:mid>', methods=['GET'])
+def getMessageReactionsByID(mid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/user/<int:uid>', methods=['GET'])
+def getUserReactionsByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/like/message/<int:mid>', methods=['GET'])
+def getMessageLikeReactionsByID(mid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/like/user/<int:uid>', methods=['GET'])
+def getUserLikeReactionsByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/dislike/message/<int:mid>', methods=['GET'])
+def getMessageDisLikeReactionsByID(mid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/dislike/user/<int:uid>', methods=['GET'])
+def getUserDislikeReactionsByID(uid):
+    if request.method == 'GET':
+        # @TODO Add Handler here
+        result = stub_dict.copy()
+        return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
 
