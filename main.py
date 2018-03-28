@@ -8,7 +8,6 @@ stub_dict = {'ID': 1, "String": "StringStub", "Date": "2018-02-22"}
 # Activate
 app = Flask(__name__)
 
-
 @app.route('/')
 def mainPage():
     return '<p><b>Welcome</b>, this is the main page for our project application <b>Quacker!!!</b></p>' \
@@ -279,7 +278,7 @@ def getMessageMediaByID(mid):
 def getChatMediaByID(cid):
     if request.method == 'GET':
         # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = []
         return jsonify(Media=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -289,8 +288,7 @@ def getChatMediaByID(cid):
 @app.route('/reactions', methods=['GET'])
 def getAllReactions():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getAllReacts()
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -299,8 +297,7 @@ def getAllReactions():
 @app.route('/reactions/like', methods=['GET'])
 def getAllLikeReactions():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getAllLikes()
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -309,8 +306,7 @@ def getAllLikeReactions():
 @app.route('/reactions/dislike', methods=['GET'])
 def getAllDislikeReactions():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getAllDislikes()
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -319,8 +315,7 @@ def getAllDislikeReactions():
 @app.route('/reactions/message/<int:mid>', methods=['GET'])
 def getMessageReactionsByID(mid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getMessageReactionsByID(mid)
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -329,8 +324,7 @@ def getMessageReactionsByID(mid):
 @app.route('/reactions/user/<int:uid>', methods=['GET'])
 def getUserReactionsByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = User.getUserReactions(uid)
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -339,18 +333,7 @@ def getUserReactionsByID(uid):
 @app.route('/reactions/like/message/<int:mid>', methods=['GET'])
 def getMessageLikeReactionsByID(mid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
-        return jsonify(Reactions=result)
-    else:
-        return jsonify(Error="Method not allowed"), 404
-
-
-@app.route('/reactions/like/user/<int:uid>', methods=['GET'])
-def getUserLikeReactionsByID(uid):
-    if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getMessageLikesByID(mid)
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -359,18 +342,7 @@ def getUserLikeReactionsByID(uid):
 @app.route('/reactions/dislike/message/<int:mid>', methods=['GET'])
 def getMessageDisLikeReactionsByID(mid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
-        return jsonify(Reactions=result)
-    else:
-        return jsonify(Error="Method not allowed"), 404
-
-
-@app.route('/reactions/dislike/user/<int:uid>', methods=['GET'])
-def getUserDislikeReactionsByID(uid):
-    if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getMessageDislikesByID(mid)
         return jsonify(Reactions=result)
     else:
         return jsonify(Error="Method not allowed"), 404

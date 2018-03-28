@@ -6,7 +6,7 @@ from DAO.MessagesDAO import MessagesDAO
 
 dao = ChatDAO()
 
-def getAllChats(self):
+def getAllChats():
      #This method will return all the chats
 
     chat_lists = dao.getAllChats()
@@ -16,7 +16,7 @@ def getAllChats(self):
         result_list.append(result)
     return jsonify(Chat = result_list)
 
-def getChatByID(self,cID):
+def getChatByID(cID):
     #This method will return the determined chat by its ID
     row = dao.getChatByID(cID)
     if not row:

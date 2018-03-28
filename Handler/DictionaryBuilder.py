@@ -1,4 +1,3 @@
-
 def build_user_dict(userInfo):
     # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONYM
     user = {}
