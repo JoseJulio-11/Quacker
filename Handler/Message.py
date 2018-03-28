@@ -1,6 +1,7 @@
 from flask import jsonify
 from Handler import DictionaryBuilder as Dic
 from DAO.MessagesDAO import MessagesDAO
+from DAO.UserDAO import UserDAO
 dao = MessagesDAO()
 
 
@@ -138,3 +139,17 @@ def getMessageTopics(mID):
         for row in rows:
             result.append(Dic.build_reacted_dict(row))
         return jsonify(Reaction = result)
+
+def getMessageByUserID(uID):
+    #This method will returnt the messages of a determined user
+    dao = UserDAO()
+    messages = dao.getUserMessages(uID)
+    if not messages:
+        return jsonify(Error = " User does not have any messages sent."), 404
+    else:
+        result_list =[]
+        for row in messages:
+            result= Dic.build_message_dict(row)
+            result_list.append(result)
+        return jsonify(Messages = result_list)
+
