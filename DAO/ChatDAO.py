@@ -185,7 +185,7 @@ class ChatDAO:
         # This method will give all the participants in the application
         return self.participants
 
-    def getChatParticipant(self,cID):
+    def getChatParticipants(self,cID):
         # THis method will return the active participants of a specified chat ( active or nonactive chat)
         if cID == 1:
             return self.participants[0:3]
@@ -197,7 +197,7 @@ class ChatDAO:
             return self.participants[8:10]
         return []
 
-    def getChatActivePartipant(self,cID):
+    def getChatActivePartipants(self,cID):
         # This method will give the active participants in a desired chat
         if cID == 1:
             return self.participants[0:3]
@@ -209,7 +209,7 @@ class ChatDAO:
             return [self.participants[9]]
         return []
 
-    def getChatNonActiveParticipant(self,cID):
+    def getChatNonActiveParticipants(self,cID):
         # This method will return the non active users in a certain chat
         if cID == 3:
             return [self.participants[5]]
@@ -228,7 +228,7 @@ class ChatDAO:
         if cID == 4:
             return self.chat[3]
 
-    def getChatTopic(self,cID):
+    def getChatTopics(self, cID):
         # This method will return the topics of a active chat
         if cID == 1:
             return [self.topic[2]]
@@ -236,7 +236,7 @@ class ChatDAO:
             return self.topic[0:2]
         return []
 
-    def getChatMedia(self,cID):
+    def getChatMedia(self, cID):
         # This method will return the media sended in that determined chat
         if cID == 1:
             return [self.media[2]]
@@ -244,7 +244,7 @@ class ChatDAO:
             return [self.media[1]]
         return []
 
-    def getChatReactions(self,cID):
+    def getChatReactions(self, cID):
         # It will return the reactions based on the chat
         if cID == 3:
             return self.reacted[0:2]
@@ -374,14 +374,14 @@ class ChatDAO:
             return self.chat[2]
         return []
 
-    def getChatByTopic(self,hashtag):
-        # This method will return the chat on which the hashtag was seneded
+    def getChatsByTopic(self,hashtag):
+        # This method will return the chats on which the hashtag was sent
         if hashtag == 'mindblowing':
-            return self.chat[4]
+            return [self.chat[4]]
         if hashtag == 'doyouevenlift?':
-            return self.chat[2]
+            return [self.chat[2]]
         if hashtag == 'wtf':
-            return self.chat[4]
+            return [self.chat[4]]
         return[]
 
     def getChatRepliedMessages(self,cID):
@@ -418,7 +418,7 @@ class ChatDAO:
             return self.chat[5]
         return []
 
-    def getChatDeleted(self):
+    def getChatsDeleted(self):
         # This method will return the deleted chats
         return [self.chat[3], self.chat[5]]
 
