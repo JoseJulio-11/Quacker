@@ -103,7 +103,7 @@ class ChatDAO:
             return [2]
         if uID == 6:
             return []
-        return []
+        return None
 
     def getChatMessages(self, cID):
         # THis method will return the messafes on a determined chat
