@@ -148,7 +148,7 @@ def getUserChatsByID(uid):
 
 
 @app.route('/chats/admin/user/<int:uid>', methods=['GET'])
-def getUserChatsByID(uid):
+def getChatsAsAdminByID(uid):
     if request.method == 'GET':
 
         result = User.getChatAsAdmin(uid)
