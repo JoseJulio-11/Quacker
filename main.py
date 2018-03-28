@@ -26,9 +26,7 @@ def mainPage():
            '<li>/topics/user/[int:mid]</li>' \
            '<li>/reactions</li> <li>/reactions/messages/[int:mid]</li> <li>/reactions/user/[int:uid]</li>' \
            '<li>/reactions/likes</li> <li>/reactions/likes/messages/[int:mid]</li> ' \
-           '<li>/reactions/likes/user/[int:uid]</li>' \
            '<li>/reactions/dislikes</li> <li>/reactions/dislikes/messages/[int:mid]</li> ' \
-           '<li>/reactions/dislikes/user/[int:uid]</li>' \
            '</ul>'
 
 
