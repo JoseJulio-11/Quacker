@@ -107,6 +107,14 @@ class UserHandler:
             mapped_result.append(DictionaryBuilder.build_topic_dict(r))
         return jsonify(UserTopics = mapped_result)
 
+    def getUserTopicsBetween(self, uID, bDate, aDate):
+        dao = UserDAO()
+        result = dao.getUserTopicsBetween(uID, bDate, aDate)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_topic_dict(r))
+        return jsonify(UserTopics = mapped_result)
+
     def getActiveUsers(self):
         dao = UserDAO()
         result = dao.getActiveUsers()
@@ -122,5 +130,5 @@ class UserHandler:
         for r in result:
             mapped_result.append(DictionaryBuilder.build_user_dict(r))
         return jsonify(UserCreated = mapped_result)
-    
+
 
