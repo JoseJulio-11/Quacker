@@ -342,11 +342,11 @@ class MessagesDAO:
     # ================================== Get Topics ===================================== #
     def getMessageTopics(self, mID):
         if mID == 4:
-            return self.topic[0]
+            return [self.topic[0]]
         elif mID == 5:
-            return self.topic[1]
+            return [self.topic[1]]
         elif mID == 9:
-            return self.topic[2]
+            return [self.topic[2]]
         else:
             return []
 
