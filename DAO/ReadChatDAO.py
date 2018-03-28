@@ -1,5 +1,5 @@
 
-class ReadChatDAO:
+class ChatDAO:
 
     def __init__(self):
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
@@ -73,6 +73,17 @@ class ReadChatDAO:
     def getAllChats(self):
        #This method will return all the chats
         return self.chat[0:4]
+
+    def getChatMessages(self,cID):
+       #TODO THis method will return the messafes on a determined chat
+        if cID == 1:
+            return self.messages[5:10]
+        if cID == 2:
+            return self.messages[10:13]
+        if cID == 3:
+            return self.messages[0:6]
+        if cID == 4:
+            return self.messages[]
 
     def geActivetChatMessages(self,cID,isDeleted):
        #This method will only return all the messages in all the active single chats
@@ -370,5 +381,18 @@ class ReadChatDAO:
         return [self.chat[3], self.chat[5]]
 
 
+    # ======================= Update Methods ========================== #
+    def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
+        # This method is supposed to be used to change the chat name
+        # Also to that its admin 'deletes' chats by changing it to false
+        return cID
 
+    # ======================= Delete Methods ========================= #
+    def deleteChat(self, cID):
+        # Remove a chat
+        return cID
+
+    def deleteParticipant(self, cID, uID):
+        # Remove an user from a chat
+        return cID, uID
 
