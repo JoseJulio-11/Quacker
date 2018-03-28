@@ -119,27 +119,27 @@ class UserDAO:
 
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
-        userInfo = []
         for r in self.users:
             if uID == r[0]:
-                userInfo.append(r)
-        return userInfo
+                return r
+        else:
+            return []
 
     #Returns a list with the credentials of the user with ID uID
     def getUserCredentials(self, uID):
-        userCredentials = []
         for r in self.credentials:
             if uID == r[0]:
-                userCredentials.append(r)
-        return userCredentials
+               return r
+        else:
+            return []
 
     #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
-        userActivity = []
-        for r in self.activity:
+       for r in self.activity:
             if uID == r[3]:
-                userActivity.append(r)
-        return userActivity
+                return r
+       else:
+           return []
 
     #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
