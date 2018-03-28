@@ -239,7 +239,7 @@ class ChatDAO:
     def getChatMedia(self, cID):
         # This method will return the media sended in that determined chat
         if cID == 1:
-            return [self.media[2]]
+            return [self.media[0]]
         if cID == 3:
             return [self.media[1]]
         return []
