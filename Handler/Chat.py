@@ -70,6 +70,14 @@ def getALlParticipants():
     return jsonify(Participants = result_list)
 
 
+def getChatMediaByID(cid):
+    media = dao.getAllParticipants()
+    result_list = []
+    for row in media:
+        result = Dic.build_media_dict(row)
+        result_list.append(result)
+    return jsonify(Media=result_list)
+
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat
 #        dao = ReadChatDAO()

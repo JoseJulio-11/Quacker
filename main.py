@@ -246,8 +246,7 @@ def getChatTopicsByID(cid):
 @app.route('/medias', methods=['GET'])
 def getAllMedia():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getAllMedias()
         return jsonify(Medias=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -256,8 +255,7 @@ def getAllMedia():
 @app.route('/medias/message/<int:mid>', methods=['GET'])
 def getMessageMediaByID(mid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Message.getMessageMedia(mid)
         return jsonify(Media=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -266,8 +264,7 @@ def getMessageMediaByID(mid):
 @app.route('/medias/chat/<int:cid>', methods=['GET'])
 def getChatMediaByID(cid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = []
+        result = Chat.getChatMediaByID(cid)
         return jsonify(Media=result)
     else:
         return jsonify(Error="Method not allowed"), 404
