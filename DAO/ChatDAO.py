@@ -231,7 +231,7 @@ class ChatDAO:
     def getChatTopics(self, cID):
         # This method will return the topics of a active chat
         if cID == 1:
-            return [self.topic[2]]
+            return self.topic[2]
         if cID == 3:
             return self.topic[0:2]
         return []

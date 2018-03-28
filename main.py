@@ -158,7 +158,6 @@ def getChatParticipantsByID(cid):
 @app.route('/messages', methods=['GET'])
 def getAllMessages():
     if request.method == 'GET':
-
         result = Message.getAllMessages()
         return result
     else:
