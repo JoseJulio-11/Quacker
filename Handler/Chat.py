@@ -91,7 +91,7 @@ def getChatTopicByID(cid):
         return jsonify(Error="No Media Found")
     result_list = []
     for row in media:
-        result = Dic.build_media_dict(row)
+        result = Dic.build_topic_dict(row)
         result_list.append(result)
     return jsonify(Media=result_list)
 
