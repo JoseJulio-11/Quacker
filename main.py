@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
-#from Handler.Chat import Chat
-#from Handler.Message import Message
-#from Handler.User import User
-from Handler.DictionaryBuilder import DictionaryBuilder
+from Handler import Chat
+from Handler import Message
+from Handler import User
+
 
 stub_dict = {'ID': 1, "String": "StringStub", "Date": "2018-02-22"}
 # Activate
@@ -128,8 +128,8 @@ def getUserContactsByID(uid):
 @app.route('/chats', methods=['GET'])
 def getAllChats():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+
+        result = Chat.getAllChats()
         return jsonify(Chats=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -138,8 +138,8 @@ def getAllChats():
 @app.route('/chats/<int:cid>', methods=['GET'])
 def getChatByID(cid):
     if request.method == 'GET':
-        # @TODO Add Handler here (Use cid)
-        result = stub_dict.copy()
+
+        result = Chat.getChatByID(cid)
         return jsonify(userCredential=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -148,8 +148,8 @@ def getChatByID(cid):
 @app.route('/chats/user/<int:uid>', methods=['GET'])
 def getUserChatsByID(uid):
     if request.method == 'GET':
-        # @TODO Add Handler here (Use uid)
-        result = stub_dict.copy()
+
+        result = Chat.getChatByUserID(uid)
         return jsonify(Chats=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -159,8 +159,7 @@ def getUserChatsByID(uid):
 @app.route('/participants', methods=['GET'])
 def getAllParticipants():
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Chat.getALlParticipants()
         return jsonify(Participants=result)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -169,8 +168,7 @@ def getAllParticipants():
 @app.route('/participants/chat/<int:cid>', methods=['GET'])
 def getChatParticipantsByID(cid):
     if request.method == 'GET':
-        # @TODO Add Handler here
-        result = stub_dict.copy()
+        result = Chat.getParticipantsByChatID(cid)
         return jsonify(Participants=result)
     else:
         return jsonify(Error="Method not allowed"), 404
