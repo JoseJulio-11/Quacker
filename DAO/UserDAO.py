@@ -1,4 +1,6 @@
-
+"""
+This Class contain DAO methods for the entities of Users, Activities, Credentials and Contacts
+"""
 class UserDAO:
 
     def __init__(self):
