@@ -148,14 +148,6 @@ class UserDAO:
                 contactList.append(r)
         return contactList
 
-    #Returns a list with the chats of the admin user with ID uID
-    def getChatsAsAdmin(self, uID):
-        adminChatsList = []
-        for r in self.chat:
-            if uID == r[6]:
-                adminChatsList.append(r)
-        return adminChatsList
-
     #Returns the list of all chats which the user with ID uID is member of.
     def getChatAsMember(self, uID):
         memberChatsList = []
