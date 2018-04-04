@@ -129,8 +129,7 @@ def getMessageTopics(mID):
 
 def getMessageByUserID(uID):
     # This method will return the messages of a determined user
-    daou = UserDAO()
-    messages = daou.getUserMessages(uID)
+    messages = dao.getUserMessages(uID)
     if not messages:
         return jsonify(Error="User does not have any messages sent."), 404
     result_list = []

@@ -5,6 +5,8 @@ mainpage =  '<head> ' \
             '<body> ' \
             '<h1>Welcome to <b>Quacker!!!</b></h1>' \
             '<p>This is Phase 1\'s the main page for our project application called Quacker!</p>' \
+            '<p>To view the project repo' \
+            ' visit <a href="https://github.com/alberto64/Quacker">Quaker at Git Hub </a></p>' \
             '<p>Currently you can navigate to the following addresses in the app:</p>' \
             '<h2>URL Locations:</h2>' \
             '<h3>Main Page:</h3>' \
