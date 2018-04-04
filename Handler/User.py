@@ -49,7 +49,7 @@ def getUserInfo(uID):
     result = dao.getUserInfo(uID)
     if not result:
         return jsonify(Error="No Records Found")
-    DictionaryBuilder.build_user_dict(result)
+    result = DictionaryBuilder.build_user_dict(result)
     return jsonify(UserInfo = result)
 
 
@@ -57,7 +57,7 @@ def getUserCredentials(uID):
     result = dao.getUserCredentials(uID)
     if not result:
         return jsonify(Error = "No Records Found")
-    DictionaryBuilder.build_credential_dict(result)
+    result = DictionaryBuilder.build_credential_dict(result)
     return jsonify(UserCredentials = result)
 
 
@@ -65,7 +65,7 @@ def getUserActivity(uID):
     result = dao.getUserActivity(uID)
     if not result:
         return jsonify(Error = "No Records Found")
-    DictionaryBuilder.build_activity_dict(result)
+    result = DictionaryBuilder.build_activity_dict(result)
     return jsonify(UserActivity = result)
 
 
