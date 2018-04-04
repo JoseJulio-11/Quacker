@@ -1,4 +1,5 @@
 from flask import jsonify
+
 from Handler import DictionaryBuilder as Dic
 from DAO.ChatDAO import ChatDAO
 
@@ -39,18 +40,6 @@ def getParticipantsByChatID(cID):
     return jsonify(Participants=result_list)
 
 
-def getMessagesByChatID(cID):
-    # This method will return the messages in a determined  chat
-    chat_messages = dao.getChatMessages(cID)
-    if not chat_messages:
-        return jsonify(Error="No Messages Found")
-    result_messages = []
-    for row in chat_messages:
-        result = Dic.build_message_dict(row)
-        result_messages.append(result)
-    return jsonify(Messages=result_messages)
-
-
 def getChatByUserID(uID):
     # This method will return the chats on which the user are part of
     chats = dao.getChatByUserID(uID)
@@ -74,26 +63,23 @@ def getALlParticipants():
         result_list.append(result)
     return jsonify(Participants=result_list)
 
+def getChatAsAdmin(uID):
+    result = dao.getChatsAsAdmin(uID)
+    if not result:
+        return jsonify(Error="No Chats Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(Dic.build_chat_dict(r))
+    return jsonify(AdminChats=mapped_result)
 
-def getChatMediaByID(cid):
-    media = dao.getChatMedia(cid)
-    if not media:
-        return jsonify(Error="No Media Found")
-    result_list = []
-    for row in media:
-        result = Dic.build_media_dict(row)
-        result_list.append(result)
-    return jsonify(Media=result_list)
-
-def getChatTopicByID(cid):
-    media = dao.getChatTopics(cid)
-    if not media:
-        return jsonify(Error="No Media Found")
-    result_list = []
-    for row in media:
-        result = Dic.build_topic_dict(row)
-        result_list.append(result)
-    return jsonify(Media=result_list)
+def getChatAsMember(uID):
+    result = dao.getChatAsMember(uID)
+    if not result:
+        return jsonify(Error="No Chats Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(Dic.build_participants_dict(r))
+    return jsonify(MemberChats=mapped_result)
 
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat

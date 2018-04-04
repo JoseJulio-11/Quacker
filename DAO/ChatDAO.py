@@ -193,6 +193,13 @@ class ChatDAO:
         # This method will return the deleted chats
         return [self.chat[1], self.chat[3]]
 
+    # Returns the list of all chats which the user with ID uID is member of.
+    def getChatAsMember(self, uID):
+        memberChatsList = []
+        for r in self.participants:
+            if uID == r[1]:
+                memberChatsList.append(r)
+        return memberChatsList
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
         # This method is supposed to be used to change the chat name
