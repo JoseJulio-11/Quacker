@@ -45,7 +45,7 @@ def getAllActivity():
 def getUserInfo(uID):
     result = dao.getUserInfo(uID)
     if not result:
-        return jsonify(Error ="No Users Found")
+        return jsonify(Error ="No User Found")
     result = DictionaryBuilder.build_user_dict(result)
     return jsonify(UserInfo = result)
 
@@ -93,7 +93,7 @@ def getUsersCreatedBetween(bDate, aDate):
 def getUserByNameAndUsername(fName, lName, username):
     result = dao.getUserByNameAndUsername(fName, lName, username)
     if not result:
-        return jsonify(Error = "No Users Found")
+        return jsonify(Error = "No User Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
@@ -102,7 +102,7 @@ def getUserByNameAndUsername(fName, lName, username):
 def getUserByNameAndPhone(fName, lName, phone):
     result = dao.getUserByNameAndPhone(fName, lName, phone)
     if not result:
-        return jsonify(Error = "No Users Found")
+        return jsonify(Error = "No User Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
@@ -111,7 +111,7 @@ def getUserByNameAndPhone(fName, lName, phone):
 def getUserByNameAndEmail(fName, lName, uemail):
     result = dao.getUserByNameAndEmail(fName, lName, uemail)
     if not result:
-        return jsonify(Error = "No Users Found")
+        return jsonify(Error = "No User Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
@@ -120,7 +120,7 @@ def getUserByNameAndEmail(fName, lName, uemail):
 def getUserByEmailAndPassword(uemail, password):
     result = dao.getUserByNameAndEmail(uemail, password)
     if not result:
-        return jsonify(Error = "No Users Found")
+        return jsonify(Error = "No User Found")
     mapped_result = []
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
