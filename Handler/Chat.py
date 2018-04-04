@@ -63,23 +63,23 @@ def getALlParticipants():
         result_list.append(result)
     return jsonify(Participants=result_list)
 
-    def getChatAsAdmin(uID):
-        result = dao.getChatsAsAdmin(uID)
-        if not result:
-            return jsonify(Error="No Chats Found")
-        mapped_result = []
-        for r in result:
-            mapped_result.append(DictionaryBuilder.build_chat_dict(r))
-        return jsonify(AdminChats=mapped_result)
+def getChatAsAdmin(uID):
+    result = dao.getChatsAsAdmin(uID)
+    if not result:
+        return jsonify(Error="No Chats Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(Dic.build_chat_dict(r))
+    return jsonify(AdminChats=mapped_result)
 
-    def getChatAsMember(uID):
-        result = dao.getChatAsMember(uID)
-        if not result:
-            return jsonify(Error="No Chats Found")
-        mapped_result = []
-        for r in result:
-            mapped_result.append(DictionaryBuilder.build_participants_dict(r))
-        return jsonify(MemberChats=mapped_result)
+def getChatAsMember(uID):
+    result = dao.getChatAsMember(uID)
+    if not result:
+        return jsonify(Error="No Chats Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(Dic.build_participants_dict(r))
+    return jsonify(MemberChats=mapped_result)
 
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat
