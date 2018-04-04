@@ -11,7 +11,7 @@ def getAllChats():
 
     chat_lists = dao.getAllChats()
     if not chat_lists:
-        return jsonify(Error="No Records Found")
+        return jsonify(Error="No Chats Found")
     result_list = []
     for row in chat_lists:
         result = Dic.build_chat_dict(row)
