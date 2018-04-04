@@ -54,7 +54,6 @@ def getUserInfo(uID):
 
 
 def getUserCredentials(uID):
-    dao = UserDAO()
     result = dao.getUserCredentials(uID)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -63,7 +62,6 @@ def getUserCredentials(uID):
 
 
 def getUserActivity(uID):
-    dao = UserDAO()
     result = dao.getUserActivity(uID)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -72,7 +70,6 @@ def getUserActivity(uID):
 
 
 def getUserContacts(uID):
-    dao = UserDAO()
     result = dao.getUserContacts(uID)
     if not result:
         return jsonify(Error = "No Contacts Found")
@@ -81,108 +78,7 @@ def getUserContacts(uID):
         mapped_result.append(DictionaryBuilder.build_contact_dict(r))
     return jsonify(UserContacts = mapped_result)
 
-
-def getChatAsAdmin(uID):
-    dao = UserDAO()
-    result = dao.getChatsAsAdmin(uID)
-    if not result:
-        return jsonify(Error = "No Chats Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_chat_dict(r))
-    return jsonify(AdminChats = mapped_result)
-
-
-def getChatAsMember(uID):
-    dao = UserDAO()
-    result = dao.getChatAsMember(uID)
-    if not result:
-        return jsonify(Error = "No Chats Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_participants_dict(r))
-    return jsonify(MemberChats=mapped_result)
-
-
-def getParticipationAsContact(uID):
-    dao = UserDAO()
-    result = dao.getParticipationAsContact(uID)
-    if not result:
-        return jsonify(Error = "No Contact Members Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_contact_dict(r))
-    return jsonify(MemberChats=mapped_result)
-
-
-def getUserReactionsBetween(uID, bDate, aDate):
-    dao = UserDAO()
-    result = dao.getUserReactionsBetween(uID, bDate, aDate)
-    if not result:
-        return jsonify(Error = "No Reactions Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_reacted_dict(r))
-    return jsonify(UserReactions = mapped_result)
-
-
-def getUserReactions(uID):
-    dao = UserDAO()
-    result = dao.getUserReactions(uID)
-    if not result:
-        return jsonify(Error = "No Reactions Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_reacted_dict(r))
-    return jsonify(UserReactions = mapped_result)
-
-
-def getUserMessagesBetween(uID, bDate, aDate):
-    dao = UserDAO()
-    result = dao.getUserMessagesBetween(uID, bDate, aDate)
-    if not result:
-        return jsonify(Error = "No Messages Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_message_dict(r))
-    return jsonify(UserMessagesBetween = mapped_result)
-
-
-def getUserMessages(uID):
-    dao = UserDAO()
-    result = dao.getUserMessages(uID)
-    if not result:
-        return jsonify(Error = "No Messages Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_message_dict(r))
-    return jsonify(UserMessages = mapped_result)
-
-
-def getUserTopics(uID):
-    dao = UserDAO()
-    result = dao.getUserTopics(uID)
-    if not result:
-        return jsonify(Error = "No Topics Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_topic_dict(r))
-    return jsonify(UserTopics = mapped_result)
-
-
-def getUserTopicsBetween(uID, bDate, aDate):
-    dao = UserDAO()
-    result = dao.getUserTopicsBetween(uID, bDate, aDate)
-    if not result:
-        return jsonify(Error = "No Topics Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_topic_dict(r))
-    return jsonify(UserTopics = mapped_result)
-
-
 def getActiveUsers():
-    dao = UserDAO()
     result = dao.getAllUsersByActivity()
     if not result:
         return jsonify(Error = "No Active Users Found")
@@ -193,7 +89,6 @@ def getActiveUsers():
 
 
 def getUsersCreatedBetween(bDate, aDate):
-    dao = UserDAO()
     result = dao.getUsersCreatedBetween(bDate,aDate)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -204,7 +99,6 @@ def getUsersCreatedBetween(bDate, aDate):
 
 
 def getUserByNameAndUsername(fName, lName, username):
-    dao = UserDAO()
     result = dao.getUserByNameAndUsername(fName, lName, username)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -215,7 +109,6 @@ def getUserByNameAndUsername(fName, lName, username):
 
 
 def getUserByNameAndPhone(fName, lName, phone):
-    dao = UserDAO()
     result = dao.getUserByNameAndPhone(fName, lName, phone)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -226,7 +119,6 @@ def getUserByNameAndPhone(fName, lName, phone):
 
 
 def getUserByNameAndEmail(fName, lName, uemail):
-    dao = UserDAO()
     result = dao.getUserByNameAndEmail(fName, lName, uemail)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -237,7 +129,6 @@ def getUserByNameAndEmail(fName, lName, uemail):
 
 
 def getUserByEmailAndPassword(uemail, password):
-    dao = UserDAO()
     result = dao.getUserByNameAndEmail(uemail, password)
     if not result:
         return jsonify(Error = "No Records Found")
@@ -245,6 +136,3 @@ def getUserByEmailAndPassword(uemail, password):
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
     return jsonify(Users = mapped_result)
-
-
-

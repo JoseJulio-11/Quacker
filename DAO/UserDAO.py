@@ -173,38 +173,6 @@ class UserDAO:
         else:
             return []
 
-    #Returns the list of topics posted by the user with ID uID
-    #between the time frame bDate and aDate
-    def getUserTopicsBetween(self, uID, bDate, aDate):
-        #This list will hold the records of messages
-        messagesList = []
-        #This list will hold the topics of the specified user
-        userTopicsList = []
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        for r in self.messages:
-            if uID == r[5]:
-                messagesList.append(r)
-        if messagesList[0] == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
-            userTopicsList.append(self.topic[1])
-        elif messagesList[0] == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate >=1 and aDate >=20:
-            userTopicsList.append(self.topic[0])
-        elif messagesList[0] == 9 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate >=1 and aDate >=17:
-            userTopicsList.append(self.topic[2])
-        return userTopicsList
-
-    #Returns the list of topics posted by the user with ID uID
-    def getUserTopics(self, uID):
-        # This list will hold the records of messages
-        if uID == 2:
-            return [self.topic[0]]
-        elif uID == 6:
-            return [self.topic[1]]
-        elif uID == 5:
-            return [self.topic[2]]
-        else:
-            return []
-
     # Returns the user with name and email specified
     def getUserByNameAndEmail(self, fName, lName, uemail):
         # List containing user record with full name
