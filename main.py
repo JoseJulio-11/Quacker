@@ -130,7 +130,7 @@ def getUserChatsByID(uid):
 def getChatsAsAdminByID(uid):
     if request.method == 'GET':
 
-        result = User.getChatAsAdmin(uid)
+        result = Chat.getChatAsAdmin(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -174,7 +174,7 @@ def getMessageByID(mid):
 @app.route('/messages/chat/<int:cid>', methods=['GET'])
 def getMessageByChatID(cid):
     if request.method == 'GET':
-        result = Chat.getMessagesByChatID(cid)
+        result = Message.getMessagesByChatID(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -211,7 +211,7 @@ def getMessageTopicsByID(mid):
 @app.route('/topics/user/<int:uid>', methods=['GET'])
 def getUserTopicsByID(uid):
     if request.method == 'GET':
-        result = User.getUserTopics(uid)
+        result = Message.getUserTopics(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -220,7 +220,7 @@ def getUserTopicsByID(uid):
 @app.route('/topics/chat/<int:cid>', methods=['GET'])
 def getChatTopicsByID(cid):
     if request.method == 'GET':
-        result = Chat.getChatTopicByID(cid)
+        result = Message.getChatTopicByID(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -248,7 +248,7 @@ def getMessageMediaByID(mid):
 @app.route('/medias/chat/<int:cid>', methods=['GET'])
 def getChatMediaByID(cid):
     if request.method == 'GET':
-        result = Chat.getChatMediaByID(cid)
+        result = Message.getChatMediaByID(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -294,7 +294,7 @@ def getMessageReactionsByID(mid):
 @app.route('/reactions/user/<int:uid>', methods=['GET'])
 def getUserReactionsByID(uid):
     if request.method == 'GET':
-        result = User.getUserReactions(uid)
+        result = Message.getUserReactions(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
