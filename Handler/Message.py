@@ -221,7 +221,7 @@ def getChatMediaByID(cid):
 def getChatTopicByID(cid):
     media = dao.getChatTopics(cid)
     if not media:
-        return jsonify(Error="No Media Found")
+        return jsonify(Error="No Topic Found")
     result_list = []
     for row in media:
         result = Dic.build_topic_dict(row)
