@@ -148,22 +148,6 @@ class UserDAO:
                 contactList.append(r)
         return contactList
 
-    #Returns a list with the chats of the admin user with ID uID
-    def getChatsAsAdmin(self, uID):
-        adminChatsList = []
-        for r in self.chat:
-            if uID == r[6]:
-                adminChatsList.append(r)
-        return adminChatsList
-
-    #Returns the list of all chats which the user with ID uID is member of.
-    def getChatAsMember(self, uID):
-        memberChatsList = []
-        for r in self.participants:
-            if uID == r[1]:
-                memberChatsList.append(r)
-        return memberChatsList
-
     #Returns the list of members with ID uID that are contacts of another member.
     def getParticipationAsContact(self, uID):
         userContactOfAnotherUser = []
@@ -171,74 +155,6 @@ class UserDAO:
             if uID == r[1]:
                 userContactOfAnotherUser.append(r)
         return userContactOfAnotherUser
-
-    #Returns the list of reactions between the
-    #date and time specified of the user with ID uID
-    def getUserReactionsBetween(self, uID, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.reacted[0]]
-        elif uID == 6 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.reacted[1]]
-        elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return [self.reacted[2]]
-        else:
-            return []
-
-    # Returns the list of reactions of the user with ID uID
-    def getUserReactions(self, uID):
-        if uID == 2:
-            return [self.reacted[0]]
-        elif uID == 6:
-            return [self.reacted[1]]
-        elif uID == 1:
-            return [self.reacted[2]]
-        else:
-            return []
-
-    #Returns the list of messages posted by user with ID uID
-    #between the date frame bDate and aDate
-    def getUserMessagesBetween(self, uID, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if uID == 6 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.messages[0], self.messages[4]]
-        elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.messages[1], self.messages[3]]
-        elif uID == 2 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
-            return [self.messages[11]]
-        elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=10 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=10:
-            return [self.messages[10]]
-        elif uID == 3 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=20 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=20:
-            return [self.messages[2]]
-        elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return [self.messages[5]]
-        elif uID == 1 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=25 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=25:
-            return [self.messages[9]]
-        elif uID == 5 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return [self.messages[6], self.messages[8]]
-        elif uID == 4 and bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=17 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=17:
-            return [self.messages[7]]
-        else:
-            return []
-
-    # Returns the list of messages posted by user with ID uID
-    def getUserMessages(self, uID):
-        if uID == 1:
-            return [self.messages[5],self.messages[9]]
-        elif uID == 2:
-            return [self.messages[1], self.messages[3],self.messages[11]]
-        elif uID == 3:
-            return [self.messages[2],self.messages[10]]
-        elif uID == 4:
-            return [self.messages[7]]
-        elif uID == 5:
-            return [self.messages[6], self.messages[8]]
-        elif uID == 6:
-            return [self.messages[0], self.messages[4]]
-        else:
-            return []
 
     #Returns the list of all users created between the provided dates
     def getUsersCreatedBetween(self, bDate, aDate):

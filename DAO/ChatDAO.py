@@ -276,6 +276,7 @@ class ChatDAO:
         if cID == 1:
             return [self.messages[9]]
         return []
+
     def getChatMessagesWithReplyReactionMedia(self,cID):
         # This method will return the messages on a desired chat that have reaction,media and reply
         if cID == 3:
@@ -313,7 +314,7 @@ class ChatDAO:
         return []
 
     def getChatRepliedMessagesBetween(self,cID,bDate,aDate):
-        # THis method will give the replies in a chat between a determined date
+        # This method will give the replies in a chat between a determined date
 
         bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
         aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
@@ -382,7 +383,7 @@ class ChatDAO:
             return [self.chat[2]]
         if hashtag == 'wtf':
             return [self.chat[4]]
-        return[]
+        return []
 
     def getChatRepliedMessages(self,cID):
         # This method will return the messages that have been replied in a determined chat
