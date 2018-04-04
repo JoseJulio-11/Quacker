@@ -6,9 +6,11 @@ from mainpage import mainpage
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def mainPage():
     return mainpage
+
 
 # ==================== User Methods ====================== #
 @app.route('/users', methods=['GET'])
@@ -134,6 +136,16 @@ def getChatsAsAdminByID(uid):
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/chats/active', methods=['GET'])
+def getActiveChats():
+    if request.method == 'GET':
+        result = Chat.getAllActiveChats()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
 
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])

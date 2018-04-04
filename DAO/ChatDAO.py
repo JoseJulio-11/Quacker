@@ -88,6 +88,10 @@ class ChatDAO:
         # This method will return all the chats
         return self.chat[0:4]
 
+    def getAllActiveChats(self):
+        # This method will return all the chats
+        return [self.chat[0], self.chat[2]]
+
     def getChatByUserID(self, uID):
         # This method will return the chats on which that user is in
         if uID == 1:

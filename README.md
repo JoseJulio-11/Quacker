@@ -34,6 +34,7 @@ database using app routes.
 * /contacts/user/[int:uid]
 ##### Get Chat Locations:
 * /chats
+* /chats/active
 * /chats/[int:cid]
 * /chats/user/[int:uid]
 * /chats/admin/[int:uid]

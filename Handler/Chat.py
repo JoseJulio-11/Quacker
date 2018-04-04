@@ -63,6 +63,7 @@ def getALlParticipants():
         result_list.append(result)
     return jsonify(Participants=result_list)
 
+
 def getChatAsAdmin(uID):
     result = dao.getChatsAsAdmin(uID)
     if not result:
@@ -72,8 +73,19 @@ def getChatAsAdmin(uID):
         mapped_result.append(Dic.build_chat_dict(r))
     return jsonify(AdminChats=mapped_result)
 
+
 def getChatAsMember(uID):
     result = dao.getChatAsMember(uID)
+    if not result:
+        return jsonify(Error="No Chats Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(Dic.build_participants_dict(r))
+    return jsonify(MemberChats=mapped_result)
+
+
+def getAllActiveChats():
+    result = dao.getAllActiveChats()
     if not result:
         return jsonify(Error="No Chats Found")
     mapped_result = []
