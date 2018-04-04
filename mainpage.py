@@ -26,9 +26,11 @@ mainpage =  '<head> ' \
             '<ul><li>/participants</li><li>/participants/chat/[int:cid]</li></ul>' \
             '<h3>Get Message Locations:</h3>' \
             '<ul><li>/messages</li><li>/messages/[int:mid]</li>' \
-            '<li>/messages/user/[int:uid]</li><li>/messages/chat/[int:cid]</li></ul>' \
+            '<li>/messages/user/[int:uid]</li><li>/messages/chat/[int:cid]</li>' \
+            '<li>/messages/active/chat/[int:cid]</li></ul>' \
             '<h3>Get Media Locations:</h3>' \
-            '<ul><li>/medias</li><li>/medias/chat/[int:cid]</li><li>/medias/message/[int:mid]</li></ul>' \
+            '<ul><li>/medias</li><li>/medias/chat/[int:cid]</li>' \
+            '<li>/medias/message/[int:mid]</li><li>/medias/user/[int:uid]</li></ul>' \
             '<h3>Get Topic Locations:</h3>' \
             '<ul><li>/topics</li><li>/topics/chat/[int:cid]</li>' \
             '<li>/topics/user/[int:uid]</li><li>/topics/message/[int:mid]</li></ul>' \

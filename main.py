@@ -191,6 +191,13 @@ def getMessageByChatID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+@app.route('/messages/active/chat/<int:cid>', methods=['GET'])
+def getActiveMessageByChatID(cid):
+    if request.method == 'GET':
+        result = Message.getActiveMessagesByChatID(cid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
 
 @app.route('/messages/user/<int:uid>', methods=['GET'])
 def getMessageByUserID(uid):
@@ -261,6 +268,15 @@ def getMessageMediaByID(mid):
 def getChatMediaByID(cid):
     if request.method == 'GET':
         result = Message.getChatMediaByID(cid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/medias/user/<int:uid>', methods=['GET'])
+def getUserMediaByID(uid):
+    if request.method == 'GET':
+        result = Message.getMediaByUser(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404

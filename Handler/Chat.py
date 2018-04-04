@@ -91,7 +91,7 @@ def getAllActiveChats():
     mapped_result = []
     for r in result:
         mapped_result.append(Dic.build_participants_dict(r))
-    return jsonify(MemberChats=mapped_result)
+    return jsonify(Chats=mapped_result)
 
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat

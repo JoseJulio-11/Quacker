@@ -208,6 +208,17 @@ def getMessagesByChatID(cID):
         result_messages.append(result)
     return jsonify(Messages=result_messages)
 
+def getActiveMessagesByChatID(cID):
+    # This method will return the messages in a determined  chat
+    chat_messages = dao.getChatActiveMessages(cID)
+    if not chat_messages:
+        return jsonify(Error="No Messages Found")
+    result_messages = []
+    for row in chat_messages:
+        result = Dic.build_message_dict(row)
+        result_messages.append(result)
+    return jsonify(Messages=result_messages)
+
 def getChatMediaByID(cid):
     media = dao.getChatMedia(cid)
     if not media:
@@ -225,5 +236,15 @@ def getChatTopicByID(cid):
     result_list = []
     for row in media:
         result = Dic.build_topic_dict(row)
+        result_list.append(result)
+    return jsonify(Topic=result_list)
+
+def getMediaByUser(uid):
+    media = dao.getUserMedia(uid)
+    if not media:
+        return jsonify(Error="No Media Found")
+    result_list = []
+    for row in media:
+        result = Dic.build_media_dict(row)
         result_list.append(result)
     return jsonify(Media=result_list)

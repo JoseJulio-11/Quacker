@@ -136,13 +136,23 @@ class MessagesDAO:
         if cID == 1:
             return self.messages[5:10]
         if cID == 2:
-            return self.messages[9:12]
+            return self.messages[9:11]
         if cID == 3:
-            return self.messages[0:6]
+            return self.messages[0:4]
         if cID == 4:
             return [self.messages[11]]
+        return []
 
-    def geActivetChatMessages(self, cID, isDeleted):
+    def getChatActiveMessages(self, cID):
+        # This method will return the messafes on a determined chat
+        if cID == 1:
+            return self.messages[5:10]
+        if cID == 2:
+            return [self.messages[10]]
+        return []
+
+
+    def getActivetChatMessages(self, cID, isDeleted):
         # This method will only return all the messages in all the active single chats
         # Whether they are deleted or not
         if cID == 2 and not isDeleted:
@@ -798,6 +808,14 @@ class MessagesDAO:
         if cID == 1:
             return [self.media[0]]
         if cID == 3:
+            return [self.media[1]]
+        return []
+
+    def getUserMedia(self, uID):
+        # This method will return the media sended in that determined chat
+        if uID == 3:
+            return [self.media[0]]
+        if uID == 4:
             return [self.media[1]]
         return []
 

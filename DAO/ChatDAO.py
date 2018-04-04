@@ -105,7 +105,7 @@ class ChatDAO:
         if uID == 5:
             return [self.chat[2]]
         if uID == 6:
-            return []
+            return [self.chat[3]]
         return []
 
     def getAllParticipants(self):

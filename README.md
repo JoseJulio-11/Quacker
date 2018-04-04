@@ -46,10 +46,12 @@ database using app routes.
 * /messages/[int:mid]
 * /messages/user/[int:uid]
 * /messages/chat/[int:cid]
+* /messages/active/chat/[int:cid]
 ##### Get Media Locations:
 * /medias
 * /medias/chat/[int:cid]
 * /medias/message/[int:mid]
+* /medias/user/[int:uid]
 ##### Get Topic Locations:
 * /topics
 * /topics/chat/[int:cid]
