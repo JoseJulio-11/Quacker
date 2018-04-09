@@ -125,3 +125,39 @@ def getUserByEmailAndPassword(uemail, password):
     for r in result:
         mapped_result.append(DictionaryBuilder.build_credential_dict(r))
     return jsonify(Users = mapped_result)
+
+def getUsersByLikedMessage(mid):
+    result = dao.getUsersByLikedMessage(mid)
+    if not result:
+        return jsonify(Error = "No Users Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(DictionaryBuilder.build_user_dict(r))
+    return jsonify(Users = mapped_result)
+
+def getUsersByDislikedMessage(mid):
+    result = dao.getUsersByDislikedMessage(mid)
+    if not result:
+        return jsonify(Error = "No Users Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(DictionaryBuilder.build_user_dict())
+    return jsonify(Users = mapped_result)
+
+def getMembersByChatID(cid):
+    result = dao.getMembersByChatID(cid)
+    if not result:
+        return jsonify(Error = "No Members Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(DictionaryBuilder.build_user_dict())
+    return jsonify(Users = mapped_result)
+
+def getAdminByChatID(cid):
+    result = dao.getAdminByChatID(cid)
+    if not result:
+        return jsonify(Error = "No Admin Found")
+    mapped_result = []
+    for r in result:
+        mapped_result.append(DictionaryBuilder.build_user_dict())
+    return jsonify(Users = mapped_result)
