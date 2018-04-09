@@ -1,9 +1,18 @@
 """
 This Class contain DAO methods for the entities of Chats and Participants
 """
+import psycopg2
+from pg_config import pg_config
 class ChatDAO:
 
     def __init__(self):
+
+        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'],
+                                                                pg_config['user'],
+                                                                pg_config['passwd'])
+        self.conn = psycopg2._connect(connection_url())
+
+
         # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONAME
         self.users = [[1, "Jack", "Hammer", "2018-1-1", "08:00:00", "The Nail"],
                       [2, "Sam", "Master", "2018-1-1", "16:00:00", "Miss Master"],
