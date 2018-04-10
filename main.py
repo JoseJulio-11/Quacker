@@ -39,7 +39,8 @@ def getAllUsersByActivity():
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/users/liked/messages<int:mid>', methods=['GET'])
+
+@app.route('/users/message/liked/<int:mid>', methods=['GET'])
 def getUsersByLikedMessage(mid):
     if request.method == 'GET':
         result = User.getUsersByLikedMessage(mid)
@@ -47,7 +48,8 @@ def getUsersByLikedMessage(mid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/users/disliked/messages<int:mid>', methods=['GET'])
+
+@app.route('/users/message/disliked/<int:mid>', methods=['GET'])
 def getUsersByDisLikedMessage(mid):
     if request.method == 'GET':
         result = User.getUsersByDislikedMessage(mid)
@@ -55,7 +57,8 @@ def getUsersByDisLikedMessage(mid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/users/chat<int:cid>', methods=['GET'])
+
+@app.route('/users/chat/<int:cid>', methods=['GET'])
 def getMembersByChatID(cid):
     if request.method == 'GET':
         result = User.getMembersByChatID(cid)
@@ -63,7 +66,8 @@ def getMembersByChatID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/users/admin/chat<int:cid>', methods=['GET'])
+
+@app.route('/users/chat/admin/<int:cid>', methods=['GET'])
 def getAdminByChatID(cid):
     if request.method == 'GET':
         result = User.getAdminByChatID(cid)
@@ -213,6 +217,7 @@ def getMessageByID(mid):
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
 
 @app.route('/messages/chat/<int:cid>', methods=['GET'])
 def getMessageByChatID(cid):
