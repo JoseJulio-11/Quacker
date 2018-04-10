@@ -40,6 +40,41 @@ def getAllUsersByActivity():
         return jsonify(Error="Method not allowed"), 404
 
 
+@app.route('/users/message/liked/<int:mid>', methods=['GET'])
+def getUsersByLikedMessage(mid):
+    if request.method == 'GET':
+        result = User.getUsersByLikedMessage(mid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/users/message/disliked/<int:mid>', methods=['GET'])
+def getUsersByDisLikedMessage(mid):
+    if request.method == 'GET':
+        result = User.getUsersByDislikedMessage(mid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/users/chat/<int:cid>', methods=['GET'])
+def getMembersByChatID(cid):
+    if request.method == 'GET':
+        result = User.getMembersByChatID(cid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/users/chat/admin/<int:cid>', methods=['GET'])
+def getAdminByChatID(cid):
+    if request.method == 'GET':
+        result = User.getAdminByChatID(cid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
 # =================== Credential Methods ================= #
 @app.route('/credentials', methods=['GET'])
 def getCredentials():
@@ -182,6 +217,7 @@ def getMessageByID(mid):
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
 
 @app.route('/messages/chat/<int:cid>', methods=['GET'])
 def getMessageByChatID(cid):
