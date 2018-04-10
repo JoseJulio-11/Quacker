@@ -37,14 +37,15 @@ def build_contact_dict(userContact):
 
 def build_chat_dict(chat):
     # cid, cname, cdate, ctime, isgroupchat, isactive, adminid
+
     chatRecord = {}
+    print(chat)
     chatRecord["cID"] = chat[0]
     chatRecord["cName"] = chat[1]
     chatRecord["cDate"] = chat[2]
-    chatRecord["cTime"] = chat[3]
-    chatRecord["isGroupChat"] = chat[4]
-    chatRecord["isActive"] = chat[5]
-    chatRecord["adminID"] = chat[6]
+    chatRecord["isGroupChat"] = chat[3]
+    chatRecord["isActive"] = chat[4]
+    chatRecord["adminID"] = chat[5]
     return chatRecord
 
 def build_participants_dict(chatParticipant):
