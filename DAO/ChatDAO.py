@@ -37,51 +37,36 @@ class ChatDAO:
 
     def getAllActiveChats(self):
         # This method will return all the chats
-        return [self.chat[0], self.chat[2]]
+        cursor = self.conn.cursor()
+        query = "select * from chats where isActive=true"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+
 
     def getChatByUserID(self, uID):
         # This method will return the chats on which that user is in
-        if uID == 1:
-            return [self.chat[2]]
-        if uID == 2:
-            return self.chat[1:4]
-        if uID == 3:
-            return []
-        if uID == 4:
-            return [self.chat[3], self.chat[0]]
-        if uID == 5:
-            return [self.chat[2]]
-        if uID == 6:
-            return [self.chat[3]]
-        return []
+
 
     def getAllParticipants(self):
         # This method will give all the participants in the application
-        return self.participants
+        cursor = self.conn.cursor()
+        query = "select * from participants;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getChatParticipants(self,cID):
         # THis method will return the active participants of a specified chat ( active or nonactive chat)
-        if cID == 1:
-            return self.participants[0:3]
-        elif cID == 2:
-            return self.participants[3:5]
-        elif cID == 3:
-            return self.participants[5:8]
-        elif cID == 4:
-            return self.participants[8:10]
-        return []
 
     def getChatActivePartipants(self,cID):
         # This method will give the active participants in a desired chat
-        if cID == 1:
-            return self.participants[0:3]
-        elif cID == 2:
-            return self.participants[3:5]
-        elif cID == 3:
-            return self.participants[6:8]
-        elif cID == 4:
-            return [self.participants[9]]
-        return []
+
 
     def getChatNonActiveParticipants(self,cID):
         # This method will return the non active users in a certain chat
