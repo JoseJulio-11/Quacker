@@ -4,9 +4,8 @@ def build_user_dict(userInfo):
     user["uID"] = userInfo[0]
     user["fName"] = userInfo[1]
     user["lName"] = userInfo[2]
-    user["cDate"] = userInfo[3]
-    user["cTime"] = userInfo[4]
     user["pseudonym"] = userInfo[5]
+    user["utime"] = userInfo[6]
     return user
 
 def build_credential_dict(userCredential):
@@ -23,9 +22,9 @@ def build_activity_dict(userActicity):
     # AID, lastAccessToDBDate, lastAccessToDBTime, isActive
     activity = {}
     activity["aID"] = userActicity[0]
-    activity["lastDBAccessDate"] = userActicity[1]
-    activity["lastDBAccessTime"] = userActicity[2]
-    activity["isActive"] = userActicity[3]
+    activity["isActive"] = userActicity[1]
+    activity["lastimeaccesstimestamp"] = userActicity[2]
+
     return activity
 
 def build_contact_dict(userContact):
@@ -53,8 +52,7 @@ def build_participants_dict(chatParticipant):
     participant = {}
     participant["cID"] = chatParticipant[0]
     participant["uID"] = chatParticipant[1]
-    participant["pDate"] = chatParticipant[2]
-    participant["pTime"] = chatParticipant[3]
+    participant["pTime"] = chatParticipant[2]
     return participant
 
 def build_message_dict(chatMessage):
@@ -62,12 +60,11 @@ def build_message_dict(chatMessage):
     Message = {}
     Message["mID"] = chatMessage[0]
     Message["text"] = chatMessage[1]
-    Message["cDate"] = chatMessage[2]
-    Message["cTime"] = chatMessage[3]
-    Message["cID"] = chatMessage[4]
-    Message["uID"] = chatMessage[5]
-    Message["isDeleted"] = chatMessage[6]
-    Message["rID"] = chatMessage[7]
+    Message["cID"] = chatMessage[2]
+    Message["uID"] = chatMessage[3]
+    Message["isDeleted"] = chatMessage[4]
+    Message["rID"] = chatMessage[5]
+    Message["cTime"] = chatMessage[6]
     return Message
 
 def build_reacted_dict(messageReaction):
@@ -75,9 +72,9 @@ def build_reacted_dict(messageReaction):
     reaction = {}
     reaction["uID"] = messageReaction[0]
     reaction["mID"] = messageReaction[1]
-    reaction["rDate"] = messageReaction[2]
+    reaction["vote"] = messageReaction[2]
     reaction["rTime"] = messageReaction[3]
-    reaction["vote"] = messageReaction[4]
+
     return reaction
 
 def build_topic_dict(messageTopic):
@@ -92,6 +89,5 @@ def build_media_dict(messageMedia):
     media = {}
     media["mID"] = messageMedia[0]
     media["mediaID"] = messageMedia[1]
-    media["rDate"] = messageMedia[2]
-    media["rTime"] = messageMedia[3]
+    media["rTime"] = messageMedia[2]
     return media
