@@ -48,8 +48,8 @@ class ChatDAO:
 
 
     def getChatByUserID(self, uID):
-        # This method will return the chats on which that user is in
-
+    #This method will return the chats on which that user is in
+        return[]
 
     def getAllParticipants(self):
         # This method will give all the participants in the application
@@ -63,11 +63,11 @@ class ChatDAO:
 
     def getChatParticipants(self,cID):
         # THis method will return the active participants of a specified chat ( active or nonactive chat)
-
+         return[]
     def getChatActivePartipants(self,cID):
         # This method will give the active participants in a desired chat
 
-
+        return[]
     def getChatNonActiveParticipants(self,cID):
         # This method will return the non active users in a certain chat
         if cID == 3:
