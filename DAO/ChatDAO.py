@@ -45,11 +45,15 @@ class ChatDAO:
             result.append(row)
         return result
 
-
-
     def getChatByUserID(self, uID):
     #This method will return the chats on which that user is in
-        return[]
+        cursor = self.conn.cursor()
+        query = "select * from messages natural inner join participants where uid = %s; "
+        cursor.execute(query,(uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getAllParticipants(self):
         # This method will give all the participants in the application
@@ -63,29 +67,42 @@ class ChatDAO:
 
     def getChatParticipants(self,cID):
         # THis method will return the active participants of a specified chat ( active or nonactive chat)
-         return[]
+        cursor = self.conn.cursor()
+        query = " select * from participants natural inner join users where cID = %s;"
+        cursor.execute(query,(cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
     def getChatActivePartipants(self,cID):
         # This method will give the active participants in a desired chat
+        cursor = self.conn.cursor()
+        query = "select * from activities natural inner join users natural inner join messages where cID =  %s and isActive = true;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-        return[]
     def getChatNonActiveParticipants(self,cID):
         # This method will return the non active users in a certain chat
-        if cID == 3:
-            return [self.participants[5]]
-        if cID == 4:
-            return [self.participants[8]]
-        return []
+        cursor = self.conn.cursor()
+        query = "select * from activities natural inner join users natural inner join messages where cID =  %s and isActive = false;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getChatInfo(self,cID):
         # This method will return the information of a desired chat
-        if cID == 1:
-            return self.chat[0]
-        if cID == 2:
-            return self.chat[1]
-        if cID == 3:
-            return self.chat[2]
-        if cID == 4:
-            return self.chat[3]
+        cursor = self.conn.cursor()
+        query = " select * from chats where cid = %s"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getChatWithMedia(self,mID):
         # This method will return the chat on which determined media is located in
