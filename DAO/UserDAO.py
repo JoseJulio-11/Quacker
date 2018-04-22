@@ -76,7 +76,7 @@ class UserDAO:
     #Returns the list of all users that are active
     def getAllUsersByActivity(self):
         cursor = self.conn.cursor()
-        query = "select uid from activities where isactive = 't';"
+        query = "select * from activities where isactive = 't';"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -110,7 +110,7 @@ class UserDAO:
     #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
         cursor = self.conn.cursor()
-        query = "select memberid from contacts where uid = %s;"
+        query = "select * from contacts where uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
