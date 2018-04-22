@@ -120,7 +120,7 @@ class UserDAO:
     #Returns the list of members with ID uID that are contacts of another member.
     def getParticipationAsContact(self, uID):
         cursor = self.conn.cursor()
-        query = "select uid from contacts where memberid = %s;"
+        query = "select * from contacts where memberid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -130,7 +130,7 @@ class UserDAO:
     # Returns the list of all users created between the provided dates
     def getUsersCreatedBetween(self, bDate, aDate):
         cursor = self.conn.cursor()
-        query = "select uid from users where utime between %s AND %s;"
+        query = "select * from users where utime between %s AND %s;"
         cursor.execute(query, (bDate, aDate))
         result = []
         for row in cursor:
@@ -140,7 +140,7 @@ class UserDAO:
     # Returns the user with name and email specified
     def getUserByNameAndEmail(self, fName, lName, uemail):
         cursor = self.conn.cursor()
-        query = "select uid from users natural inner join credentials where fname = %s AND lname = %s AND uemail = %s;"
+        query = "select * from users natural inner join credentials where fname = %s AND lname = %s AND uemail = %s;"
         cursor.execute(query, (fName, lName, uemail))
         result = cursor.fetchone()
         return result
@@ -148,7 +148,7 @@ class UserDAO:
     # Returns the user with name and phone specfied
     def getUserByNameAndPhone(self, fName, lName, uphone):
         cursor = self.conn.cursor()
-        query = "select uid from users natural inner join credentials where fname = %s AND lname = %s AND uphone = %s;"
+        query = "select * from users natural inner join credentials where fname = %s AND lname = %s AND uphone = %s;"
         cursor.execute(query, (fName, lName, uphone))
         result = cursor.fetchone()
         return result
@@ -156,7 +156,7 @@ class UserDAO:
     # Returns the user with name and username specified
     def getUserByNameAndUsername(self, fName, lName, username):
         cursor = self.conn.cursor()
-        query = "select uid from users natural inner join credentials where fname = %s AND lname = %s AND username = %s;"
+        query = "select * from users natural inner join credentials where fname = %s AND lname = %s AND username = %s;"
         cursor.execute(query, (fName, lName, username))
         result = cursor.fetchone()
         return result
@@ -164,7 +164,7 @@ class UserDAO:
     # Returns the user with username and password specified
     def getUserByUsernameAndPassword(self, username, password):
         cursor = self.conn.cursor()
-        query = "select uid from credentials where username = %s AND password = %s;"
+        query = "select * from credentials where username = %s AND password = %s;"
         cursor.execute(query, (username, password))
         result = cursor.fetchone()
         return result
@@ -172,7 +172,7 @@ class UserDAO:
     # Returns the user with email and password specified
     def getUserByEmailAndPassword(self, uemail, password):
         cursor = self.conn.cursor()
-        query = "select uid from credentials where uemail = %s AND password = %s;"
+        query = "select * from credentials where uemail = %s AND password = %s;"
         cursor.execute(query, (uemail, password))
         result = cursor.fetchone()
         return result
@@ -180,7 +180,7 @@ class UserDAO:
     # Returns the users who liked the message with ID mid
     def getUsersByLikedMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select uid from reacted where mid = %s AND vote = %s;"
+        query = "select * from reacted where mid = %s AND vote = 1;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -190,7 +190,7 @@ class UserDAO:
     # Returns the users who disliked the message with ID mid
     def getUsersByDislikedMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select uid from reacted where mid = %s AND vote = %s;"
+        query = "select * from reacted where mid = %s AND vote = -1;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -200,7 +200,7 @@ class UserDAO:
     # Returns the users that are members of the chat with ID cid
     def getMembersByChatID(self, cid):
         cursor = self.conn.cursor()
-        query = "select uid from participants where cid = %s;"
+        query = "select * from participants where cid = %s;"
         cursor.execute(query, (cid,))
         result = []
         for row in cursor:
@@ -210,7 +210,7 @@ class UserDAO:
     # Returns the user that is admin of the chat with ID cid
     def getAdminByChatID(self, cid):
         cursor = self.conn.cursor()
-        query = "select uid from chats where cid = %s;"
+        query = "select * from chats where cid = %s;"
         cursor.execute(query, (cid,))
         result = cursor.fetchone()
         return result

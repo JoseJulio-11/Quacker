@@ -72,9 +72,8 @@ def build_reacted_dict(messageReaction):
     reaction = {}
     reaction["uID"] = messageReaction[0]
     reaction["mID"] = messageReaction[1]
-    reaction["vote"] = messageReaction[2]
-    reaction["rTime"] = messageReaction[3]
-
+    reaction["rTime"] = messageReaction[2]
+    reaction["vote"] = messageReaction[3]
     return reaction
 
 def build_topic_dict(messageTopic):
