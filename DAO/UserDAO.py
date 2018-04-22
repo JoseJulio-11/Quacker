@@ -86,41 +86,46 @@ class UserDAO:
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from credentials where uid = %s;"
+        query = "select * from users where uid = %s;"
         cursor.execute(query, (uID,))
         result = cursor.fetchone()
         return result
 
     #Returns a list with the credentials of the user with ID uID
     def getUserCredentials(self, uID):
-        for r in self.credentials:
-            if uID == r[0]:
-               return r
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from credentials where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = cursor.fetchone()
+        return result
 
     #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
-       for r in self.activity:
-            if uID == r[0]:
-                return r
-       return []
+        cursor = self.conn.cursor()
+        query = "select * from activities where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = cursor.fetchone()
+        return result
 
     #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
-        contactList = []
-        for r in self.contacts:
-            if uID == r[0]:
-                contactList.append(r)
-        return contactList
+        cursor = self.conn.cursor()
+        query = "select memberid from contacts where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of members with ID uID that are contacts of another member.
     def getParticipationAsContact(self, uID):
-        userContactOfAnotherUser = []
-        for r in self.contacts:
-            if uID == r[1]:
-                userContactOfAnotherUser.append(r)
-        return userContactOfAnotherUser
+        cursor = self.conn.cursor()
+        query = "select uid from contacts where memberid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all users created between the provided dates
     def getUsersCreatedBetween(self, bDate, aDate):
@@ -141,17 +146,11 @@ class UserDAO:
 
     # Returns the user with name and email specified
     def getUserByNameAndEmail(self, fName, lName, uemail):
-        # List containing user record with full name
-        userRecords = []
-        # List containing the user with the provided email
-        desiredUser = []
-        for r in self.users:
-            if fName == r[1] and lName == r[2]:
-                userRecords.append(r)
-        for j in self.credentials:
-            if uemail == j[3]:
-                desiredUser.append(j)
-        return desiredUser
+        cursor = self.conn.cursor()
+        query = "select uid from users natural inner join credentials where fname = %s AND lname = %s AND uemail = %s;"
+        cursor.execute(query, (fName, lName, uemail))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with name and phone specfied
     def getUserByNameAndPhone(self, fName, lName, uphone):
