@@ -35,35 +35,61 @@ class UserDAO:
     # =================================== Read Methods =============================== #
     #Returns the list of all users
     def getAllUsers(self):
-        return self.users
+        cursor = self.conn.cursor()
+        query = "select * from users;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all credentials
     def getAllCredentials(self):
-        return self.credentials
+        cursor = self.conn.cursor()
+        query = "select * from credentials;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all contacts
     def getAllContacts(self):
-        return self.contacts
+        cursor = self.conn.cursor()
+        query = "select * from contacts;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all activity in the app
     def getAllActivity(self):
-        return self.activity
+        cursor = self.conn.cursor()
+        query = "select * from activities;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all users that are active
     def getAllUsersByActivity(self):
-        activeUsers = []
-        for r in self.activity:
-            if r[3]:
-                activeUsers.append(r)
-        return activeUsers
+        cursor = self.conn.cursor()
+        query = "select uid from activities where isactive = 't';"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
-        for r in self.users:
-            if uID == r[0]:
-                return r
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from credentials where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = cursor.fetchone()
+        return result
 
     #Returns a list with the credentials of the user with ID uID
     def getUserCredentials(self, uID):
