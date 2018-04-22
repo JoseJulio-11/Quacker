@@ -127,22 +127,15 @@ class UserDAO:
             result.append(row)
         return result
 
-    #Returns the list of all users created between the provided dates
+    # Returns the list of all users created between the provided dates
     def getUsersCreatedBetween(self, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=1 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=1:
-            return [self.users[0], self.users[1]]
-        elif bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 5 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 5:
-            return [self.users[2]]
-        elif bDate[0] <= 2018 and bDate[1] <= 2 and bDate[2] <= 1 and aDate[0] >= 2018 and aDate[1] >= 2 and aDate[2] >= 1:
-            return [self.users[3]]
-        elif bDate[0] <= 2017 and bDate[1] <= 12 and bDate[2] <= 31 and aDate[0] >= 2017 and aDate[1] >= 12 and aDate[2] >= 31:
-            return [self.users[4]]
-        elif bDate[0] <= 2017 and bDate[1] <= 1 and bDate[2] <= 1 and aDate[0] >= 2017 and aDate[1] >= 1 and aDate[2] >= 1:
-            return [self.users[5]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select uid from users where utime between %s AND %s;"
+        cursor.execute(query, (bDate, aDate))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # Returns the user with name and email specified
     def getUserByNameAndEmail(self, fName, lName, uemail):
@@ -204,7 +197,7 @@ class UserDAO:
             result.append(row)
         return result
 
-    #Returns the users that are members of the chat with ID cid
+    # Returns the users that are members of the chat with ID cid
     def getMembersByChatID(self, cid):
         cursor = self.conn.cursor()
         query = "select uid from participants where cid = %s;"
@@ -214,7 +207,7 @@ class UserDAO:
             result.append(row)
         return result
 
-    #Returns the user that is admin of the chat with ID cid
+    # Returns the user that is admin of the chat with ID cid
     def getAdminByChatID(self, cid):
         cursor = self.conn.cursor()
         query = "select uid from chats where cid = %s;"
