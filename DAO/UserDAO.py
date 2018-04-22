@@ -170,50 +170,49 @@ class UserDAO:
 
     # Returns the user with username and password specified
     def getUserByUsernameAndPassword(self, username, password):
-        # List containing user record with username
-        userRecord = []
-        for r in self.credentials:
-            if username == r[1] and password == r[2]:
-                userRecord.append(r)
-        return userRecord
+        cursor = self.conn.cursor()
+        query = "select uid from credentials where username = %s AND password = %s;"
+        cursor.execute(query, (username, password))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with email and password specified
     def getUserByEmailAndPassword(self, uemail, password):
-        # List containing user record with full name
-        userRecord = []
-        for r in self.credentials:
-            if uemail == r[3] and password == r[2]:
-                userRecord.append(r)
-        return userRecord
+        cursor = self.conn.cursor()
+        query = "select uid from credentials where uemail = %s AND password = %s;"
+        cursor.execute(query, (uemail, password))
+        result = cursor.fetchone()
+        return result
 
     # Returns the users who liked the message with ID mid
     def getUsersByLikedMessage(self, mid):
-        if mid == 3:
-            return [self.users[1]]
-        elif mid == 8:
-            return [self.users[0]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select uid from reacted where mid = %s AND vote = %s;"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # Returns the users who disliked the message with ID mid
     def getUsersByDislikedMessage(self, mid):
-        if mid == 3:
-            return [self.users[5]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select uid from reacted where mid = %s AND vote = %s;"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the users that are members of the chat with ID cid
     def getMembersByChatID(self, cid):
-        if cid == 1:
-            return [self.users[0], self.users[3], self.users[4]]
-        elif cid == 2:
-            return [self.users[1], self.users[2]]
-        elif cid == 3:
-            return [self.users[1], self.users[2], self.users[5]]
-        elif cid == 4:
-            return [self.users[1], self.users[3]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select uid from chats where cid = %s;"
+        cursor.execute(query, (cid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the user that is admin of the chat with ID cid
     def getAdminByChatID(self, cid):
