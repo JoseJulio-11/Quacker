@@ -1,11 +1,11 @@
 def build_user_dict(userInfo):
-    # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONYM
+    # UID, FNAME, LNAME, UTIME, PSEUDONYM
     user = {}
     user["uID"] = userInfo[0]
     user["fName"] = userInfo[1]
     user["lName"] = userInfo[2]
-    user["pseudonym"] = userInfo[5]
-    user["utime"] = userInfo[6]
+    user["utime"] = userInfo[3]
+    user["pseudonym"] = userInfo[4]
     return user
 
 def build_credential_dict(userCredential):
@@ -72,9 +72,8 @@ def build_reacted_dict(messageReaction):
     reaction = {}
     reaction["uID"] = messageReaction[0]
     reaction["mID"] = messageReaction[1]
-    reaction["vote"] = messageReaction[2]
-    reaction["rTime"] = messageReaction[3]
-
+    reaction["rTime"] = messageReaction[2]
+    reaction["vote"] = messageReaction[3]
     return reaction
 
 def build_topic_dict(messageTopic):

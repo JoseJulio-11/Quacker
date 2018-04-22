@@ -132,7 +132,7 @@ def getUsersByLikedMessage(mid):
         return jsonify(Error = "No Users Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(DictionaryBuilder.build_user_dict(r))
+        mapped_result.append(DictionaryBuilder.build_reacted_dict(r))
     return jsonify(Users = mapped_result)
 
 def getUsersByDislikedMessage(mid):
@@ -141,7 +141,7 @@ def getUsersByDislikedMessage(mid):
         return jsonify(Error = "No Users Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(DictionaryBuilder.build_user_dict())
+        mapped_result.append(DictionaryBuilder.build_reacted_dict(r))
     return jsonify(Users = mapped_result)
 
 def getMembersByChatID(cid):
@@ -150,7 +150,7 @@ def getMembersByChatID(cid):
         return jsonify(Error = "No Members Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(DictionaryBuilder.build_user_dict())
+        mapped_result.append(DictionaryBuilder.build_participants_dict(r))
     return jsonify(Users = mapped_result)
 
 def getAdminByChatID(cid):
@@ -159,5 +159,5 @@ def getAdminByChatID(cid):
         return jsonify(Error = "No Admin Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(DictionaryBuilder.build_user_dict())
+        mapped_result.append(DictionaryBuilder.build_chat_dict(r))
     return jsonify(Users = mapped_result)
