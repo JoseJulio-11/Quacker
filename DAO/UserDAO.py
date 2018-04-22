@@ -154,31 +154,19 @@ class UserDAO:
 
     # Returns the user with name and phone specfied
     def getUserByNameAndPhone(self, fName, lName, uphone):
-        # List containing user record with full name
-        userRecords = []
-        # List containing the user with the provided phone
-        desiredUser = []
-        for r in self.users:
-            if fName == r[1] and lName == r[2]:
-                userRecords.append(r)
-        for j in self.credentials:
-            if uphone == j[4]:
-                desiredUser.append(j)
-        return desiredUser
+        cursor = self.conn.cursor()
+        query = "select uid from users natural inner join credentials where fname = %s AND lname = %s AND uphone = %s;"
+        cursor.execute(query, (fName, lName, uphone))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with name and username specified
     def getUserByNameAndUsername(self, fName, lName, username):
-        # List containing user record with full name
-        userRecords = []
-        # List containing the user with the provided username
-        desiredUser = []
-        for r in self.users:
-            if fName == r[1] and lName == r[2]:
-                userRecords.append(r)
-        for j in self.credentials:
-            if username == j[1]:
-                desiredUser.append(j)
-        return desiredUser
+        cursor = self.conn.cursor()
+        query = "select uid from users natural inner join credentials where fname = %s AND lname = %s AND username = %s;"
+        cursor.execute(query, (fName, lName, username))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with username and password specified
     def getUserByUsernameAndPassword(self, username, password):
