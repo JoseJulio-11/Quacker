@@ -207,7 +207,7 @@ class UserDAO:
     #Returns the users that are members of the chat with ID cid
     def getMembersByChatID(self, cid):
         cursor = self.conn.cursor()
-        query = "select uid from chats where cid = %s;"
+        query = "select uid from participants where cid = %s;"
         cursor.execute(query, (cid,))
         result = []
         for row in cursor:
@@ -216,16 +216,11 @@ class UserDAO:
 
     #Returns the user that is admin of the chat with ID cid
     def getAdminByChatID(self, cid):
-        if cid == 1:
-            return self.users[0]
-        elif cid == 2:
-            return self.users[2]
-        elif cid == 3:
-            return self.users[5]
-        elif cid == 4:
-            return self.users[3]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select uid from chats where cid = %s;"
+        cursor.execute(query, (cid,))
+        result = cursor.fetchone()
+        return result
 
     # =========================== Update Methods ================================= #
     def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
