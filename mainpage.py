@@ -12,7 +12,9 @@ mainpage =  '<head> ' \
             '<h3>Main Page:</h3>' \
             '<ul><li>/</li></ul>' \
             '<h3>Get User Locations:</h3>' \
-            '<ul><li>/users</li><li>/users/[int:uid]</li><li>/users/active</li></ul>' \
+            '<ul><li>/users</li><li>/users/[int:uid]</li><li>/users/active</li>' \
+            '<li>/users/message/liked/[int:mid]</li><li>/users/message/disliked/[int:mid]</li>' \
+            '<li>/users/chat/[int:cid]</li><li>/users/chat/admin/[int:cid]</li></ul>' \
             '<h3>Get Credential Locations:</h3>' \
             '<ul><li>/credentials</li><li>/credentials/user/[int:uid]</li></ul>' \
             '<h3>Get Activity Locations:</h3>' \
