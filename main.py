@@ -142,7 +142,6 @@ def getAllChats():
     else:
         return jsonify(Error="Method not allowed"), 404
 
-
 @app.route('/chats/<int:cid>', methods=['GET'])
 def getChatByID(cid):
     if request.method == 'GET':
