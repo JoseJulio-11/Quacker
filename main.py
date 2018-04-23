@@ -146,7 +146,6 @@ def getAllChats():
 @app.route('/chats/<int:cid>', methods=['GET'])
 def getChatByID(cid):
     if request.method == 'GET':
-
         result = Chat.getChatByID(cid)
         return result
     else:

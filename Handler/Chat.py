@@ -8,25 +8,24 @@ dao = ChatDAO()
 
 def getAllChats():
     # This method will return all the chats
-
     chat_lists = dao.getAllChats()
     if not chat_lists:
         return jsonify(Error="No Chats Found")
     result_list = []
+
     for row in chat_lists:
         result = Dic.build_chat_dict(row)
         result_list.append(result)
     return jsonify(Chat=result_list)
 
-
 def getChatByID(cID):
     # This method will return the determined chat by its ID
-    row = dao.getChatByID(cID)
-    if not row:
+    desired_chat = dao.getChatByID(cID)
+    if not desired_chat:
         return jsonify(Error=" Chat not found"), 404
-    chat = Dic.build_chat_dict(row)
-    return jsonify(Chat=chat)
-
+    else:
+        chat = Dic.build_chat_dict(desired_chat)
+        return jsonify(Chat=chat)
 
 def getParticipantsByChatID(cID):
     # This method returns the list of participants in a determined chat
@@ -92,7 +91,8 @@ def getAllActiveChats():
     for r in result:
         mapped_result.append(Dic.build_participants_dict(r))
     return jsonify(Chats=mapped_result)
-
+def getChatInfo(CID):
+    result = dao.getChatInfo(cID)
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat
 #        dao = ReadChatDAO()

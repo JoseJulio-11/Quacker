@@ -27,6 +27,7 @@ class ChatDAO:
     # ============================= Get Methods ================================= #
     def getAllChats(self):
         # This method will return all the chats
+       #WORKSSSSSSSSSSSSS
         cursor = self.conn.cursor()
         query = "select * from chats;"
         cursor.execute(query)
@@ -37,6 +38,7 @@ class ChatDAO:
 
     def getAllActiveChats(self):
         # This method will return all the chats
+        #WORKSSSSSSSSSSSSS
         cursor = self.conn.cursor()
         query = "select * from chats where isActive=true"
         cursor.execute(query)
@@ -47,6 +49,7 @@ class ChatDAO:
 
     def getChatByUserID(self, uID):
     #This method will return the chats on which that user is in
+    #WORKSSSSS
         cursor = self.conn.cursor()
         query = "select * from messages natural inner join participants where uid = %s; "
         cursor.execute(query,(uID,))
@@ -57,6 +60,7 @@ class ChatDAO:
 
     def getAllParticipants(self):
         # This method will give all the participants in the application
+        #WORKSSSSSSSSSSSS
         cursor = self.conn.cursor()
         query = "select * from participants;"
         cursor.execute(query)
@@ -67,6 +71,7 @@ class ChatDAO:
 
     def getChatParticipants(self,cID):
         # THis method will return the active participants of a specified chat ( active or nonactive chat)
+        #WORKSSSSSSSSS
         cursor = self.conn.cursor()
         query = " select * from participants natural inner join users where cID = %s;"
         cursor.execute(query,(cID,))
@@ -74,6 +79,7 @@ class ChatDAO:
         for row in cursor:
             result.append(row)
         return result
+
     def getChatActivePartipants(self,cID):
         # This method will give the active participants in a desired chat
         cursor = self.conn.cursor()
@@ -97,7 +103,7 @@ class ChatDAO:
     def getChatInfo(self,cID):
         # This method will return the information of a desired chat
         cursor = self.conn.cursor()
-        query = " select * from chats where cid = %s"
+        query = " select * from chats where cid = %s;"
         cursor.execute(query, (cID,))
         result = []
         for row in cursor:
@@ -106,41 +112,44 @@ class ChatDAO:
 
     def getChatWithMedia(self,mID):
         # This method will return the chat on which determined media is located in
-        if mID == 1:
-            return self.chat[4]
-        if mID == 2:
-            return self.chat[2]
-        return []
+        cursor = self.conn.cursor()
+        query = " select *  from messages natural inner join medias where mid = %s;"
+        cursor.execute(query,(mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getChatsByTopic(self,hashtag):
         # This method will return the chats on which the hashtag was sent
-        if hashtag == 'mindblowing':
-            return [self.chat[4]]
-        if hashtag == 'doyouevenlift?':
-            return [self.chat[2]]
-        if hashtag == 'wtf':
-            return [self.chat[4]]
-        return[]
+        cursor = self.conn.cursor()
+        query = "select *  from messages natural inner join topics where hashtag =%s;"
+        cursor.execute(query,(hashtag,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getChatByID(self,cID):
         # This method will return the chat given its ID
-        if cID == 1:
-            return self.chat[0]
-        if cID == 2:
-            return self.chat[1]
-        if cID == 3:
-            return self.chat[2]
-        if cID == 4:
-            return self.chat[3]
-        return []
+        cursor = self.conn.cursor()
+        query = " select * from chats where cid = %s;"
+        cursor.execute(query,(cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    #Returns a list with the chats of the admin user with ID uID
     def getChatsAsAdmin(self, uID):
-        adminChatsList = []
-        for r in self.chat:
-            if uID == r[6]:
-                adminChatsList.append(r)
-        return adminChatsList
+    #Returns a list with the chats of the admin user with ID uID
+    #WORKSSSS
+       cursor = self.conn.cursor()
+       query = "select * from chats where uid=%s"
+       cursor.execute(query,(uID,))
+       result = []
+       for row in cursor:
+           result.append(row)
+       return result
 
     def getChatsDeleted(self):
         # This method will return the deleted chats
