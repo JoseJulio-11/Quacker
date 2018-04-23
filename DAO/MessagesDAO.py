@@ -466,7 +466,7 @@ class MessagesDAO:
 
     def getAllTopics(self):
         cursor = self.conn.cursor()
-        query = "select * from topics);"
+        query = "select * from topics;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -475,7 +475,7 @@ class MessagesDAO:
 
     def getAllTopicsInMessage(self, mID):
         cursor = self.conn.cursor()
-        query = "select * from topics where mid = %s);"
+        query = "select * from topics where mid = %s;"
         cursor.execute(query, (mID,))
         result = []
         for row in cursor:
@@ -484,7 +484,7 @@ class MessagesDAO:
 
     def getAllTopicsInChat(self, cID):
         cursor = self.conn.cursor()
-        query = "select * from topics where cid = %s);"
+        query = "select hashtag, mid from topics natural inner join messages where cid = %s;"
         cursor.execute(query, (cID,))
         result = []
         for row in cursor:
@@ -493,7 +493,7 @@ class MessagesDAO:
 
     def getAllTopicsByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from topics where uid = %s);"
+        query = "select hashtag, mid from topics natural inner join messages where uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -502,7 +502,7 @@ class MessagesDAO:
 
     def getAllTopicsByUserInChat(self, uID, cID):
         cursor = self.conn.cursor()
-        query = "select * from topics where uid = %s and cid = %s);"
+        query = "select hashtag, mid from topics natural inner join messages where uid = %s and cid = %s;"
         cursor.execute(query, (uID,cID))
         result = []
         for row in cursor:
@@ -511,150 +511,164 @@ class MessagesDAO:
 
     # =================================== Get Reactions =================================== #
 
-
-    def getMessageReaction(self, mID):
-        if mID == 3:
-            return self.reacted[0:2]
-        elif mID == 8:
-            return [self.reacted[2]]
-        else:
-            return []
-
-    def getMessageLike(self, mID):
-        if mID == 3:
-            return [self.reacted[0]]
-        elif mID == 8:
-            return [self.reacted[2]]
-        else:
-            return []
-
-    def getMessageDislike(self, mID):
-        if mID == 3:
-            return [self.reacted[1]]
-        else:
-            return []
-
     def getAllReactions(self):
-        return self.reacted
-
-    def getAllLikeReactions(self):
+        cursor = self.conn.cursor()
+        query = "select * from reacted;"
+        cursor.execute(query)
         result = []
-        result.append(self.reacted[0])
-        result.append(self.reacted[2])
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getAllDislikeReactions(self):
+    def getAllLikes(self):
+        cursor = self.conn.cursor()
+        query = "select * from reacted where vote = 1;"
+        cursor.execute(query)
         result = []
-        result.append(self.reacted[1])
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getAllLikeReactionsBetween(self, bDate, aDate):
+    def getAllDislikes(self):
+        cursor = self.conn.cursor()
+        query = "select * from reacted where vote = -1;"
+        cursor.execute(query)
         result = []
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-             result.append(self.reacted[0])
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-             result.append(self.reacted[2])
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getAllDislikeReactionsBetween(self, bDate, aDate):
+    def getAllReactionsInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select * from reacted with mid = %s;"
+        cursor.execute(query, (mID, ))
         result = []
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-             result.append(self.reacted[1])
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getChatReactions(self, cID):
-        # It will return the reactions based on the chat
-        if cID == 3:
-            return self.reacted[0:2]
-        if cID == 1:
-            return [self.reacted[3]]
-        return []
+    def getAllLikesInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select * from reacted with mid = %s and vote = 1;"
+        cursor.execute(query, (mID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    def getChatReactionsBetween(self,cID,bDate,aDate):
-        # This method will return the reactions of a chat between a determined date
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 3:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
-                return self.reacted[0:2]
-        if cID == 1:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
-                return [self.reacted[3]]
-        return []
-
-    # Returns the list of reactions between the
-    # date and time specified of the user with ID uID
-    def getUserReactionsBetween(self, uID, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if uID == 2 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 20:
-            return [self.reacted[0]]
-        elif uID == 6 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 20:
-            return [self.reacted[1]]
-        elif uID == 1 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 17:
-            return [self.reacted[2]]
-        else:
-            return []
+    def getAllDislikesInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select * from reacted with mid = %s and vote = -1;"
+        cursor.execute(query, (mID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # Returns the list of reactions of the user with ID uID
-    def getUserReactions(self, uID):
-        if uID == 2:
-            return [self.reacted[0]]
-        elif uID == 6:
-            return [self.reacted[1]]
-        elif uID == 1:
-            return [self.reacted[2]]
-        else:
-            return []
-
-    # =================================== Get Media ============================= #
-    def getMessageMedia(self, mID):
-        if mID == 3:
-            return self.media[0]
-        elif mID == 9:
-            return self.media[1]
-        else:
-            return []
-
-    def getMedia(self, mediaID):
-        if mediaID == 1:
-            return self.media[0]
-        elif mediaID == 2:
-            return self.media[1]
-        else:
-            return []
-
-    def getAllMedia(self):
-        return self.media
-
-    def getAllMediaBetween(self, bDate, aDate):
+    def getAllReactionsByUser(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from reacted with uid = %s;"
+        cursor.execute(query, (uID,))
         result = []
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-            result.append(self.reacted[0])
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-            result.append(self.media[1])
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getChatMedia(self, cID):
-        # This method will return the media sended in that determined chat
-        if cID == 1:
-            return [self.media[0]]
-        if cID == 3:
-            return [self.media[1]]
-        return []
+    def getAllLikesByUser(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from reacted with uid = %s and vote = 1;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    def getUserMedia(self, uID):
-        # This method will return the media sended in that determined chat
-        if uID == 3:
-            return [self.media[0]]
-        if uID == 4:
-            return [self.media[1]]
-        return []
+    def getAllDislikesByUser(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from reacted with uid = %s and vote = -1;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllReactionsInChat(self, cID):
+        cursor = self.conn.cursor()
+        query = "select uid, mid, rtime, vote from reacted inner join messages using(mid)" \
+                " where chat = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllLikesInChat(self, cID):
+        cursor = self.conn.cursor()
+        query = "select uid, mid, rtime, vote from reacted inner join messages using(mid)" \
+                " where chat = %s and vote = 1;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllDislikesInChat(self, cID):
+        cursor = self.conn.cursor()
+        query = "select uid, mid, rtime, vote from reacted inner join messages using(mid)" \
+                " where chat = %s and vote = -1;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # =================================== Get Media ============================= #
+    def getAllMedia(self):
+        cursor = self.conn.cursor()
+        query = "select * from medias;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getMessageMedia(self, mID):
+        cursor = self.conn.cursor()
+        query = "select * from medias where mid = %s;"
+        cursor.execute(query, (mID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllMediaInChat(self, cID):
+        cursor = self.conn.cursor()
+        query = "select mid, isvideo, location from medias natural inner join messages where cid = %s"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllMediaByUser(self, uID):
+        cursor = self.conn.cursor()
+        query = "select mid, isvideo, location from medias natural inner join messages where uid = %s"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllMediaInChatByUser(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select mid, isvideo, location from medias natural inner join messages " \
+                "where uid = %s and cid = %s"
+        cursor.execute(query, (uID, cID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # ============================== Update Methods =============================== #
     def updateMessage(self, mID, text, cdate, ctime, uid, cid, isDeleted, rid):
