@@ -35,185 +35,185 @@ class UserDAO:
     # =================================== Read Methods =============================== #
     #Returns the list of all users
     def getAllUsers(self):
-        return self.users
+        cursor = self.conn.cursor()
+        query = "select * from users;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all credentials
     def getAllCredentials(self):
-        return self.credentials
+        cursor = self.conn.cursor()
+        query = "select * from credentials;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all contacts
     def getAllContacts(self):
-        return self.contacts
+        cursor = self.conn.cursor()
+        query = "select * from contacts;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all activity in the app
     def getAllActivity(self):
-        return self.activity
+        cursor = self.conn.cursor()
+        query = "select * from activities;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of all users that are active
     def getAllUsersByActivity(self):
-        activeUsers = []
-        for r in self.activity:
-            if r[3]:
-                activeUsers.append(r)
-        return activeUsers
+        cursor = self.conn.cursor()
+        query = "select * from activities where isactive = 't';"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns a list with the personal information of the user with ID uID
     def getUserInfo(self, uID):
-        for r in self.users:
-            if uID == r[0]:
-                return r
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from users where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = cursor.fetchone()
+        return result
 
     #Returns a list with the credentials of the user with ID uID
     def getUserCredentials(self, uID):
-        for r in self.credentials:
-            if uID == r[0]:
-               return r
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from credentials where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = cursor.fetchone()
+        return result
 
     #Returns a list with the activity of the user with ID uID
     def getUserActivity(self, uID):
-       for r in self.activity:
-            if uID == r[0]:
-                return r
-       return []
+        cursor = self.conn.cursor()
+        query = "select * from activities where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = cursor.fetchone()
+        return result
 
     #Returns a list with the contacts of the user with ID uID
     def getUserContacts(self, uID):
-        contactList = []
-        for r in self.contacts:
-            if uID == r[0]:
-                contactList.append(r)
-        return contactList
+        cursor = self.conn.cursor()
+        query = "select * from contacts where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Returns the list of members with ID uID that are contacts of another member.
     def getParticipationAsContact(self, uID):
-        userContactOfAnotherUser = []
-        for r in self.contacts:
-            if uID == r[1]:
-                userContactOfAnotherUser.append(r)
-        return userContactOfAnotherUser
+        cursor = self.conn.cursor()
+        query = "select * from contacts where memberid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    #Returns the list of all users created between the provided dates
+    # Returns the list of all users created between the provided dates
     def getUsersCreatedBetween(self, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if bDate[0] <=2018 and bDate[1] <=1 and bDate[2] <=1 and aDate[0] >=2018 and aDate[1]>=1 and aDate[2]>=1:
-            return [self.users[0], self.users[1]]
-        elif bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 5 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 5:
-            return [self.users[2]]
-        elif bDate[0] <= 2018 and bDate[1] <= 2 and bDate[2] <= 1 and aDate[0] >= 2018 and aDate[1] >= 2 and aDate[2] >= 1:
-            return [self.users[3]]
-        elif bDate[0] <= 2017 and bDate[1] <= 12 and bDate[2] <= 31 and aDate[0] >= 2017 and aDate[1] >= 12 and aDate[2] >= 31:
-            return [self.users[4]]
-        elif bDate[0] <= 2017 and bDate[1] <= 1 and bDate[2] <= 1 and aDate[0] >= 2017 and aDate[1] >= 1 and aDate[2] >= 1:
-            return [self.users[5]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from users where utime between %s AND %s;"
+        cursor.execute(query, (bDate, aDate))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # Returns the user with name and email specified
     def getUserByNameAndEmail(self, fName, lName, uemail):
-        # List containing user record with full name
-        userRecords = []
-        # List containing the user with the provided email
-        desiredUser = []
-        for r in self.users:
-            if fName == r[1] and lName == r[2]:
-                userRecords.append(r)
-        for j in self.credentials:
-            if uemail == j[3]:
-                desiredUser.append(j)
-        return desiredUser
+        cursor = self.conn.cursor()
+        query = "select * from users natural inner join credentials where fname = %s AND lname = %s AND uemail = %s;"
+        cursor.execute(query, (fName, lName, uemail))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with name and phone specfied
     def getUserByNameAndPhone(self, fName, lName, uphone):
-        # List containing user record with full name
-        userRecords = []
-        # List containing the user with the provided phone
-        desiredUser = []
-        for r in self.users:
-            if fName == r[1] and lName == r[2]:
-                userRecords.append(r)
-        for j in self.credentials:
-            if uphone == j[4]:
-                desiredUser.append(j)
-        return desiredUser
+        cursor = self.conn.cursor()
+        query = "select * from users natural inner join credentials where fname = %s AND lname = %s AND uphone = %s;"
+        cursor.execute(query, (fName, lName, uphone))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with name and username specified
     def getUserByNameAndUsername(self, fName, lName, username):
-        # List containing user record with full name
-        userRecords = []
-        # List containing the user with the provided username
-        desiredUser = []
-        for r in self.users:
-            if fName == r[1] and lName == r[2]:
-                userRecords.append(r)
-        for j in self.credentials:
-            if username == j[1]:
-                desiredUser.append(j)
-        return desiredUser
+        cursor = self.conn.cursor()
+        query = "select * from users natural inner join credentials where fname = %s AND lname = %s AND username = %s;"
+        cursor.execute(query, (fName, lName, username))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with username and password specified
     def getUserByUsernameAndPassword(self, username, password):
-        # List containing user record with username
-        userRecord = []
-        for r in self.credentials:
-            if username == r[1] and password == r[2]:
-                userRecord.append(r)
-        return userRecord
+        cursor = self.conn.cursor()
+        query = "select * from credentials where username = %s AND password = %s;"
+        cursor.execute(query, (username, password))
+        result = cursor.fetchone()
+        return result
 
     # Returns the user with email and password specified
     def getUserByEmailAndPassword(self, uemail, password):
-        # List containing user record with full name
-        userRecord = []
-        for r in self.credentials:
-            if uemail == r[3] and password == r[2]:
-                userRecord.append(r)
-        return userRecord
+        cursor = self.conn.cursor()
+        query = "select * from credentials where uemail = %s AND password = %s;"
+        cursor.execute(query, (uemail, password))
+        result = cursor.fetchone()
+        return result
 
     # Returns the users who liked the message with ID mid
     def getUsersByLikedMessage(self, mid):
-        if mid == 3:
-            return [self.users[1]]
-        elif mid == 8:
-            return [self.users[0]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from reacted where mid = %s AND vote = 1;"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # Returns the users who disliked the message with ID mid
     def getUsersByDislikedMessage(self, mid):
-        if mid == 3:
-            return [self.users[5]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from reacted where mid = %s AND vote = -1;"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    #Returns the users that are members of the chat with ID cid
+    # Returns the users that are members of the chat with ID cid
     def getMembersByChatID(self, cid):
-        if cid == 1:
-            return [self.users[0], self.users[3], self.users[4]]
-        elif cid == 2:
-            return [self.users[1], self.users[2]]
-        elif cid == 3:
-            return [self.users[1], self.users[2], self.users[5]]
-        elif cid == 4:
-            return [self.users[1], self.users[3]]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from participants where cid = %s;"
+        cursor.execute(query, (cid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    #Returns the user that is admin of the chat with ID cid
+    # Returns the user that is admin of the chat with ID cid
     def getAdminByChatID(self, cid):
-        if cid == 1:
-            return self.users[0]
-        elif cid == 2:
-            return self.users[2]
-        elif cid == 3:
-            return self.users[5]
-        elif cid == 4:
-            return self.users[3]
-        else:
-            return []
+        cursor = self.conn.cursor()
+        query = "select * from chats where cid = %s;"
+        cursor.execute(query, (cid,))
+        result = cursor.fetchone()
+        return result
 
     # =========================== Update Methods ================================= #
     def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
