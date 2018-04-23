@@ -180,7 +180,7 @@ class UserDAO:
     # Returns the users who liked the message with ID mid
     def getUsersByLikedMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select * from users natural inner join reacted where mid = %s AND vote = 1;"
+        query = "select uid, fname, lname, utime, pseudonym from users natural inner join reacted where mid = %s AND vote = 1;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -190,7 +190,7 @@ class UserDAO:
     # Returns the users who disliked the message with ID mid
     def getUsersByDislikedMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select * from users natural inner join reacted where mid = %s AND vote = -1;"
+        query = "select uid, fname, lname, utime, pseudonym from users natural inner join reacted where mid = %s AND vote = -1;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -200,7 +200,7 @@ class UserDAO:
     # Returns the users that are members of the chat with ID cid
     def getMembersByChatID(self, cid):
         cursor = self.conn.cursor()
-        query = "select * from participants where cid = %s;"
+        query = "select uid, fname, lname, utime, pseudonym from users natural join participants where cid = %s;"
         cursor.execute(query, (cid,))
         result = []
         for row in cursor:
@@ -210,7 +210,7 @@ class UserDAO:
     # Returns the user that is admin of the chat with ID cid
     def getAdminByChatID(self, cid):
         cursor = self.conn.cursor()
-        query = "select * from chats where cid = %s;"
+        query = "select uid, fname, lname, utime, pseudonym from users natural inner join chats where cid = %s;"
         cursor.execute(query, (cid,))
         result = cursor.fetchone()
         return result

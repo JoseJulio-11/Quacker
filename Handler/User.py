@@ -150,14 +150,12 @@ def getMembersByChatID(cid):
         return jsonify(Error = "No Members Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(DictionaryBuilder.build_participants_dict(r))
+        mapped_result.append(DictionaryBuilder.build_user_dict(r))
     return jsonify(Users = mapped_result)
 
 def getAdminByChatID(cid):
     result = dao.getAdminByChatID(cid)
     if not result:
         return jsonify(Error = "No Admin Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(DictionaryBuilder.build_chat_dict(r))
+    mapped_result = DictionaryBuilder.build_user_dict(result)
     return jsonify(Users = mapped_result)
