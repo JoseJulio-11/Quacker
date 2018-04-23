@@ -32,585 +32,485 @@ class MessagesDAO:
         return mID, medID
 
     # ====================== Get Message Records ============================================ #
+    # =============== Single Record Queries ==================== #
     def getMessageInfo(self, mID):
-        if mID >= 1 and mID <= 12:
-            return self.messages[mID-1]
-        return []
-
-    def getRepliedMessage(self, mID):
-        if mID == 4:
-            return self.messages[2]
-        elif mID == 5:
-            return self.messages[2]
-        elif mID == 9:
-            return self.messages[7]
-        else:
-            return []
-
-    # ========================= Methods Independent On Time ======================= #
-    # ======= Methods For Messages In Chat types ============ #
-    def getAllMessages(self):
-        return self.messages
-
-    def getAllMessagesInChatType(self, isGroupChat):
-        if isGroupChat:
-            return self.messages[5:9]
-        else:
-            return [self.messages[10]]
-
-    def getAllDeletedMessagesInChatType(self, isGroupChat, isActive):
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return [self.messages[11]]
-        elif isGroupChat and (not isActive):
-            return self.messages[0:6]
-        else:
-            return [self.messages[9]]
-
-    def getChatMessages(self, cID):
-        # This method will return the messafes on a determined chat
-        if cID == 1:
-            return self.messages[5:10]
-        if cID == 2:
-            return self.messages[9:11]
-        if cID == 3:
-            return self.messages[0:4]
-        if cID == 4:
-            return [self.messages[11]]
-        return []
-
-    def getChatActiveMessages(self, cID):
-        # This method will return the messafes on a determined chat
-        if cID == 1:
-            return self.messages[5:10]
-        if cID == 2:
-            return [self.messages[10]]
-        return []
-
-
-    def getActivetChatMessages(self, cID, isDeleted):
-        # This method will only return all the messages in all the active single chats
-        # Whether they are deleted or not
-        if cID == 2 and not isDeleted:
-            return [self.messages[11]]
-        if cID == 2 and isDeleted:
-            return [self.messages[11]]
-
-    def getNonActiveChatMessages(self, cID, isDeleted):
-        # This method will return all the messages in single chats that are inactive
-        # There is no example of a not deleted message on a inactive chat!!!!!!!!!
-        if cID == 4 and isDeleted:
-            return [self.messages[9]]
-        return []
-
-    def getActiveGroupChatMessages(self, cID, isDeleted):
-        # This method will give all the messages on a group chat, deleted or not
-        if cID == 1 and isDeleted:
-            return []
-        elif cID == 1 and not isDeleted:
-            return self.messages[5:9]
-        return []
-
-    def getNonActiveGroupChatMessages(self, cID, isDeleted):
-        # This method will return the messages of a deleted chat
-        if cID == 3 and isDeleted:
-            return self.messages[0:5]
-        return []
-
-    # ======= Methods For Reply Messages In Chat types ============ #
-    def getAllReplyMessagesInChatType(self, isGroupChat):
-        # Give all existing messages
-        if isGroupChat:
-            return [self.messages[8]]
-        else:
-            return []
-
-    def getAllDeletedReplyMessagesInChatType(self, isGroupChat, isActive):
-        # Give all existing messages
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            return self.messages[3:5]
-        else:
-            return []
-
-    # ======= Methods For Reply Messages In Chat types ============ #
-    def getAllMessagesWithReplyInChatType(self, isGroupChat):
-        # Give all existing messages
-        if isGroupChat:
-            return [self.messages[7]]
-        else:
-            return []
-
-    def getAllDeletedMessagesWithReplyInChatType(self, isGroupChat, isActive):
-        # Give all existing messages
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            return [self.messages[2]]
-        else:
-            return []
-
-    # ======= Methods For Messages With Media In Chat types ============ #
-    def getAllMessagesWithMediaInChatType(self, isGroupChat):
-        if isGroupChat:
-            return [self.messages[7]]
-        else:
-            return []
-
-    def getAllDeletedMessagesWithMediaInChatType(self, isGroupChat, isActive):
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            return [self.messages[2]]
-        else:
-            return []
-
-    # ======= Methods For Messages With Reactions In Chat types ============ #
-    def getAllMessagesWithReactionsInChatType(self, isGroupChat):
-        if isGroupChat:
-            return [self.messages[7]]
-        else:
-            return []
-
-    def getAllDeletedMessagesWithReactionsInChatType(self, isGroupChat, isActive):
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            return [self.messages[2]]
-        else:
-            return []
-
-    def getChatReplyMessages(self,cID):
-        # This method will give the list of replied messages in a determined chat
-        if cID == 3:
-            return self.messages[3:6]
-        elif cID == 1:
-            return [self.messages[7]]
-        return []
-
-    def getChatMessagesRepliedWithMedia(self,cID):
-        # This method is supposed to return the messages that contain a media
-        # and at the same time is being replied, and viceversa
-        if cID == 3:
-            return self.messages[3:6]
-        if cID == 1:
-            return [self.messages[7]]
-        return []
-
-    def getChatMessageWithReplyAndReaction(self,cID):
-        # This method will select the messages in a defined chat that have reaction and reply
-        if cID == 3:
-            return [self.messages[4]]
-        if cID == 1:
-            return [self.messages[9]]
-        return []
-    def getChatMessagesWithReplyReactionMedia(self,cID):
-        # This method will return the messages on a desired chat that have reaction,media and reply
-        if cID == 3:
-            return [self.messages[4]]
-        return []
-
-    def getChatRepliedMessages(self,cID):
-        # This method will return the messages that have been replied in a determined chat
-        if cID == 3:
-            return self.messages[5:6]
-        if cID == 1:
-            return [self.messages[10]]
-        return []
-
-    def getLikedMessagesByChat(self,cID):
-        # This method will return the liked messages on a determined chat
-        if cID == 3:
-            return [self.messages[4]]
-        if cID == 1:
-            return [self.messages[9]]
-        return []
-
-    def getUnlikedMessagesByChat(self,cID):
-        # This method will return the unliked messages in a determined chat
-        if cID == 3:
-            return [self.messages[4]]
-        return []
-    # ========================= Methods Dependent On Time ======================= #
-    # ======= Methods For Messages In Chat types ============ #
-    def getAllMessagesInChatTypeBetween(self, isGroupChat, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
-                return self.messages[5:9]
-            return []
-        else:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=10 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=10:
-                return [self.messages[10]]
-            return []
-
-    def getAllDeletedMessagesInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 10 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 10:
-                return [self.messages[11]]
-            return []
-        elif isGroupChat and (not isActive):
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return self.messages[0:6]
-            return []
-        else:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 25 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 25:
-                return [self.messages[9]]
-            return []
-
-    # ======= Methods For Reply Messages In Chat types ============ #
-    def getAllReplyMessagesInChatTypeBetween(self, isGroupChat, bDate, aDate):
-        # Give all existing messages
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <=17 and aDate[0] >= 2018 and aDate[1] >=1 and aDate >=17:
-                return [self.messages[8]]
-            return []
-        else:
-            return []
-
-    def getAllDeletedReplyMessagesInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        # Give all existing messages
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return self.messages[3:5]
-            return []
-        else:
-            return []
-
-    # ======= Methods For Reply Messages In Chat types ============ #
-    def getAllMessagesWithReplyInChatTypeBetween(self, isGroupChat, bDate, aDate):
-        # Give all existing messages
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
-                return [self.messages[7]]
-            return []
-        else:
-            return []
-
-    def getAllDeletedMessagesWithReplyInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        # Give all existing messages
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return [self.messages[2]]
-            return []
-        else:
-            return []
-
-    # ======= Methods For Messages With Media In Chat types ============ #
-    def getAllMessagesWithMediaInChatTypeBetween(self, isGroupChat, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
-                return [self.messages[7]]
-            return []
-        else:
-            return []
-
-    def getAllDeletedMessagesWithMediaInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return [self.messages[2]]
-            return []
-        else:
-            return []
-
-    # ======= Methods For Messages With Reactions In Chat types ============ #
-    def getAllMessagesWithReactionsInChatTypeBetween(self, isGroupChat, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 17:
-                return [self.messages[7]]
-            return []
-        else:
-            return []
-
-    def getAllDeletedMessagesWithReactionsInChatTypeBetween(self, isGroupChat, isActive, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if isGroupChat and isActive:
-            return []
-        elif (not isGroupChat) and isActive:
-            return []
-        elif isGroupChat and (not isActive):
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-                return [self.messages[2]]
-            return []
-        else:
-            return []
-
-    def getActiveChatMessagesBetween(self, cID, isGroup, isDeleted, bDate, aDate):
-        # This method will return the messages in a chat between established the
-        # dates of group/single chat and deleted/notDeleted messages
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 1 and isGroup and not isDeleted:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 17:
-                return self.messages[5:9]
-            return []
-        if cID == 2 and isGroup and isDeleted:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 10:
-                return [self.messages[11]]
-            return []
-
-        if cID == 2 and not isGroup and not isDeleted:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 10:
-                return [self.messages[10]]
-            return []
-
-    def getNonActiveChatMessagesBeteween(self, cID, isGroup, isDeleted, bDate, aDate):
-        # This method will return the messages in a non-active chat between the established the
-        # dates of group/single chat and deleted/notDeleted messages
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 3 and isGroup and isDeleted:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return self.messages[0:5]
-            return []
-        if cID == 4 and not isGroup and isDeleted:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return [self.messages[9]]
-            return []
-
-    def getChatRepliedMessagesBetween(self,cID,bDate,aDate):
-        # THis method will give the replies in a chat between a determined date
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 3:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 20:
-                return self.messages[5:6]
-        elif cID == 1:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[ 2] >= 17:
-                return [self.messages[10]]
-        return []
-
-    def getChatMessagesRepliedWithMediaBetween(self, cID, bDate, aDate):
-        # This method is supposed to return the messages that contain a media
-        # and at the same time is being replied, and viceversa between a specified date
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 3:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return self.messages[5:6]
-        if cID == 1:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 17:
-                return [self.messages[10]]
-        return []
-
-    def getChatMessageWithReplyAndReactionBetween(self, cID, bDate, aDate):
-        # This method will select the messages in a defined chat that have reaction and reply between a specified date
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 3:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return [self.messages[4]]
-        if cID == 1:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 17:
-                return [self.messages[9]]
-        return []
-
-    def getChatMessagesWithReplyReactionMediaBetween(self, cID, bDate, aDate):
-        # This method will return the messages on a desired chat that have reaction,media and reply between a date
-
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-
-        if cID == 3:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return [self.messages[4]]
-        return []
-
-    # Returns the list of messages posted by user with ID uID
-    # between the date frame bDate and aDate
-    def getUserMessagesBetween(self, uID, bDate, aDate):
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        if uID == 6 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 20:
-            return [self.messages[0], self.messages[4]]
-        elif uID == 2 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 20:
-            return [self.messages[1], self.messages[3]]
-        elif uID == 2 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 10 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 10:
-            return [self.messages[11]]
-        elif uID == 3 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 10 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 10:
-            return [self.messages[10]]
-        elif uID == 3 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 20:
-            return [self.messages[2]]
-        elif uID == 1 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 17:
-            return [self.messages[5]]
-        elif uID == 1 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 25 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 25:
-            return [self.messages[9]]
-        elif uID == 5 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 17:
-            return [self.messages[6], self.messages[8]]
-        elif uID == 4 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[
-            1] >= 1 and aDate[2] >= 17:
-            return [self.messages[7]]
-        else:
-            return []
-
-    # Returns the list of messages posted by user with ID uID
-    def getUserMessages(self, uID):
-        if uID == 1:
-            return [self.messages[5], self.messages[9]]
-        elif uID == 2:
-            return [self.messages[1], self.messages[3], self.messages[11]]
-        elif uID == 3:
-            return [self.messages[2], self.messages[10]]
-        elif uID == 4:
-            return [self.messages[7]]
-        elif uID == 5:
-            return [self.messages[6], self.messages[8]]
-        elif uID == 6:
-            return [self.messages[0], self.messages[4]]
-        else:
-            return []
-
-    # ================================== Get Topics ===================================== #
-    def getMessageTopics(self, mID):
-        if mID == 4:
-            return [self.topic[0]]
-        elif mID == 5:
-            return [self.topic[1]]
-        elif mID == 9:
-            return [self.topic[2]]
-        else:
-            return []
-
-    def getAllTopics(self):
-        return self.topic
-
-    def getAllTopicsBetween(self, bDate, aDate):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid = %s;"
+        cursor.execute(query, (mID, ))
         result = []
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-            result.append(self.topic[0:2])
-        if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate >= 20:
-            result.append(self.topic[2])
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getChatTopics(self, cID):
-        # This method will return the topics of a active chat
-        if cID == 1:
-            return [self.topic[2]]
-        if cID == 3:
-            return self.topic[0:2]
-        return []
+    def getRepliedMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid = (select rid from messages where mid = %s);"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    def getChatTopicsBetween(self,cID,bDate,aDate):
-        # This method will return the messages on a desired chat that have media
-        # between the stablished dates, regardless if there is a Active or non-Active chat
+    # ========================= Methods Independent On Time ======================= #
+    # ============== Methods For Get Messages ============ #
+    def getAllMessages(self):
+        cursor = self.conn.cursor()
+        query = "Select * from Messages;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
+    def getAllReplyMessages(self):
+        cursor = self.conn.cursor()
+        query = "select * from messages where rid is not NULL;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-        if cID == 3:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 20:
-                return self.topic[0:2]
+    def getAllRepliedMessages(self):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid in (Select rid from messages where rid is not NULL);"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-        if cID == 1:
-            if bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[0] >= 2018 and aDate[1] >= 1 and aDate[2] >= 17:
-                return [self.topic[2]]
-        return []
+    def getAllMessagesWithMedia(self):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid in (Select mid from medias);"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    # Returns the list of topics posted by the user with ID uID
-    # between the time frame bDate and aDate
-    def getUserTopicsBetween(self, uID, bDate, aDate):
-        # This list will hold the records of messages
-        messagesList = []
-        # This list will hold the topics of the specified user
-        userTopicsList = []
-        bDate = [int(bDate[0:4]), int(bDate[5:7]), int(bDate[8:10])]
-        aDate = [int(aDate[0:4]), int(aDate[5:7]), int(aDate[8:10])]
-        for r in self.messages:
-            if uID == r[5]:
-                messagesList.append(r)
-        if messagesList[0] == 5 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[
-            0] >= 2018 and aDate >= 1 and aDate >= 20:
-            userTopicsList.append(self.topic[1])
-        elif messagesList[0] == 4 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 20 and aDate[
-            0] >= 2018 and aDate >= 1 and aDate >= 20:
-            userTopicsList.append(self.topic[0])
-        elif messagesList[0] == 9 and bDate[0] <= 2018 and bDate[1] <= 1 and bDate[2] <= 17 and aDate[
-            0] >= 2018 and aDate >= 1 and aDate >= 17:
-            userTopicsList.append(self.topic[2])
-        return userTopicsList
+    def getAllMessagesWithReactions(self):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid in (Select mid from reacted);"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
-    # Returns the list of topics posted by the user with ID uID
-    def getUserTopics(self, uID):
-        # This list will hold the records of messages
-        if uID == 2:
-            return [self.topic[0]]
-        elif uID == 6:
-            return [self.topic[1]]
-        elif uID == 5:
-            return [self.topic[2]]
-        else:
-            return []
+    def getAllMessagesWithTopics(self):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid in (Select mid from topics);"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllActiveMessages(self, isDeleted):
+        cursor = self.conn.cursor()
+        query = "Select * from Messages where isDeleted = %s;"
+        cursor.execute(query, (isDeleted, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # ============ Get Messages by chat type ================== #
+    def getAllMessagesInChatType(self, isGroupChat):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, " \
+                "rid from chats inner join messages using(cid) where isgroupchat = %s;"
+        cursor.execute(query, (isGroupChat, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllActiveMessagesInChatType(self, isGroupChat, isDeleted):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, " \
+                "rid from chats inner join messages using(cid) where isdeleted = %s" \
+                " and isgroupchat = %se;"
+        cursor.execute(query, (isDeleted, isGroupChat, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllReplyMessagesInChatType(self, isGroupChat):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, " \
+                "rid from chats inner join messages using(cid) where isGroupChat = %s " \
+                "and rid is not NULL;"
+        cursor.execute(query, (isGroupChat,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllRepliedMessagesInChatType(self, isGroupChat):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, rid " \
+                "from chats inner join messages using(cid) where isGroupChat = %s " \
+                "and mid in (select rid from messages);"
+        cursor.execute(query, (isGroupChat,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllMessagesWithMediaInChatType(self, isGroupChat):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, rid" \
+                " from messages inner join chats using(cid) where mid in (Select mid from medias)" \
+                "and isGroupChat = %s;"
+        cursor.execute(query, (isGroupChat, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllMessagesWithReactionsInChatType(self, isGroupChat):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, rid" \
+                " from messages inner join chats using(cid) where mid in (Select mid from reacted)" \
+                "and isGroupChat = %s;"
+        cursor.execute(query, (isGroupChat,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllMessagesWithTopicsInChatType(self, isGroupChat):
+        cursor = self.conn.cursor()
+        query = "select mid, text, mtime, messages.uid, cid, isdeleted, rid" \
+                " from messages inner join chats using(cid) where mid in (Select mid from topics)" \
+                "and isGroupChat = %s;"
+        cursor.execute(query, (isGroupChat,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # ============== Get Messages in chats ================== #
+    def getAllChatMessages(self, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatActiveMessages(self, cID, isDeleted):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "isdeleted = %s and cid = %s;"
+        cursor.execute(query, (isDeleted, cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatReplyMessages(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "rid is not NULL and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatRepliedMessages(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from messages) and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatMessagesWithMedia(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select mid from media) and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatMessagesWithTopic(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select mid from topics) and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatMessagesWithReactions(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select mid from reacted) and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatMessagesWithLikes(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select mid from reacted where vote = 1) and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllChatMessagesWithDisikes(self,cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select mid from reacted where vote = -1) and cid = %s;"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # ========= Get Messages By User ================== #
+    def getAllUserMessages(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserActiveMessages(self, uID, isDeleted):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "isdeleted = %s and uid = %s;"
+        cursor.execute(query, (isDeleted, uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserReplyMessages(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "rid is not NULL and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserRepliedMessages(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from messages) and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithMedia(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from medias) and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithTopic(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from topics) and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithReactions(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from reacted) and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithLikes(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from reacted with vote = 1) and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithDisikes(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from reacted with vote = -1) and uid = %s;"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # ========= Get Messages by Chat and User ========== #
+    def getAllUserMessagesInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where uid = %s and cid = %s;"
+        cursor.execute(query, (uID, cID))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserActiveMessagesInChat(self, uID, isDeleted, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "isdeleted = %s and uid = %s and cid = %s;"
+        cursor.execute(query, (isDeleted, uID, cID))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserReplyMessagesInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "rid is not NULL and uid = %s and cid = %s;"
+        cursor.execute(query, (uID, cID))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserRepliedMessagesInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from messages) and uid = %s and cid = %s;"
+        cursor.execute(query, (uID, cID))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithMediaInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from medias) and uid = %s and cid = %s;"
+        cursor.execute(query, (uID, cID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithTopicInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from topics) and uid = %s and cid = %s;"
+        cursor.execute(query, (uID,cID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithReactionsInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from reacted) and uid = %s and cid = %s;"
+        cursor.execute(query, (uID, cID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithLikesInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from reacted with vote = 1) and uid = %s and cid = %s;"
+        cursor.execute(query, (uID,cID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllUserMessagesWithDisikesInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from messages where " \
+                "mid in (select rid from reacted with vote = -1) and uid = %s;"
+        cursor.execute(query, (uID,cID, ))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+    # ===================== Get Topics ========================= #
+
+    def getAllTopics(self):
+        cursor = self.conn.cursor()
+        query = "select * from topics);"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllTopicsInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select * from topics where mid = %s);"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllTopicsInChat(self, cID):
+        cursor = self.conn.cursor()
+        query = "select * from topics where cid = %s);"
+        cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllTopicsByUser(self, uID):
+        cursor = self.conn.cursor()
+        query = "select * from topics where uid = %s);"
+        cursor.execute(query, (uID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllTopicsByUserInChat(self, uID, cID):
+        cursor = self.conn.cursor()
+        query = "select * from topics where uid = %s and cid = %s);"
+        cursor.execute(query, (uID,cID))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # =================================== Get Reactions =================================== #
-    def getReaction(self, uID, mID):
-        if uID ==2 and mID == 3:
-            return [self.reacted[0]]
-        elif uID == 6 and mID == 3:
-            return [self.reacted[1]]
-        elif uID == 1 and mID == 8:
-            return [self.reacted[2]]
-        else:
-            return []
+
 
     def getMessageReaction(self, mID):
         if mID == 3:

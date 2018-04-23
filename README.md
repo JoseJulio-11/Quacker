@@ -23,6 +23,8 @@ database using app routes.
 * /users
 * /users/[int:uid]
 * /users/active
+* /users/message/liked/[int:mid]
+* /users/message/disliked/[int:mid]
 ##### Get Credential Locations:
 * /credentials
 * /credentials/user/[int:uid]
