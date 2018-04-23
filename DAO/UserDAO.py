@@ -180,7 +180,7 @@ class UserDAO:
     # Returns the users who liked the message with ID mid
     def getUsersByLikedMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select * from reacted where mid = %s AND vote = 1;"
+        query = "select * from users natural inner join reacted where mid = %s AND vote = 1;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -190,7 +190,7 @@ class UserDAO:
     # Returns the users who disliked the message with ID mid
     def getUsersByDislikedMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select * from reacted where mid = %s AND vote = -1;"
+        query = "select * from users natural inner join reacted where mid = %s AND vote = -1;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
