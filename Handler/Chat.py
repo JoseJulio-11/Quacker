@@ -91,7 +91,8 @@ def getAllActiveChats():
     for r in result:
         mapped_result.append(Dic.build_participants_dict(r))
     return jsonify(Chats=mapped_result)
-
+def getChatInfo(CID):
+    result = dao.getChatInfo(cID)
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat
 #        dao = ReadChatDAO()

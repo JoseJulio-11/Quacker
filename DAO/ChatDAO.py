@@ -49,6 +49,7 @@ class ChatDAO:
 
     def getChatByUserID(self, uID):
     #This method will return the chats on which that user is in
+    #WORKSSSSS
         cursor = self.conn.cursor()
         query = "select * from messages natural inner join participants where uid = %s; "
         cursor.execute(query,(uID,))
