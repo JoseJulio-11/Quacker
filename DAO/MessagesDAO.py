@@ -512,6 +512,7 @@ class MessagesDAO:
     # =================================== Get Reactions =================================== #
 
     def getAllReactions(self):
+        #WORKSSSSSSSSSSSSSSSSSS
         cursor = self.conn.cursor()
         query = "select * from reacted;"
         cursor.execute(query)
@@ -521,6 +522,7 @@ class MessagesDAO:
         return result
 
     def getAllLikes(self):
+        #WORKSSSSSS
         cursor = self.conn.cursor()
         query = "select * from reacted where vote = 1;"
         cursor.execute(query)
@@ -530,6 +532,7 @@ class MessagesDAO:
         return result
 
     def getAllDislikes(self):
+        #WORKSSSSSSSSSSS
         cursor = self.conn.cursor()
         query = "select * from reacted where vote = -1;"
         cursor.execute(query)

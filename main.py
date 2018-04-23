@@ -327,7 +327,7 @@ def getAllReactions():
 
 
 @app.route('/reactions/like', methods=['GET'])
-def getAllLikeReactions():
+def getAllLikes():
     if request.method == 'GET':
         result = Message.getAllLikes()
         return result
@@ -336,7 +336,7 @@ def getAllLikeReactions():
 
 
 @app.route('/reactions/dislike', methods=['GET'])
-def getAllDislikeReactions():
+def getAllDislikes():
     if request.method == 'GET':
         result = Message.getAllDislikes()
         return result
@@ -345,9 +345,9 @@ def getAllDislikeReactions():
 
 
 @app.route('/reactions/message/<int:mid>', methods=['GET'])
-def getMessageReactionsByID(mid):
+def getAllReactionsInMessage(mid):
     if request.method == 'GET':
-        result = Message.getMessageReactionsByID(mid)
+        result = Message.getAllReactionsInMessage(mid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
