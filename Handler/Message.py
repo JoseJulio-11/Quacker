@@ -39,6 +39,7 @@ def getAllDislikes():
     if not rows:
         return jsonify(Error="No reaction"), 404
     result = []
+    
     for row in rows:
         result.append(Dic.build_reacted_dict(row))
     return jsonify(Reacts=result)
