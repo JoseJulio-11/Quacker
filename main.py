@@ -262,9 +262,9 @@ def getMessageTopicsByID(mid):
 
 
 @app.route('/topics/user/<int:uid>', methods=['GET'])
-def getUserTopicsByID(uid):
+def getAllTopicsByUser(uid):
     if request.method == 'GET':
-        result = Message.getUserTopics(uid)
+        result = Message.getAllTopicsByUser(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404

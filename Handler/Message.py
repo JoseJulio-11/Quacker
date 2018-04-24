@@ -117,7 +117,7 @@ def getMessageMedia(mID):
 
 def getMessageTopics(mID):
     # This method return the reaction of a determined message
-    rows = dao.getMessageTopics(mID)
+    rows = dao.getAllTopicsInMessage(mID)
     if not rows:
         return jsonify(Error="Message does not contain Topics"), 404
     result = []
@@ -177,8 +177,8 @@ def getUserMessages(uID):
         mapped_result.append(Dic.build_message_dict(r))
     return jsonify(UserMessages=mapped_result)
 
-def getUserTopics(uID):
-    result = dao.getUserTopics(uID)
+def getAllTopicsByUser(uID):
+    result = dao.getAllTopicsByUser(uID)
     if not result:
         return jsonify(Error = "No Topics Found")
     mapped_result = []
@@ -230,7 +230,7 @@ def getChatMediaByID(cid):
     return jsonify(Media=result_list)
 
 def getChatTopicByID(cid):
-    media = dao.getChatTopics(cid)
+    media = dao.getAllTopicsInChat(cid)
     if not media:
         return jsonify(Error="No Topic Found")
     result_list = []
