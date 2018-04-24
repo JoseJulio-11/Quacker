@@ -356,7 +356,7 @@ class MessagesDAO:
     def getAllUserMessagesWithLikes(self, uID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = 1) and uid = %s;"
+                "mid in (select rid from reacted where vote = 1) and uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -366,7 +366,7 @@ class MessagesDAO:
     def getAllUserMessagesWithDisikes(self, uID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = -1) and uid = %s;"
+                "mid in (select rid from reacted where vote = -1) and uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -446,7 +446,7 @@ class MessagesDAO:
     def getAllUserMessagesWithLikesInChat(self, uID, cID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = 1) and uid = %s and cid = %s;"
+                "mid in (select rid from reacted where vote = 1) and uid = %s and cid = %s;"
         cursor.execute(query, (uID,cID, ))
         result = []
         for row in cursor:
@@ -456,7 +456,7 @@ class MessagesDAO:
     def getAllUserMessagesWithDisikesInChat(self, uID, cID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = -1) and uid = %s;"
+                "mid in (select rid from reacted where vote = -1) and uid = %s;"
         cursor.execute(query, (uID,cID, ))
         result = []
         for row in cursor:
@@ -540,7 +540,7 @@ class MessagesDAO:
 
     def getAllReactionsInMessage(self, mID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with mid = %s;"
+        query = "select * from reacted where mid = %s;"
         cursor.execute(query, (mID, ))
         result = []
         for row in cursor:
@@ -549,7 +549,7 @@ class MessagesDAO:
 
     def getAllLikesInMessage(self, mID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with mid = %s and vote = 1;"
+        query = "select * from reacted where mid = %s and vote = 1;"
         cursor.execute(query, (mID, ))
         result = []
         for row in cursor:
@@ -558,7 +558,7 @@ class MessagesDAO:
 
     def getAllDislikesInMessage(self, mID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with mid = %s and vote = -1;"
+        query = "select * from reacted where mid = %s and vote = -1;"
         cursor.execute(query, (mID, ))
         result = []
         for row in cursor:
@@ -568,7 +568,7 @@ class MessagesDAO:
     # Returns the list of reactions of the user with ID uID
     def getAllReactionsByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with uid = %s;"
+        query = "select * from reacted where uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -577,7 +577,7 @@ class MessagesDAO:
 
     def getAllLikesByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with uid = %s and vote = 1;"
+        query = "select * from reacted where uid = %s and vote = 1;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -586,7 +586,7 @@ class MessagesDAO:
 
     def getAllDislikesByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with uid = %s and vote = -1;"
+        query = "select * from reacted where uid = %s and vote = -1;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
