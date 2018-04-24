@@ -542,9 +542,10 @@ class MessagesDAO:
         return result
 
     def getAllReactionsInMessage(self, mID):
+        #WORKSSSSSSSSS
         cursor = self.conn.cursor()
-        query = "select * from reacted with mid = %s;"
-        cursor.execute(query, (mID, ))
+        query = "select * from reacted where mid = %s;"
+        cursor.execute(query, (mID,))
         result = []
         for row in cursor:
             result.append(row)
@@ -552,7 +553,7 @@ class MessagesDAO:
 
     def getAllLikesInMessage(self, mID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with mid = %s and vote = 1;"
+        query = "select * from reacted where mid = %s and vote = 1;"
         cursor.execute(query, (mID, ))
         result = []
         for row in cursor:
@@ -561,7 +562,7 @@ class MessagesDAO:
 
     def getAllDislikesInMessage(self, mID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with mid = %s and vote = -1;"
+        query = "select * from reacted where mid = %s and vote = -1;"
         cursor.execute(query, (mID, ))
         result = []
         for row in cursor:
@@ -570,8 +571,9 @@ class MessagesDAO:
 
     # Returns the list of reactions of the user with ID uID
     def getAllReactionsByUser(self, uID):
+        #WORKSSSSSSSSSSSSSS
         cursor = self.conn.cursor()
-        query = "select * from reacted with uid = %s;"
+        query = "select * from reacted where uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -580,7 +582,7 @@ class MessagesDAO:
 
     def getAllLikesByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with uid = %s and vote = 1;"
+        query = "select * from reacted where uid = %s and vote = 1;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -589,7 +591,7 @@ class MessagesDAO:
 
     def getAllDislikesByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select * from reacted with uid = %s and vote = -1;"
+        query = "select * from reacted where uid = %s and vote = -1;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:

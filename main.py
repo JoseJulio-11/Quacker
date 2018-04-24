@@ -354,7 +354,7 @@ def getAllReactionsInMessage(mid):
 
 
 @app.route('/reactions/user/<int:uid>', methods=['GET'])
-def getUserReactionsByID(uid):
+def getUserReactions(uid):
     if request.method == 'GET':
         result = Message.getUserReactions(uid)
         return result
@@ -363,7 +363,7 @@ def getUserReactionsByID(uid):
 
 
 @app.route('/reactions/like/message/<int:mid>', methods=['GET'])
-def getMessageLikeReactionsByID(mid):
+def getMessageLikeByID(mid):
     if request.method == 'GET':
         result = Message.getMessageLikesByID(mid)
         return result

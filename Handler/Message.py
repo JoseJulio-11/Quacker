@@ -86,7 +86,7 @@ def getAllReactionsInMessage(mID):
 
 def getMessageLikesByID(mID):
     # This method return the reaction of a determined message
-    rows = dao.getMessageLike(mID)
+    rows = dao.getAllLikesInMessage(mID)
     if not rows:
         return jsonify(Error="Message does not contain reaction"), 404
     result = []
@@ -149,7 +149,7 @@ def getUserReactionsBetween(uID, bDate, aDate):
 
 
 def getUserReactions(uID):
-    result = dao.getUserReactions(uID)
+    result = dao.getAllReactionsByUser(uID)
     if not result:
         return jsonify(Error = "No Reactions Found")
     mapped_result = []
