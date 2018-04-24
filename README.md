@@ -51,6 +51,7 @@ database using app routes.
 * /messages/user/[int:uid]
 * /messages/chat/[int:cid]
 * /messages/active/chat/[int:cid]
+* /messages/chat/[int:cid]/user/[int:uid]
 ##### Get Media Locations:
 * /medias
 * /medias/chat/[int:cid]
@@ -69,4 +70,7 @@ database using app routes.
 * /reactions/like/message/[int:mid]
 * /reactions/dislike
 * /reactions/dislike/message/[int:mid]
+* /reactions/count/message/[int:mid]
+* /reactions/like/count/message/[int:mid]
+* /reactions/dislike/count/message/[int:mid]
 

@@ -623,6 +623,36 @@ class MessagesDAO:
             result.append(row)
         return result
 
+    def getCountReactionsInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s;"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getCountLikesInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s and vote = 1;"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getCountDislikesInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s and vote = 1;"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
     # =================================== Get Media ============================= #
     def getAllMedia(self):
         cursor = self.conn.cursor()

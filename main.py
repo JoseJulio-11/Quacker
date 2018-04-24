@@ -75,6 +75,7 @@ def getAdminByChatID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
 # =================== Credential Methods ================= #
 @app.route('/credentials', methods=['GET'])
 def getCredentials():
@@ -141,6 +142,7 @@ def getAllChats():
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
 
 @app.route('/chats/<int:cid>', methods=['GET'])
 def getChatByID(cid):
@@ -226,6 +228,7 @@ def getMessageByChatID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
 @app.route('/messages/active/chat/<int:cid>', methods=['GET'])
 def getActiveMessageByChatID(cid):
     if request.method == 'GET':
@@ -234,10 +237,20 @@ def getActiveMessageByChatID(cid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
 @app.route('/messages/user/<int:uid>', methods=['GET'])
 def getMessageByUserID(uid):
     if request.method == 'GET':
         result = Message.getAllUserMessages(uid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/messages/chat/<int:cid>/user/<int:uid>', methods=['GET'])
+def getMessageInChatByUser(cid, uid):
+    if request.method == 'GET':
+        result = Message.getAllUserMessagesInChat(uid, cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -376,6 +389,33 @@ def getMessageLikeReactionsByID(mid):
 def getMessageDisLikeReactionsByID(mid):
     if request.method == 'GET':
         result = Message.getMessageDislikesByID(mid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/count/message/<int:mid>', methods=['GET'])
+def getMessageReactionsCountByID(mid):
+    if request.method == 'GET':
+        result = Message.getMessageReactionsCountByID(mid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/like/count/message/<int:mid>', methods=['GET'])
+def getMessageLikeReactionsCountByID(mid):
+    if request.method == 'GET':
+        result = Message.getMessageLikesCountByID(mid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/reactions/dislike/count/message/<int:mid>', methods=['GET'])
+def getMessageDisLikeReactionsCountByID(mid):
+    if request.method == 'GET':
+        result = Message.getMessageDislikesCountByID(mid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
