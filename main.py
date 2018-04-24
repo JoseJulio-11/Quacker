@@ -208,10 +208,11 @@ def getAllMessages():
     else:
         return jsonify(Error="Method not allowed"), 404
 
+
 @app.route('/messages/<int:mid>', methods=['GET'])
 def getMessageByID(mid):
     if request.method == 'GET':
-        result = Message.getMessageByID(mid)
+        result = Message.getMessageInfo(mid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -220,7 +221,7 @@ def getMessageByID(mid):
 @app.route('/messages/chat/<int:cid>', methods=['GET'])
 def getMessageByChatID(cid):
     if request.method == 'GET':
-        result = Message.getMessagesByChatID(cid)
+        result = Message.getAllChatMessages(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -228,7 +229,7 @@ def getMessageByChatID(cid):
 @app.route('/messages/active/chat/<int:cid>', methods=['GET'])
 def getActiveMessageByChatID(cid):
     if request.method == 'GET':
-        result = Message.getActiveMessagesByChatID(cid)
+        result = Message.getAllChatactiveMessages(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -236,7 +237,7 @@ def getActiveMessageByChatID(cid):
 @app.route('/messages/user/<int:uid>', methods=['GET'])
 def getMessageByUserID(uid):
     if request.method == 'GET':
-        result = Message.getMessageByUserID(uid)
+        result = Message.getAllUserMessages(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -301,7 +302,7 @@ def getMessageMediaByID(mid):
 @app.route('/medias/chat/<int:cid>', methods=['GET'])
 def getChatMediaByID(cid):
     if request.method == 'GET':
-        result = Message.getChatMediaByID(cid)
+        result = Message.getAllMediaInChat(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -310,7 +311,7 @@ def getChatMediaByID(cid):
 @app.route('/medias/user/<int:uid>', methods=['GET'])
 def getUserMediaByID(uid):
     if request.method == 'GET':
-        result = Message.getMediaByUser(uid)
+        result = Message.getAllMediaByUser(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
