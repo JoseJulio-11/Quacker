@@ -113,7 +113,7 @@ def getMessageMedia(mID):
     # This method return the reaction of a determined message
     rows = dao.getMessageMedia(mID)
     if not rows:
-        return jsonify(Error="Message does not contain Media"), 404
+        return jsonify(Error="Message does not contain media"), 404
     result = []
     for row in rows:
         result = Dic.build_media_dict(row)
@@ -124,7 +124,7 @@ def getMessageTopics(mID):
     # This method return the reaction of a determined message
     rows = dao.getAllTopicsInMessage(mID)
     if not rows:
-        return jsonify(Error="Message does not contain Topics"), 404
+        return jsonify(Error="Message does not contain topics"), 404
     result = []
     for row in rows:
         result.append(Dic.build_topic_dict(row))
