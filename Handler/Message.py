@@ -25,7 +25,7 @@ def getAllReacts():
 
 
 def getAllLikes():
-    rows = dao.getAllLikeReactions()
+    rows = dao.getAllLikes()
     if not rows:
         return jsonify(Error="No reaction"), 404
     result = []
@@ -35,11 +35,11 @@ def getAllLikes():
 
 
 def getAllDislikes():
-    rows = dao.getAllDislikeReactions()
+    rows = dao.getAllDislikes()
     if not rows:
         return jsonify(Error="No reaction"), 404
     result = []
-    
+
     for row in rows:
         result.append(Dic.build_reacted_dict(row))
     return jsonify(Reacts=result)
