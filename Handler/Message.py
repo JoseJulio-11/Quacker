@@ -39,6 +39,7 @@ def getAllDislikes():
     if not rows:
         return jsonify(Error="No reaction"), 404
     result = []
+
     for row in rows:
         result.append(Dic.build_reacted_dict(row))
     return jsonify(Reacts=result)
@@ -138,10 +139,10 @@ def getMessageByUserID(uID):
     return jsonify(Messages=result_list)
 
 
-def getUserReactionsBetween(uID, bDate, aDate):
-    result = dao.getUserReactionsBetween(uID, bDate, aDate)
+def getUserReactions(uID):
+    result = dao.getAllReactionsByUser(uID)
     if not result:
-        return jsonify(Error = "No Reactions Found")
+        return jsonify(Error="No Reactions Found")
     mapped_result = []
     for r in result:
         mapped_result.append(Dic.build_reacted_dict(r))
@@ -150,28 +151,38 @@ def getUserReactionsBetween(uID, bDate, aDate):
 
 def getUserReactions(uID):
     result = dao.getAllReactionsByUser(uID)
+
+def getMessageReactionsCountByID(mID):
+    result = dao.getCountReactionsInMessage(mID)
     if not result:
-        return jsonify(Error = "No Reactions Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(Dic.build_reacted_dict(r))
-    return jsonify(UserReactions=mapped_result)
+        return jsonify(Error="No Reactions Found")
+    mapped_result = dict()
+    mapped_result["votes"] = result[0][0]
+    return jsonify(MessageReactions=mapped_result)
 
 
-def getUserMessagesBetween(uID, bDate, aDate):
-    result = dao.getUserMessagesBetween(uID, bDate, aDate)
+def getMessageLikesCountByID(mID):
+    result = dao.getCountLikesInMessage(mID)
     if not result:
-        return jsonify(Error = "No Messages Found")
-    mapped_result = []
-    for r in result:
-        mapped_result.append(Dic.build_message_dict(r))
-    return jsonify(UserMessagesBetween=mapped_result)
+        return jsonify(Error="No Reactions Found")
+    mapped_result = dict()
+    mapped_result["votes"] = result[0][0]
+    return jsonify(MessageReactions=mapped_result)
+
+
+def getMessageDislikesCountByID(mID):
+    result = dao.getCountDislikesInMessage(mID)
+    if not result:
+        return jsonify(Error="No Reactions Found")
+    mapped_result = dict()
+    mapped_result["votes"] = result[0][0]
+    return jsonify(MessageReactions=mapped_result)
 
 
 def getUserMessages(uID):
-    result = dao.getUserMessages(uID)
+    result = dao.getAllUserMessages(uID)
     if not result:
-        return jsonify(Error = "No Messages Found")
+        return jsonify(Error="No Messages Found")
     mapped_result = []
     for r in result:
         mapped_result.append(Dic.build_message_dict(r))
@@ -186,20 +197,19 @@ def getUserTopics(uID):
         mapped_result.append(Dic.build_topic_dict(r))
     return jsonify(UserTopics = mapped_result)
 
-
-def getUserTopicsBetween(uID, bDate, aDate):
-    result = dao.getUserTopicsBetween(uID, bDate, aDate)
+def getAllTopicsByUser(uID):
+    result = dao.getAllTopicsByUser(uID)
     if not result:
-        return jsonify(Error = "No Topics Found")
+        return jsonify(Error="No Topics Found")
     mapped_result = []
     for r in result:
         mapped_result.append(Dic.build_topic_dict(r))
-    return jsonify(UserTopics = mapped_result)
+    return jsonify(UserTopics=mapped_result)
 
 
-def getMessagesByChatID(cID):
+def getAllChatMessages(cID):
     # This method will return the messages in a determined  chat
-    chat_messages = dao.getChatMessages(cID)
+    chat_messages = dao.getAllChatMessages(cID)
     if not chat_messages:
         return jsonify(Error="No Messages Found")
     result_messages = []
@@ -208,9 +218,10 @@ def getMessagesByChatID(cID):
         result_messages.append(result)
     return jsonify(Messages=result_messages)
 
-def getActiveMessagesByChatID(cID):
+
+def getAllUserMessagesInChat(uID,cID):
     # This method will return the messages in a determined  chat
-    chat_messages = dao.getChatActiveMessages(cID)
+    chat_messages = dao.getAllUserMessagesInChat(uID,cID)
     if not chat_messages:
         return jsonify(Error="No Messages Found")
     result_messages = []
@@ -219,8 +230,21 @@ def getActiveMessagesByChatID(cID):
         result_messages.append(result)
     return jsonify(Messages=result_messages)
 
-def getChatMediaByID(cid):
-    media = dao.getChatMedia(cid)
+
+def getAllChatactiveMessages(cID):
+    # This method will return the messages in a determined  chat
+    chat_messages = dao.getAllChatActiveMessages(cID, 'false')
+    if not chat_messages:
+        return jsonify(Error="No Messages Found")
+    result_messages = []
+    for row in chat_messages:
+        result = Dic.build_message_dict(row)
+        result_messages.append(result)
+    return jsonify(Messages=result_messages)
+
+
+def getAllMediaInChat(cid):
+    media = dao.getAllMediaInChat(cid)
     if not media:
         return jsonify(Error="No Media Found")
     result_list = []
@@ -229,8 +253,9 @@ def getChatMediaByID(cid):
         result_list.append(result)
     return jsonify(Media=result_list)
 
+
 def getChatTopicByID(cid):
-    media = dao.getChatTopics(cid)
+    media = dao.getAllTopicsInChat(cid)
     if not media:
         return jsonify(Error="No Topic Found")
     result_list = []
@@ -239,8 +264,9 @@ def getChatTopicByID(cid):
         result_list.append(result)
     return jsonify(Topic=result_list)
 
-def getMediaByUser(uid):
-    media = dao.getUserMedia(uid)
+
+def getAllMediaByUser(uid):
+    media = dao.getAllMediaByUser(uid)
     if not media:
         return jsonify(Error="No Media Found")
     result_list = []

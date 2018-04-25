@@ -29,7 +29,8 @@ mainpage =  '<head> ' \
             '<h3>Get Message Locations:</h3>' \
             '<ul><li>/messages</li><li>/messages/[int:mid]</li>' \
             '<li>/messages/user/[int:uid]</li><li>/messages/chat/[int:cid]</li>' \
-            '<li>/messages/active/chat/[int:cid]</li></ul>' \
+            '<li>/messages/active/chat/[int:cid]</li>' \
+            '<li>/messages/chat/[int:cid]/user/[int:uid]</li></ul>' \
             '<h3>Get Media Locations:</h3>' \
             '<ul><li>/medias</li><li>/medias/chat/[int:cid]</li>' \
             '<li>/medias/message/[int:mid]</li><li>/medias/user/[int:uid]</li></ul>' \
@@ -40,4 +41,7 @@ mainpage =  '<head> ' \
             '<ul><li>/reactions</li><li>/reactions/like</li><li>/reactions/dislike</li>' \
             '<li>/reactions/message/[int:mid]</li><li>/reactions/like/message/[int:mid]</li>' \
             '<li>/reactions/dislike/message/[int:mid]</li><li>/reactions/user/[int:uid]</li>' \
+            '<li>/reactions/count/message/[int:mid]</li>' \
+            '<li>/reactions/like/count/message/[int:mid]</li>' \
+            '<li>/reactions/dislike/count/message/[int:mid]</li>' \
             '</body>'

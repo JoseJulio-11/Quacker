@@ -356,7 +356,7 @@ class MessagesDAO:
     def getAllUserMessagesWithLikes(self, uID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = 1) and uid = %s;"
+                "mid in (select rid from reacted where vote = 1) and uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -366,7 +366,7 @@ class MessagesDAO:
     def getAllUserMessagesWithDisikes(self, uID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = -1) and uid = %s;"
+                "mid in (select rid from reacted where vote = -1) and uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
@@ -446,7 +446,7 @@ class MessagesDAO:
     def getAllUserMessagesWithLikesInChat(self, uID, cID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = 1) and uid = %s and cid = %s;"
+                "mid in (select rid from reacted where vote = 1) and uid = %s and cid = %s;"
         cursor.execute(query, (uID,cID, ))
         result = []
         for row in cursor:
@@ -456,7 +456,7 @@ class MessagesDAO:
     def getAllUserMessagesWithDisikesInChat(self, uID, cID):
         cursor = self.conn.cursor()
         query = "select * from messages where " \
-                "mid in (select rid from reacted with vote = -1) and uid = %s;"
+                "mid in (select rid from reacted where vote = -1) and uid = %s;"
         cursor.execute(query, (uID,cID, ))
         result = []
         for row in cursor:
@@ -623,6 +623,36 @@ class MessagesDAO:
         query = "select uid, mid, rtime, vote from reacted inner join messages using(mid)" \
                 " where chat = %s and vote = -1;"
         cursor.execute(query, (cID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getCountReactionsInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s;"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getCountLikesInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s and vote = 1;"
+        cursor.execute(query, (mID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getCountDislikesInMessage(self, mID):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s and vote = 1;"
+        cursor.execute(query, (mID,))
         result = []
         for row in cursor:
             result.append(row)
