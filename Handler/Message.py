@@ -118,7 +118,7 @@ def getMessageMedia(mID):
 
 def getMessageTopics(mID):
     # This method return the reaction of a determined message
-    rows = dao.getMessageTopics(mID)
+    rows = dao.getAllTopicsInMessage(mID)
     if not rows:
         return jsonify(Error="Message does not contain Topics"), 404
     result = []
@@ -129,7 +129,7 @@ def getMessageTopics(mID):
 
 def getMessageByUserID(uID):
     # This method will return the messages of a determined user
-    messages = dao.getUserMessages(uID)
+    messages = dao.getAllUserMessages(uID)
     if not messages:
         return jsonify(Error="User does not have any messages sent."), 404
     result_list = []
@@ -147,10 +147,6 @@ def getUserReactions(uID):
     for r in result:
         mapped_result.append(Dic.build_reacted_dict(r))
     return jsonify(UserReactions=mapped_result)
-
-
-def getUserReactions(uID):
-    result = dao.getAllReactionsByUser(uID)
 
 def getMessageReactionsCountByID(mID):
     result = dao.getCountReactionsInMessage(mID)
@@ -189,7 +185,7 @@ def getUserMessages(uID):
     return jsonify(UserMessages=mapped_result)
 
 def getUserTopics(uID):
-    result = dao.getUserTopics(uID)
+    result = dao.getAllTopicsByUser(uID)
     if not result:
         return jsonify(Error = "No Topics Found")
     mapped_result = []

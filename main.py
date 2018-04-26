@@ -17,6 +17,7 @@ def mainPage():
 
 # ==================== User Methods ====================== #
 @app.route('/users', methods=['GET'])
+#WORKS
 def getAllUsers():
     if request.method == 'GET':
         result = User.getAllUsers()
@@ -26,6 +27,7 @@ def getAllUsers():
 
 
 @app.route('/users/<int:uid>', methods=['GET'])
+#WORKS
 def getUserByID(uid):
     if request.method == 'GET':
         result = User.getUserInfo(uid)
@@ -35,6 +37,7 @@ def getUserByID(uid):
 
 
 @app.route('/users/active', methods=['GET'])
+#WORKS
 def getAllUsersByActivity():
     if request.method == 'GET':
         result = User.getActiveUsers()
@@ -44,6 +47,7 @@ def getAllUsersByActivity():
 
 
 @app.route('/users/message/liked/<int:mid>', methods=['GET'])
+#WORKSS
 def getUsersByLikedMessage(mid):
     if request.method == 'GET':
         result = User.getUsersByLikedMessage(mid)
@@ -53,6 +57,7 @@ def getUsersByLikedMessage(mid):
 
 
 @app.route('/users/message/disliked/<int:mid>', methods=['GET'])
+#WORKSSSS
 def getUsersByDisLikedMessage(mid):
     if request.method == 'GET':
         result = User.getUsersByDislikedMessage(mid)
@@ -62,6 +67,7 @@ def getUsersByDisLikedMessage(mid):
 
 
 @app.route('/users/chat/<int:cid>', methods=['GET'])
+#WORKSSS
 def getMembersByChatID(cid):
     if request.method == 'GET':
         result = User.getMembersByChatID(cid)
@@ -71,6 +77,7 @@ def getMembersByChatID(cid):
 
 
 @app.route('/users/chat/admin/<int:cid>', methods=['GET'])
+#WORKS
 def getAdminByChatID(cid):
     if request.method == 'GET':
         result = User.getAdminByChatID(cid)
@@ -81,6 +88,7 @@ def getAdminByChatID(cid):
 
 # =================== Credential Methods ================= #
 @app.route('/credentials', methods=['GET'])
+#WORKSS
 def getCredentials():
     if request.method == 'GET':
         result = User.getAllCredentials()
@@ -90,6 +98,7 @@ def getCredentials():
 
 
 @app.route('/credentials/user/<int:uid>', methods=['GET'])
+#WORKSSS
 def getUserCredentialByID(uid):
     if request.method == 'GET':
         result = User.getUserCredentials(uid)
@@ -100,6 +109,7 @@ def getUserCredentialByID(uid):
 
 # ================= Activity Methods ======================= #
 @app.route('/activities', methods=['GET'])
+#WORKSSS
 def getAllActivities():
     if request.method == 'GET':
         result = User.getAllActivity()
@@ -109,6 +119,7 @@ def getAllActivities():
 
 
 @app.route('/activities/user/<int:uid>', methods=['GET'])
+#WORKSSSSSS
 def getUserActivityByID(uid):
     if request.method == 'GET':
         result = User.getUserActivity(uid)
@@ -119,6 +130,7 @@ def getUserActivityByID(uid):
 
 # ================= Contact Methods ======================== #
 @app.route('/contacts', methods=['GET'])
+#WORKSSSS
 def getAllContacts():
     if request.method == 'GET':
         result = User.getAllContacts()
@@ -128,6 +140,7 @@ def getAllContacts():
 
 
 @app.route('/contacts/user/<int:uid>', methods=['GET'])
+#WORKSS
 def getUserContactsByID(uid):
     if request.method == 'GET':
         result = User.getUserContacts(uid)
@@ -138,6 +151,7 @@ def getUserContactsByID(uid):
 
 # ================= Chat Methods ===================== #
 @app.route('/chats', methods=['GET'])
+#WORKSSS
 def getAllChats():
     if request.method == 'GET':
 
@@ -148,6 +162,7 @@ def getAllChats():
 
 
 @app.route('/chats/<int:cid>', methods=['GET'])
+#NOT WORKING
 def getChatByID(cid):
     if request.method == 'GET':
         result = Chat.getChatByID(cid)
@@ -157,6 +172,7 @@ def getChatByID(cid):
 
 
 @app.route('/chats/user/<int:uid>', methods=['GET'])
+#WORKSSSS
 def getUserChatsByID(uid):
     if request.method == 'GET':
 
@@ -167,6 +183,7 @@ def getUserChatsByID(uid):
 
 
 @app.route('/chats/admin/<int:uid>', methods=['GET'])
+#WORKSSS
 def getChatsAsAdminByID(uid):
     if request.method == 'GET':
 
@@ -177,6 +194,7 @@ def getChatsAsAdminByID(uid):
 
 
 @app.route('/chats/active', methods=['GET'])
+#WORKSSS
 def getActiveChats():
     if request.method == 'GET':
         result = Chat.getAllActiveChats()
@@ -187,6 +205,7 @@ def getActiveChats():
 
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])
+#WORKSSSS
 def getAllParticipants():
     if request.method == 'GET':
         result = Chat.getALlParticipants()
@@ -196,6 +215,7 @@ def getAllParticipants():
 
 
 @app.route('/participants/chat/<int:cid>', methods=['GET'])
+#NOT WORKING
 def getChatParticipantsByID(cid):
     if request.method == 'GET':
         result = Chat.getParticipantsByChatID(cid)
@@ -206,6 +226,7 @@ def getChatParticipantsByID(cid):
 
 # ============== Message Methods ====================== #
 @app.route('/messages', methods=['GET'])
+#WORKS
 def getAllMessages():
     if request.method == 'GET':
         result = Message.getAllMessages()
@@ -216,6 +237,7 @@ def getAllMessages():
 
 @app.route('/messages/<int:mid>', methods=['GET'])
 def getMessageByID(mid):
+    #NOT WORKING
     if request.method == 'GET':
         result = Message.getMessageInfo(mid)
         return result
@@ -225,6 +247,7 @@ def getMessageByID(mid):
 
 @app.route('/messages/chat/<int:cid>', methods=['GET'])
 def getMessageByChatID(cid):
+    #WORKSSS
     if request.method == 'GET':
         result = Message.getAllChatMessages(cid)
         return result

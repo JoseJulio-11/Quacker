@@ -4,8 +4,8 @@ def build_user_dict(userInfo):
     user["uID"] = userInfo[0]
     user["fName"] = userInfo[1]
     user["lName"] = userInfo[2]
-    user["utime"] = userInfo[5]
-    user["pseudonym"] = userInfo[6]
+    user["utime"] = userInfo[3]
+    user["pseudonym"] = userInfo[4]
     return user
 
 def build_credential_dict(userCredential):
