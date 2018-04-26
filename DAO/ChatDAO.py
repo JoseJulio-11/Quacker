@@ -134,7 +134,7 @@ class ChatDAO:
         # This method will return the chat given its ID
         cursor = self.conn.cursor()
         query = " select * from chats where cid=%s;"
-        cursor.execute(query,(cID,))
+        cursor.execute(query , (cID,))
         result = []
         for row in cursor:
             result.append(row)

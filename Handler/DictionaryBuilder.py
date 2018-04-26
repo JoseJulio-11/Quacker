@@ -1,6 +1,7 @@
 def build_user_dict(userInfo):
     # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONYM
     user = {}
+    print(userInfo)
     user["uID"] = userInfo[0]
     user["fName"] = userInfo[1]
     user["lName"] = userInfo[2]
@@ -40,7 +41,7 @@ def build_chat_dict(chat):
     chatRecord = {}
     chatRecord["cID"] = chat[0]
     chatRecord["cName"] = chat[1]
-    chatRecord["ctime"] = chat[2]
+    chatRecord["cTime"] = chat[2]
     chatRecord["isGroupChat"] = chat[3]
     chatRecord["isActive"] = chat[4]
     chatRecord["uID"] = chat[5]
