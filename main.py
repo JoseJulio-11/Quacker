@@ -162,7 +162,7 @@ def getAllChats():
 
 
 @app.route('/chats/<int:cid>', methods=['GET'])
-#NOT WORKING
+#WORKSSSS
 def getChatByID(cid):
     if request.method == 'GET':
         result = Chat.getChatByID(cid)
@@ -215,7 +215,7 @@ def getAllParticipants():
 
 
 @app.route('/participants/chat/<int:cid>', methods=['GET'])
-#NOT WORKING
+#WORKSSS
 def getChatParticipantsByID(cid):
     if request.method == 'GET':
         result = Chat.getParticipantsByChatID(cid)
@@ -237,7 +237,7 @@ def getAllMessages():
 
 @app.route('/messages/<int:mid>', methods=['GET'])
 def getMessageByID(mid):
-    #NOT WORKING
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageByID(mid)
         return result
@@ -277,7 +277,7 @@ def getMessageByUserID(uid):
 
 @app.route('/messages/chat/<int:cid>/user/<int:uid>', methods=['GET'])
 def getMessageInChatByUser(cid, uid):
-    #NOT WORKING
+    #WORKSSS
     if request.method == 'GET':
         result = Message.getAllUserMessagesInChat(uid, cid)
         return result

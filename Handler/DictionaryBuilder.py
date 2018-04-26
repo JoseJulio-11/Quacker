@@ -48,16 +48,19 @@ def build_chat_dict(chat):
     return chatRecord
 
 def build_participants_dict(chatParticipant):
-    # cid, uid, pdate, ptime
+    # uid, cid, ptime
+
     participant = {}
-    participant["cID"] = chatParticipant[0]
-    participant["uID"] = chatParticipant[1]
+    print(chatParticipant)
+    participant["uID"] = chatParticipant[0]
+    participant["cID"] = chatParticipant[1]
     participant["pTime"] = chatParticipant[2]
     return participant
 
 def build_message_dict(chatMessage):
     # mid, text, cdate, ctime, cid, uid, isdeleted, rid
     Message = {}
+    print(chatMessage)
     Message["mID"] = chatMessage[0]
     Message["text"] = chatMessage[1]
     Message["mTime"] = chatMessage[2]

@@ -23,11 +23,9 @@ def getChatByID(cID):
     desired_chat = dao.getChatByID(cID)
     if not desired_chat:
         return jsonify(Error=" Chat not found"), 404
-    result_list = []
-    for row in desired_chat:
-        chat = Dic.build_chat_dict(desired_chat)
-    result_list.append(row)
-    return jsonify(Chat=result_list)
+
+    chat = Dic.build_chat_dict(desired_chat)
+    return jsonify(Chat=chat)
 
 def getParticipantsByChatID(cID):
     # This method returns the list of participants in a determined chat

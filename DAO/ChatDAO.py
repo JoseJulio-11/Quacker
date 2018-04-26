@@ -73,7 +73,7 @@ class ChatDAO:
         # THis method will return the active participants of a specified chat ( active or nonactive chat)
         #WORKSSSSSSSSS
         cursor = self.conn.cursor()
-        query = " select * from participants natural inner join users where cID = %s;"
+        query = " select uid, cid, ptime from participants natural inner join users where cID = %s;"
         cursor.execute(query,(cID,))
         result = []
         for row in cursor:
@@ -133,24 +133,23 @@ class ChatDAO:
     def getChatByID(self,cID):
         # This method will return the chat given its ID
         cursor = self.conn.cursor()
-        query = " select * from chats where cid=%s;"
-        cursor.execute(query , (cID,))
+        query = "select * from chats where cid=%s;"
+        cursor.execute(query,(cID,))
         result = []
-        for row in cursor:
-            result.append(row)
+        result = cursor.fetchone()
         return result
+
 
     def getChatsAsAdmin(self, uID):
     #Returns a list with the chats of the admin user with ID uID
     #WORKSSSS
        cursor = self.conn.cursor()
-       query = "select * from chats where uid=%s"
+       query = "select * from chats where uid=%s;"
        cursor.execute(query,(uID,))
        result = []
        for row in cursor:
-           result.append(row)
-       return result
-
+        result.append(row)
+        return result
     def getChatsDeleted(self):
         # This method will return the deleted chats
         return [self.chat[1], self.chat[3]]

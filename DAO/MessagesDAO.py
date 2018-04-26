@@ -38,8 +38,7 @@ class MessagesDAO:
         query = "select * from messages where mid = %s;"
         cursor.execute(query, (mID, ))
         result = []
-        for row in cursor:
-            result.append(row)
+        result = cursor.fetchone()
         return result
 
     def getRepliedMessage(self, mID):
