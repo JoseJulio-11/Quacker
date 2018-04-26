@@ -239,7 +239,7 @@ def getAllMessages():
 def getMessageByID(mid):
     #NOT WORKING
     if request.method == 'GET':
-        result = Message.getMessageInfo(mid)
+        result = Message.getMessageByID(mid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -257,6 +257,7 @@ def getMessageByChatID(cid):
 
 @app.route('/messages/active/chat/<int:cid>', methods=['GET'])
 def getActiveMessageByChatID(cid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllChatactiveMessages(cid)
         return result
@@ -266,8 +267,9 @@ def getActiveMessageByChatID(cid):
 
 @app.route('/messages/user/<int:uid>', methods=['GET'])
 def getMessageByUserID(uid):
+    #WORKS
     if request.method == 'GET':
-        result = Message.getAllUserMessages(uid)
+        result = Message.getMessageByUserID(uid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -275,6 +277,7 @@ def getMessageByUserID(uid):
 
 @app.route('/messages/chat/<int:cid>/user/<int:uid>', methods=['GET'])
 def getMessageInChatByUser(cid, uid):
+    #NOT WORKING
     if request.method == 'GET':
         result = Message.getAllUserMessagesInChat(uid, cid)
         return result
@@ -284,6 +287,7 @@ def getMessageInChatByUser(cid, uid):
 
 # =============== Topic Methods ======================== #
 @app.route('/topics', methods=['GET'])
+#WORKS
 def getAllTopics():
     if request.method == 'GET':
         result = Message.getAllTopics()
@@ -294,6 +298,7 @@ def getAllTopics():
 
 @app.route('/topics/message/<int:mid>', methods=['GET'])
 def getMessageTopicsByID(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageTopics(mid)
         return result
@@ -303,6 +308,7 @@ def getMessageTopicsByID(mid):
 
 @app.route('/topics/user/<int:uid>', methods=['GET'])
 def getAllTopicsByUser(uid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllTopicsByUser(uid)
         return result
@@ -312,6 +318,7 @@ def getAllTopicsByUser(uid):
 
 @app.route('/topics/chat/<int:cid>', methods=['GET'])
 def getChatTopicsByID(cid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getChatTopicByID(cid)
         return result
@@ -322,6 +329,7 @@ def getChatTopicsByID(cid):
 # ==================== Media Methods ========================= #
 @app.route('/medias', methods=['GET'])
 def getAllMedia():
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllMedias()
         return result
@@ -331,6 +339,7 @@ def getAllMedia():
 
 @app.route('/medias/message/<int:mid>', methods=['GET'])
 def getMessageMediaByID(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageMedia(mid)
         return result
@@ -340,6 +349,7 @@ def getMessageMediaByID(mid):
 
 @app.route('/medias/chat/<int:cid>', methods=['GET'])
 def getChatMediaByID(cid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllMediaInChat(cid)
         return result
@@ -349,6 +359,7 @@ def getChatMediaByID(cid):
 
 @app.route('/medias/user/<int:uid>', methods=['GET'])
 def getUserMediaByID(uid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllMediaByUser(uid)
         return result
@@ -359,6 +370,7 @@ def getUserMediaByID(uid):
 # ================ Reaction Methods ===================== #
 @app.route('/reactions', methods=['GET'])
 def getAllReactions():
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllReacts()
         return result
@@ -368,6 +380,7 @@ def getAllReactions():
 
 @app.route('/reactions/like', methods=['GET'])
 def getAllLikes():
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllLikes()
         return result
@@ -376,6 +389,7 @@ def getAllLikes():
 
 
 @app.route('/reactions/dislike', methods=['GET'])
+#WORKS
 def getAllDislikes():
     if request.method == 'GET':
         result = Message.getAllDislikes()
@@ -386,6 +400,7 @@ def getAllDislikes():
 
 @app.route('/reactions/message/<int:mid>', methods=['GET'])
 def getAllReactionsInMessage(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getAllReactionsInMessage(mid)
         return result
@@ -395,6 +410,7 @@ def getAllReactionsInMessage(mid):
 
 @app.route('/reactions/user/<int:uid>', methods=['GET'])
 def getUserReactions(uid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getUserReactions(uid)
         return result
@@ -404,6 +420,7 @@ def getUserReactions(uid):
 
 @app.route('/reactions/like/message/<int:mid>', methods=['GET'])
 def getMessageLikeByID(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageLikesByID(mid)
         return result
@@ -413,6 +430,7 @@ def getMessageLikeByID(mid):
 
 @app.route('/reactions/dislike/message/<int:mid>', methods=['GET'])
 def getMessageDisLikeReactionsByID(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageDislikesByID(mid)
         return result
@@ -422,6 +440,7 @@ def getMessageDisLikeReactionsByID(mid):
 
 @app.route('/reactions/count/message/<int:mid>', methods=['GET'])
 def getMessageReactionsCountByID(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageReactionsCountByID(mid)
         return result
@@ -431,6 +450,7 @@ def getMessageReactionsCountByID(mid):
 
 @app.route('/reactions/like/count/message/<int:mid>', methods=['GET'])
 def getMessageLikeReactionsCountByID(mid):
+    #WORKS
     if request.method == 'GET':
         result = Message.getMessageLikesCountByID(mid)
         return result
@@ -440,6 +460,8 @@ def getMessageLikeReactionsCountByID(mid):
 
 @app.route('/reactions/dislike/count/message/<int:mid>', methods=['GET'])
 def getMessageDisLikeReactionsCountByID(mid):
+    #WORKS
+    #displays a positive number
     if request.method == 'GET':
         result = Message.getMessageDislikesCountByID(mid)
         return result

@@ -36,10 +36,8 @@ def build_contact_dict(userContact):
     return contact
 
 def build_chat_dict(chat):
-    # cid, cname, cdate, ctime, isgroupchat, isactive, adminid
-
+    # cid, cname, ctime, isgroupchat, isactive, adminid
     chatRecord = {}
-    print(chat)
     chatRecord["cID"] = chat[0]
     chatRecord["cName"] = chat[1]
     chatRecord["ctime"] = chat[2]
