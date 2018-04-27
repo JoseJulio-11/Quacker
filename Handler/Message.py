@@ -109,10 +109,12 @@ def getMessageDislikesByID(mID):
 
 def getMessageMedia(mID):
     # This method return the reaction of a determined message
-    row = dao.getMessageMedia(mID)
-    if not row:
+    rows = dao.getMessageMedia(mID)
+    if not rows:
         return jsonify(Error="Message does not contain Media"), 404
-    result = Dic.build_media_dict(row)
+    result = []
+    for row in rows:
+        result.append(Dic.build_media_dict(row))
     return jsonify(Media=result)
 
 
