@@ -3,16 +3,32 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         var thisCtrl = this;
 
         this.messageList = [];
-        this.counter  = 2;
-        this.newText = "";
 
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
-            thisCtrl.messageList.push({"id": 1, "text": "Hola Mi Amigo", "author" : "Bob",
-            "like" : 4, "nolike" : 1});
-            thisCtrl.messageList.push({"id": 2, "text": "Hello World", "author": "Joe",
-                "like" : 11, "nolike" : 12});
+            // THis function will load all the messages in the DB
 
+            var messageID = $routeParams.mID;
+            var reqURL = "http://localhost:5000/messages";
+            console.log(" reqURL"+ reqURL)
+            $http.get(reqURL).then(
+                function(response){
+                    console.log(" data:" + JSON.stringify(response.data));
+
+                },
+                //error function
+                function(response){
+                var status = response.status;
+                if(status == 0){
+                alert("No hay conexion a internet");
+                }
+                else if(status == 404){
+                alert("Su seccion expiro")
+                }
+                else{
+                alert("Error del sistema")
+                }
+              }
             $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
