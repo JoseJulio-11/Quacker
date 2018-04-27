@@ -4,13 +4,14 @@ This Class contains DAO methods for the entities of Messages, Medias, Topics and
 from pg_config import pg_config
 import psycopg2
 
+
 class MessagesDAO:
 
     def __init__(self):
-       connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'],
+        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'],
                                                            pg_config['user'],
                                                            pg_config['passwd'])
-       self.conn = psycopg2._connect(connection_url)
+        self.conn = psycopg2._connect(connection_url)
 
     # ====================== Create Method ================================================== #
     def insertMessage(self, text, cdate, ctime, uid, cid, isDeleted, rid):
@@ -37,7 +38,6 @@ class MessagesDAO:
         cursor = self.conn.cursor()
         query = "select * from messages where mid = %s;"
         cursor.execute(query, (mID, ))
-        result = []
         result = cursor.fetchone()
         return result
 

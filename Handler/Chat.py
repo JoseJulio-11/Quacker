@@ -89,7 +89,7 @@ def getAllActiveChats():
         return jsonify(Error="No Chats Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(Dic.build_participants_dict(r))
+        mapped_result.append(Dic.build_chat_dict(r))
     return jsonify(Chats=mapped_result)
 def getChatInfo(CID):
     result = dao.getChatInfo(cID)

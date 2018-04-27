@@ -51,8 +51,8 @@ class ChatDAO:
     #This method will return the chats on which that user is in
     #WORKSSSSS
         cursor = self.conn.cursor()
-        query = "select * from messages natural inner join participants where uid = %s; "
-        cursor.execute(query,(uID,))
+        query = "select * from chats where cid in (select cid from participants where uid = %s);"
+        cursor.execute(query, (uID,))
         result = []
         for row in cursor:
             result.append(row)

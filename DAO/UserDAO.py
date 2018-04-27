@@ -3,6 +3,7 @@ This Class contain DAO methods for the entities of Users, Activities, Credential
 """
 from pg_config import pg_config
 import psycopg2
+import datetime
 class UserDAO:
 
 
@@ -75,9 +76,14 @@ class UserDAO:
 
     #Returns the list of all users that are active
     def getAllUsersByActivity(self):
+        today = datetime.datetime.today()
+        today = today.replace(today.hour - 4, today.month, today.day, today.hour,
+                              today.minute, today. second, today.microsecond)
         cursor = self.conn.cursor()
-        query = "select * from activities where isactive = 't';"
-        cursor.execute(query)
+        query = "select * from users where uid in (select uid from activities " \
+                "where isactive = 't' and " \
+                "lastdbaccesstimestamp >= %s);"
+        cursor.execute(query, (today,))
         result = []
         for row in cursor:
             result.append(row)
