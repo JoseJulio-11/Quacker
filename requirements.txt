@@ -11,3 +11,7 @@ query-string==0.0.28
 request==0.0.26
 Werkzeug==0.14.1
 gunicorn==19.7.1
+Flask_cors==3.0.3
+pip==9.0.3
+setuptools==28.8.0
+six==1.11.0
