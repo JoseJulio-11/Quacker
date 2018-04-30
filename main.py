@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 CORS(app)
 
-
 @app.route('/')
 def mainPage():
     return mainpage
@@ -202,6 +201,14 @@ def getActiveChats():
     else:
         return jsonify(Error="Method not allowed"), 404
 
+@app.route('/chats/groupchats', methods = ['GET'])
+#workd
+def getGroupChats():
+    if request.method == 'GET':
+        result = Chat.getGroupChats()
+        return result
+    else:
+        return jsonify(Error = "Method not allowed"), 404
 
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])

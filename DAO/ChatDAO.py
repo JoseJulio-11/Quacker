@@ -150,17 +150,25 @@ class ChatDAO:
        for row in cursor:
         result.append(row)
         return result
+
+    def getGroupChats(self):
+        #THis method returns all the group chats in the database
+        cursor = self.conn.cursor()
+        query = " select * from chats where isGroupchat = true;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+
+        return result
+
     def getChatsDeleted(self):
         # This method will return the deleted chats
-        return [self.chat[1], self.chat[3]]
+        return []
 
     # Returns the list of all chats which the user with ID uID is member of.
     def getChatAsMember(self, uID):
-        memberChatsList = []
-        for r in self.participants:
-            if uID == r[1]:
-                memberChatsList.append(r)
-        return memberChatsList
+        return []
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
         # This method is supposed to be used to change the chat name
