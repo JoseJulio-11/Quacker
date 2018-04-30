@@ -82,6 +82,17 @@ def getChatAsMember(uID):
         mapped_result.append(Dic.build_participants_dict(r))
     return jsonify(MemberChats=mapped_result)
 
+def getGroupChats():
+    groupChats = dao.getGroupChats()
+    if not groupChats:
+        return jsonify(Error= "No group chats in the system")
+    result_list = []
+
+    for row in groupChats:
+        results = Dic.build_chat_dict(row)
+        print(row)
+        result_list.append(results)
+    return jsonify(GroupChats = result_list)
 
 def getAllActiveChats():
     result = dao.getAllActiveChats()
@@ -92,7 +103,7 @@ def getAllActiveChats():
         mapped_result.append(Dic.build_chat_dict(r))
     return jsonify(Chats=mapped_result)
 def getChatInfo(CID):
-    result = dao.getChatInfo(cID)
+    result = dao.getChatInfo(CID)
 #   def removeChatGroup(self,cID):
 #      #THis method will remove a chat
 #        dao = ReadChatDAO()
