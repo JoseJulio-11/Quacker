@@ -3,6 +3,8 @@ This Class contain DAO methods for the entities of Chats and Participants
 """
 import psycopg2
 from pg_config import pg_config
+
+
 class ChatDAO:
 
     def __init__(self):
@@ -168,6 +170,7 @@ class ChatDAO:
     # Returns the list of all chats which the user with ID uID is member of.
     def getChatAsMember(self, uID):
         return []
+
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
         # This method is supposed to be used to change the chat name
