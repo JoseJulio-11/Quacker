@@ -10,7 +10,7 @@ def getAllMessages():
         return jsonify(Error="No Message found"), 404
     result = []
     for row in rows:
-        result.append(Dic.build_message_dict(row))
+        result.append(Dic.build_extended_message_dict(row))
     return jsonify(Messages=result)
 
 
