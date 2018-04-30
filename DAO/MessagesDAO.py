@@ -8,9 +8,9 @@ import psycopg2
 class MessagesDAO:
 
     def __init__(self):
-        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'],
-                                                           pg_config['user'],
-                                                           pg_config['passwd'])
+        connection_url = "dbname=%s user=%s password=%s port=%s host=%s" % \
+                         (pg_config['dbname'], pg_config['user'], pg_config['passwd'],
+                          pg_config['port'], pg_config['host'])
         self.conn = psycopg2._connect(connection_url)
 
     # ====================== Create Method ================================================== #
@@ -54,7 +54,20 @@ class MessagesDAO:
     # ============== Methods For Get Messages ============ #
     def getAllMessages(self):
         cursor = self.conn.cursor()
-        query = "Select * from Messages;"
+        query = "with like_messages as " \
+	    "(with like_reacted as (select * from reacted where vote = 1)" \
+	    "(select mid, text, mtime, messages.uid, cid, isdeleted, rid, count(vote) as likes" \
+	    " from messages left join like_reacted using(mid)" \
+	    " group by mid, text, mtime, messages.uid, cid, isdeleted, rid" \
+	    " order by mtime)), dislike_messages as " \
+	    " (with dislike_reacted as (select * from reacted where vote = -1)" \
+	    " (select mid, text, mtime, messages.uid, cid, isdeleted, rid, count(vote) as dislikes" \
+	    " from messages left join dislike_reacted using(mid)" \
+	    " group by mid, text, mtime, messages.uid, cid, isdeleted, rid order by mtime)) " \
+        "select mid, like_messages.text, like_messages.mtime, pseudonym, like_messages.uid, " \
+        "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
+        " from like_messages inner join dislike_messages using(mid) inner join users on " \
+        "users.uid = like_messages.uid"
         cursor.execute(query)
         result = []
         for row in cursor:

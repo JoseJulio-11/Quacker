@@ -68,6 +68,22 @@ def build_message_dict(chatMessage):
     Message["cID"] = chatMessage[4]
     Message["isDeleted"] = chatMessage[5]
     Message["rID"] = chatMessage[6]
+    return Message
+
+def build_extended_message_dict(chatMessage):
+    # mid, text, cdate, ctime, cid, uid, isdeleted, rid
+    Message = {}
+    print(chatMessage)
+    Message["mID"] = chatMessage[0]
+    Message["text"] = chatMessage[1]
+    Message["mTime"] = chatMessage[2]
+    Message["pseudonym"] = chatMessage[3]
+    Message["uID"] = chatMessage[4]
+    Message["cID"] = chatMessage[5]
+    Message["isDeleted"] = chatMessage[6]
+    Message["rID"] = chatMessage[7]
+    Message["likes"] = chatMessage[8]
+    Message["dislikes"] = chatMessage[9]
 
     return Message
 

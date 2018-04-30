@@ -3,14 +3,15 @@ This Class contain DAO methods for the entities of Chats and Participants
 """
 import psycopg2
 from pg_config import pg_config
+
+
 class ChatDAO:
 
     def __init__(self):
 
-        connection_url = "dbname=%s user=%s password=%s hostaddr=%s"  % (pg_config['dbname'],
-                                                            pg_config['user'],
-                                                            pg_config['passwd'],
-                                                            pg_config['host'])
+        connection_url = "dbname=%s user=%s password=%s port=%s host=%s" % \
+                         (pg_config['dbname'], pg_config['user'], pg_config['passwd'],
+                          pg_config['port'], pg_config['host'])
         self.conn = psycopg2._connect(connection_url)
 
 
@@ -169,6 +170,7 @@ class ChatDAO:
     # Returns the list of all chats which the user with ID uID is member of.
     def getChatAsMember(self, uID):
         return []
+
     # ======================= Update Methods ========================== #
     def updateChat(self, cID, cName, cDate, cTime, isGroupChat, adminID):
         # This method is supposed to be used to change the chat name
