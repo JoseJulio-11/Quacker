@@ -149,13 +149,15 @@ def getUserContactsByID(uid):
 
 
 # ================= Chat Methods ===================== #
-@app.route('/chats', methods=['GET'])
+@app.route('/chats', methods=['GET', 'POST'])
 #WORKSSS
 def getAllChats():
     if request.method == 'GET':
 
         result = Chat.getAllChats()
         return result
+    elif request.method == 'POST':
+        return Chat.insertChat(request.form)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -209,6 +211,7 @@ def getGroupChats():
         return result
     else:
         return jsonify(Error = "Method not allowed"), 404
+
 
 # ============== Participant Methods ================== #
 @app.route('/participants', methods=['GET'])
@@ -474,7 +477,9 @@ def getMessageDisLikeReactionsCountByID(mid):
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+# ========================Insert methods=========================================#
 
+@app.route('/insert/chat', methods = ['POST'])
 
 if __name__ == '__main__':
     app.run()
