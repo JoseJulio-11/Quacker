@@ -115,17 +115,24 @@ def getChatInfo(CID):
     return[]
 
 
-def insertChat(self,form):
-    if len(form) != 4:
-        return jsonify(Error = " Malformed post request, missing or extra data"),404
+def insertChat(self,cid,form):
+    if len(form) != 2:
+
+        return jsonify(Error = " Malformed post request, missing or extra data")
     else:
-        cName = form['cName']
-        cTime = form['cTime']
+        print('working handler')
+        cName = form['cname']
+        cTime = form['ctime']
         isGroupChat = form['isGroupChat']
-        adminID = form['adminID']
-        if cName and cTime and isGroupChat and adminID:
-           pid =  dao.insertChat(cName,cTime,isGroupChat,adminID)
-           result = Dic.build_chat_dict(cName,cTime,isGroupChat,adminID)
-           return jsonify(Chat = result), 201
+        isActive = form['isActive']
+        uid = form['uid']
+
+        if cName and cTime and isGroupChat and isActive and uid and cid:
+           pid = dao.insertChat(cName,cTime,isGroupChat,isActive,uid)
+           if pid:
+            result = Dic.build_chat_dict(cid,cName,cTime,isGroupChat,isActive,uid)
+            return jsonify(Chat = result)
+           else:
+               return jsonify(ERROR = 'Could not create group')
         else:
-            return jsonify(Error = "Unexpected attributes in post request"), 400
+            return jsonify(Error = 'Unexpected attributes in post request'), 400

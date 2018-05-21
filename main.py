@@ -157,6 +157,7 @@ def getAllChats():
         result = Chat.getAllChats()
         return result
     elif request.method == 'POST':
+        print('working')
         return Chat.insertChat(request.form)
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -479,7 +480,6 @@ def getMessageDisLikeReactionsCountByID(mid):
         return jsonify(Error="Method not allowed"), 404
 # ========================Insert methods=========================================#
 
-@app.route('/insert/chat', methods = ['POST'])
 
 if __name__ == '__main__':
     app.run()

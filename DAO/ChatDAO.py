@@ -16,15 +16,15 @@ class ChatDAO:
 
 
     # ============================== Create Methods ============================= #
-    def insertChat(self, cName, cTime, isGroupChat, adminID):
+    def insertChat(self, cName, cTime, isGroupChat,isActive, adminID):
         #THis method creates a new chat on the database
         #TODO make sure that this method works, it is done as in the PartsApp of professor
        cursor = self.conn.cursor()
-       query = " insert into chat(cname,ctime,isGroupChat,isActive,uid)",\
-                "values(%s,curent_timestamp,%s,%s)"
-       cursor.execute(query,(cName,cTime,isGroupChat,adminID,))
-       pid = cursor.fetchone()[0]
-       self.conn.comit()
+       query = " insert into chats(cname,ctime,isGroupChat,isActive,uid)",\
+                "values(%s,%s,%s,%s,%s) returning cid"
+       cursor.execute(query,(cName,cTime,isGroupChat,isActive,adminID,))
+       pid = cursor.fetchone()
+       self.conn.commit()
        return pid
 
     def insertParticipant(self, cID, uID,ptime):
