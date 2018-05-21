@@ -136,4 +136,20 @@ def insertChat(form):
                return jsonify(ERROR = 'Could not create group')
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
-def insertParticipant
+def insertParticipant(form):
+    if len(form) != 3:
+        return jsonify(Error = "Malformed post request, missing or extra data")
+    else:
+        print( 'working on insert participants')
+        cid = form['cid']
+        uid = form['uid']
+        ptime = form['ptime']
+        if cid and uid and ptime:
+         pid = dao.insertParticipant(cid,uid,ptime)
+         if pid:
+            result = Dic.build_participants_dict([cid,uid,ptime])
+            return jsonify(Participant = result)
+         else:
+            return jsonify(Error = "Could not insert the participant")
+        else:
+            return jsonify(Error='Unexpected attributes in post request'), 400

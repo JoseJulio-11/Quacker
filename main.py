@@ -153,7 +153,6 @@ def getUserContactsByID(uid):
 #WORKSSS
 def getAllChats():
     if request.method == 'GET':
-
         result = Chat.getAllChats()
         return result
     elif request.method == 'POST':
@@ -215,11 +214,18 @@ def getGroupChats():
 
 
 # ============== Participant Methods ================== #
-@app.route('/participants', methods=['GET'])
+@app.route('/participants', methods=['GET', 'POST'])
 #WORKSSSS
+
 def getAllParticipants():
+
     if request.method == 'GET':
         result = Chat.getALlParticipants()
+        return result
+    elif request.method == 'POST':
+        for row in request.form:
+            print(row)
+        result = Chat.insertParticipant(request.form)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404

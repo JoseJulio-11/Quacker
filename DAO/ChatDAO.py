@@ -31,11 +31,11 @@ class ChatDAO:
         #TODO make sure that this method works, it is done as in the PartApp of professor
         # Insert a participant to a chat
         cursor = self.conn.cursor()
-        query = "insert into participants(cid,uid,ptime) values(%s,%s,current_timestamp)"
+        query = "insert into participants(cid,uid,ptime) values(%s,%s,%s) returning uid"
         cursor.execute(query,(cID,uID,ptime,))
-        participant = cursor.fetchone()[0]
-        self.conn.comit()
-        return participant
+        uid =  cursor.fetchone()
+        self.conn.commit()
+        return uid
 
     # ============================= Get Methods ================================= #
     def getAllChats(self):
