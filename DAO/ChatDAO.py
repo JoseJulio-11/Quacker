@@ -20,12 +20,12 @@ class ChatDAO:
         #THis method creates a new chat on the database
         #TODO make sure that this method works, it is done as in the PartsApp of professor
        cursor = self.conn.cursor()
-       query = " insert into chats(cname,ctime,isGroupChat,isActive,uid)",\
+       query = " insert into chats(cname,ctime,isGroupChat,isActive,uid)"\
                 "values(%s,%s,%s,%s,%s) returning cid"
-       cursor.execute(query,(cName,cTime,isGroupChat,isActive,adminID,))
-       pid = cursor.fetchone()
+       cursor.execute(query,(str(cName),str(cTime),str(isGroupChat),str(isActive),str(adminID)))
+       cid = cursor.fetchone()
        self.conn.commit()
-       return pid
+       return cid
 
     def insertParticipant(self, cID, uID,ptime):
         #TODO make sure that this method works, it is done as in the PartApp of professor
