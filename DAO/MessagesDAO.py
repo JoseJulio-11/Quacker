@@ -14,14 +14,22 @@ class MessagesDAO:
         self.conn = psycopg2._connect(connection_url)
 
     # ====================== Create Method ================================================== #
-    def insertMessage(self, text, mtime, uid, cid, isDeleted, rid):
+    def insertMessage(self, text, mtime, uid, cid, isDeleted):
         # Create a message to a chat
         cursor = self.conn.cursor()
         query = "select count(*)from participants where cid = %s and uid = %s "
         cursor.execute(query,(cid,uid))
         count = cursor.fetchone()
-        print(count)
-        return count
+        self.conn.commit()
+        if count != 0:
+         print(count)
+         query2 = "insert into messages(text,mtime,uid,cid,isDeleted) values(%s,%s,%s,%s,%s) returning mid "
+         cursor.execute(query,(text,mtime,uid,cid,isDeleted))
+         mid = cursor.fetchone()
+         return mid
+
+        else:
+            return count
 
     def insertReacted(self, uID, mID, rdate, rtime, vote):
         # Create an user reaction to a message

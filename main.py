@@ -269,7 +269,7 @@ def getMessageByChatID(cid):
         result = Message.getAllChatMessages(cid)
         return result
     elif request.method == 'POST':
-        result = Message.insertMessage(cid)
+        result = Message.insertMessage(request.form,cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
