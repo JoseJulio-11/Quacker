@@ -262,11 +262,14 @@ def getMessageByID(mid):
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/messages/chat/<int:cid>', methods=['GET'])
+@app.route('/messages/chat/<int:cid>', methods=['GET', 'POST'])
 def getMessageByChatID(cid):
     #WORKSSS
     if request.method == 'GET':
         result = Message.getAllChatMessages(cid)
+        return result
+    elif request.method == 'POST':
+        result = Message.insertMessage(cid)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
