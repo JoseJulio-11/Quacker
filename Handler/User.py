@@ -160,3 +160,10 @@ def getAdminByChatID(cid):
         return jsonify(Error = "No Admin Found")
     mapped_result = DictionaryBuilder.build_user_dict(result)
     return jsonify(Users = mapped_result)
+
+def loginUser(username,password):
+    user= dao.loginUser(username,password)
+    if not user:
+        return jsonify(Error = "Wrong username or password")
+    else:
+       return 

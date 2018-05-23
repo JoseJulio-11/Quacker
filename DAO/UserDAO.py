@@ -17,9 +17,17 @@ class UserDAO:
     # ============================== Create Methods =========================== #
     def insertUser(self, fName, lName, ctime, cdate, pseudonym):
         # Create a new user
-        
-        uID = 7
-        return uID
+        return[]
+
+
+    def loginUser(self,username,password):
+        #This method makes sure that the user inserts the correct credentials
+        cursor = self.conn.cursor()
+        query = "select * from credentials where username = '%s' and password = '%s' "
+        cursor.execute(query,(username,password))
+        user = cursor.fetchone()
+        self.conn.commit()
+        return user
 
     def insertCredential(self, uID, username, password, uemail, cuphone):
         # Create credentials for user

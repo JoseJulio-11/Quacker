@@ -95,6 +95,13 @@ def getCredentials():
     else:
         return jsonify(Error="Method not allowed"), 404
 
+@app.route('/login/credentials',methods=['GET'])
+def loginCredentials(username,password):
+    if request.method == 'GET':
+        result = User.loginUser(username,password)
+    else:
+        result = jsonify(Error = "method not allowed"),404
+
 
 @app.route('/credentials/user/<int:uid>', methods=['GET'])
 #WORKSSS
@@ -157,7 +164,7 @@ def getAllChats():
         return result
     elif request.method == 'POST':
         print('working')
-        return Chat.insertChat(request.form)
+        return Chat.insertChat(request.json)
     else:
         return jsonify(Error="Method not allowed"), 404
 
@@ -225,7 +232,7 @@ def getAllParticipants():
     elif request.method == 'POST':
         for row in request.form:
             print(row)
-        result = Chat.insertParticipant(request.form)
+        result = Chat.insertParticipant(request.json)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
