@@ -274,10 +274,11 @@ def getAllMediaByUser(uid):
     return jsonify(Media=result_list)
 
 def insertMessage(mid,form):
-    if len(form) != 5 or mid == 0:
+    print("Form received from the DAO"+str(form))
+    if len(form) != 5:
         return jsonify(Error = " Malformed post request, missing or extra data")
     else:
-        print('working handler for insert message')
+        print("working handler for insert message")
         text = form['text']
         mtime = form['mtime']
         uid = form['uid']
@@ -286,7 +287,7 @@ def insertMessage(mid,form):
 
         if text and mtime and uid and cid and isDeleted:
            mid = dao.insertMessage(text,mtime,uid,cid,isDeleted)
-           print(mid)
+           print("MID inside the hanler"+ str(mid))
            if mid:
             result = Dic.build_message_dict([mid,text,mtime,uid,cid,isDeleted])
             return jsonify(Chat = result)

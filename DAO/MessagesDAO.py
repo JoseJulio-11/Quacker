@@ -19,17 +19,16 @@ class MessagesDAO:
         cursor = self.conn.cursor()
         query = "select count(*)from participants where cid = %s and uid = %s "
         cursor.execute(query,(cid,uid))
-        count = cursor.fetchone()
+        count = cursor.fetchone()[0]
         self.conn.commit()
-        if count != 0:
-         print(count)
-         query2 = "insert into messages(text,mtime,uid,cid,isDeleted) values(%s,%s,%s,%s,%s) returning mid "
-         cursor.execute(query,(text,mtime,uid,cid,isDeleted))
-         mid = cursor.fetchone()
-         return mid
-
-        else:
+        if count == 0:
             return count
+        else:
+            print("else inside the DAO" + count)
+            query2 = "insert into messages(text,mtime,uid,cid,isDeleted) values(%s,%s,%s,%s,%s) returning mid "
+            cursor.execute(query, (text, mtime, uid, cid, isDeleted))
+            mid = cursor.fetchone()[1]
+            return mid
 
     def insertReacted(self, uID, mID, rdate, rtime, vote):
         # Create an user reaction to a message
