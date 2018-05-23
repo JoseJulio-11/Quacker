@@ -17,6 +17,7 @@ class UserDAO:
     # ============================== Create Methods =========================== #
     def insertUser(self, fName, lName, ctime, cdate, pseudonym):
         # Create a new user
+        
         uID = 7
         return uID
 
