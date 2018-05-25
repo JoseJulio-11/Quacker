@@ -95,13 +95,14 @@ def getCredentials():
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/login/credentials',methods=['GET'])
-def loginCredentials(username,password):
-    if request.method == 'GET':
-        result = User.loginUser(username,password)
+@app.route('/login/credentials',methods=['POST'])
+def loginCredentials():
+    if request.method == 'POST':
+        print("REQUEST: ", request.json)
+        result = User.loginUser(request.json)
     else:
         result = jsonify(Error = "method not allowed"),404
-
+    return result
 
 @app.route('/credentials/user/<int:uid>', methods=['GET'])
 #WORKSSS
