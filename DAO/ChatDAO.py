@@ -36,6 +36,21 @@ class ChatDAO:
         uid =  cursor.fetchone()
         self.conn.commit()
         return uid
+    def checkIfContact(self,uid,contact):
+        cursor = self.conn.cursor()
+        query = "select uid from contacts where uid = %s and memeberid = %s"
+        uid = cursor.fetchone()
+        cursor.execute(query,(uid,contact))
+        return uid
+
+    def getTimeForParticipantInsertion(self,uid):
+        #This method returns the time the user was added to the system
+        cursor = self.conn.cursor()
+        query2 = "select ptime from participants where uid = %s"
+        cursor.execute(query2,uid)
+        ptime = cursor.fetchone()
+        self.conn.commit()
+        return ptime
 
     # ============================= Get Methods ================================= #
     def getAllChats(self):
