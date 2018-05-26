@@ -15,14 +15,17 @@ def mainPage():
 
 
 # ==================== User Methods ====================== #
-@app.route('/users', methods=['GET'])
+@app.route('/users', methods=['GET','POST'])
 #WORKS
 def getAllUsers():
     if request.method == 'GET':
         result = User.getAllUsers()
         return result
+    elif request.method == 'POST':
+        result =User.addUser(request.json)
+        return result
     else:
-        return jsonify(Error="Method not allowed"), 404
+         return jsonify(Error="Method not allowed"), 404
 
 
 @app.route('/users/<int:uid>', methods=['GET'])
