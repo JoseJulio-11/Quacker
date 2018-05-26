@@ -302,6 +302,14 @@ def getMessageByUserID(uid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
+@app.route('/messages/chat/<int:cid>/search/<str:search>', methods=['GET'])
+def getMessageInChatByUser(cid, search):
+    #WORKSSS
+    if request.method == 'GET':
+        result = Message.searchAllChatMessage(cid, search)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
 
 @app.route('/messages/chat/<int:cid>/user/<int:uid>', methods=['GET'])
 def getMessageInChatByUser(cid, uid):
