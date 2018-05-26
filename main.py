@@ -314,12 +314,15 @@ def getMessageInChatByUser(cid, uid):
 
 
 # =============== Topic Methods ======================== #
-@app.route('/topics', methods=['GET'])
+@app.route('/topics', methods=['GET','POST'])
 #WORKS
 def getAllTopics():
     if request.method == 'GET':
         result = Message.getAllTopics()
         return result
+    elif request.method == 'POST':
+        result = Message.insertTopic()
+
     else:
         return jsonify(Error="Method not allowed"), 404
 

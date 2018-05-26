@@ -274,12 +274,9 @@ def getAllMediaByUser(uid):
     return jsonify(Media=result_list)
 
 def insertMessage(mid,form):
-    print("Form received from the DAO"+str(form))
-    print()
     if len(form) != 5:
         return jsonify(Error = " Malformed post request, missing or extra data")
     else:
-        print("working handler for insert message")
         text = form['text']
         mtime = form['mtime']
         uid = form['uid']
@@ -288,7 +285,6 @@ def insertMessage(mid,form):
 
         if text and mtime and uid and cid and isDeleted:
            mid = dao.insertMessage(text,mtime,uid,cid,isDeleted)
-           print("MID inside the hanler"+ str(mid))
            if mid:
             result = Dic.build_message_dict([mid,text,mtime,uid,cid,isDeleted,"null"])
             return jsonify(Chat = result)
@@ -296,3 +292,7 @@ def insertMessage(mid,form):
                return jsonify(ERROR = 'Could not create group')
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
+
+def insertTopic():
+
+    return[]
