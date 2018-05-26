@@ -15,10 +15,32 @@ class UserDAO:
 
 
     # ============================== Create Methods =========================== #
-    def insertUser(self, fName, lName, ctime, cdate, pseudonym):
+    def addUser(self, fname, lname, pseudonym,):
         # Create a new user
-        return[]
+        cursor = self.conn.cursor()
+        query = "insert into users(fname,lname,utime,pseudonym) values(%s,%s,%s,%s) returning uid;"
+        cursor.execute(query,(str(fname),str(lname),'now',str(pseudonym)))
+        uid = cursor.fetchone()
+        self.conn.commit()
+        return uid
 
+    def getTimeForUserINsertion(self,uid):
+        #This method returns the time the user was added to the system
+        cursor = self.conn.cursor()
+        query2 = "select utime from users where uid = %s"
+        cursor.execute(query2,uid)
+        utime = cursor.fetchone()
+        self.conn.commit()
+        return utime
+
+    def addCredentials(self,uid,username,password,uemail,uphone):
+      #This method adds the credentials of a new user to the credentials table
+        cursor = self.conn.cursor()
+        query = "insert into credentials(uid,username,password,uemail,uphone) values(%s,%s,%s,%s,%s) "
+        cursor.execute(query,(uid,username,password,uemail,uphone))
+        #uid = cursor.fetchone()
+        self.conn.commit()
+        return uid
 
     def loginUser(self,username,password):
         #This method makes sure that the user inserts the correct credentials

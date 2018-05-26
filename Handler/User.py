@@ -174,3 +174,29 @@ def loginUser(json):
     else:
         user = dao.loginUser(username, password)
         return jsonify(User = user)
+
+def addUser(json):
+    #This method adds a need user of the app to the system
+    if len(json)!= 7:
+        return jsonify(Error="Missing information for registration")
+    else:
+        fname = json['fname']
+        lname = json['lname']
+        pseudonym = json['pseudonym']
+        username = json['username']
+        password = json['password']
+        uemail = json['uemail']
+        uphone = json['uphone']
+
+        if fname and lname and pseudonym and username and password and uemail and uphone:
+            uid = dao.addUser(fname,lname,pseudonym)
+            utime = dao.getTimeForUserINsertion(uid)
+            dao.addCredentials(uid,username,password,uemail,uphone)
+            if uid:
+                result = DictionaryBuilder.build_user_dict([uid,fname,lname,utime,pseudonym])
+                return jsonify(User = result)
+            else:
+                return jsonify(Error = 'Missing parameters')
+        else:
+            return jsonify(Error='Unexpected attributes in post request'), 400
+
