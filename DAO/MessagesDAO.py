@@ -62,6 +62,29 @@ class MessagesDAO:
             result.append(row)
         return result
 
+    def searchAllChatMessages(self, cID, search):
+        cursor = self.conn.cursor()
+        query = "with like_messages as " \
+                "(with like_reacted as (select * from reacted where vote = 1)" \
+                "(select mid, text, mtime, messages.uid, cid, isdeleted, rid, count(vote) as likes" \
+                " from messages left join like_reacted using(mid)" \
+                " group by mid, text, mtime, messages.uid, cid, isdeleted, rid" \
+                " order by mtime)), dislike_messages as " \
+                " (with dislike_reacted as (select * from reacted where vote = -1)" \
+                " (select mid, text, mtime, messages.uid, cid, isdeleted, rid, count(vote) as dislikes" \
+                " from messages left join dislike_reacted using(mid)" \
+                " group by mid, text, mtime, messages.uid, cid, isdeleted, rid order by mtime)) " \
+                "select mid, like_messages.text, like_messages.mtime, pseudonym, like_messages.uid, " \
+                "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
+                " from like_messages inner join dislike_messages using(mid) inner join users on " \
+                "users.uid = like_messages.uid where like_messages.cid = %s and like_messages.isdeleted = 'f'" \
+                " and STRPOS(like_messages.text, %s) > 0"
+        cursor.execute(query, (cID, search))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
     # ========================= Methods Independent On Time ======================= #
     # ============== Methods For Get Messages ============ #
     def getAllMessages(self):
@@ -85,6 +108,7 @@ class MessagesDAO:
         for row in cursor:
             result.append(row)
         return result
+
 
     def getAllReplyMessages(self):
         cursor = self.conn.cursor()
@@ -220,7 +244,20 @@ class MessagesDAO:
     # ============== Get Messages in chats ================== #
     def getAllChatMessages(self, cID):
         cursor = self.conn.cursor()
-        query = "select * from messages where cid = %s;"
+        query = "with like_messages as " \
+                "(with like_reacted as (select * from reacted where vote = 1)" \
+                "(select mid, text, mtime, messages.uid, cid, isdeleted, rid, count(vote) as likes" \
+                " from messages left join like_reacted using(mid)" \
+                " group by mid, text, mtime, messages.uid, cid, isdeleted, rid" \
+                " order by mtime)), dislike_messages as " \
+                " (with dislike_reacted as (select * from reacted where vote = -1)" \
+                " (select mid, text, mtime, messages.uid, cid, isdeleted, rid, count(vote) as dislikes" \
+                " from messages left join dislike_reacted using(mid)" \
+                " group by mid, text, mtime, messages.uid, cid, isdeleted, rid order by mtime)) " \
+                "select mid, like_messages.text, like_messages.mtime, pseudonym, like_messages.uid, " \
+                "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
+                " from like_messages inner join dislike_messages using(mid) inner join users on " \
+                "users.uid = like_messages.uid where like_messages.cid = %s and like_messages.isdeleted = 'f'"
         cursor.execute(query, (cID,))
         result = []
         for row in cursor:
