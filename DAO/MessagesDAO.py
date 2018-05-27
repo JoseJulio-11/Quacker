@@ -29,12 +29,19 @@ class MessagesDAO:
                 cursor.execute(query2, (rid,))
                 rtext = cursor.fetchone()
                 self.conn.commit()
-                text = "RE:\"" + rtext + "\" " + text
+                if rtext:
+                    text = "RE:\"" + str(rtext[0]) + "\" " + text
 
             query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
             cursor.execute(query3, (str(text), uid, cid, rid))
             self.conn.commit()
             mid = cursor.fetchone()
+            query4 = " into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
+            cursor.execute(query4, (str(text), uid, cid, rid))
+            self.conn.commit()
+            query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+            self.conn.cursor.execute(query5, (uid,))
+            self.conn.commit()
             listOfStrings = str(text).split()
             for word in listOfStrings:
                 if word.find('#') != -1:
@@ -55,6 +62,9 @@ class MessagesDAO:
             cursor.execute(query2, (str(uid), str(mid), str(vote)))
             self.conn.commit()
             rtime = cursor.fetchone()
+            query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+            self.conn.cursor.execute(query5, (uid,))
+            self.conn.commit()
             return rtime
 
     def insertTopic(self, mid, hashtag):
@@ -820,41 +830,41 @@ class MessagesDAO:
 
     def getMessagesPerDay(self, btime, atime):
         cursor = self.conn.cursor()
-        query = "select * from messages where mtime > %s and mtime < %s;"
+        query = "select count(*) from messages where mtime > %s and mtime < %s;"
         cursor.execute(query, (btime, atime))
         result = []
         for row in cursor:
             result.append(row)
-        return result
+        return result[0]
 
     def getRepliesPerDay(self, btime, atime):
         cursor = self.conn.cursor()
-        query = "select * from messages where rid is not NULL and mtime > %s and mtime < %s;"
+        query = "select count(*) from messages where rid is not NULL and mtime > %s and mtime < %s;"
         cursor.execute(query, (btime, atime))
         result = []
         for row in cursor:
             result.append(row)
-        return result
+        return result[0]
 
     def getLikesPerDay(self, btime, atime):
         cursor = self.conn.cursor()
         query = "select count(*) from reacted" \
-                " where mid = %s and vote = 1 and rtime > %s and rtime < %s;"
+                " where vote = 1 and rtime > %s and rtime < %s;"
         cursor.execute(query, (btime, atime))
         result = []
         for row in cursor:
             result.append(row)
-        return result
+        return result[0]
 
     def getDislikesPerDay(self, btime, atime):
         cursor = self.conn.cursor()
         query = "select count(*) from reacted" \
-                " where mid = %s and vote = -1 and rtime > %s and rtime < %s;"
+                " where vote = -1 and rtime > %s and rtime < %s;"
         cursor.execute(query, (btime, atime))
         result = []
         for row in cursor:
             result.append(row)
-        return result
+        return result[0]
 
 
 

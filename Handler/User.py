@@ -1,6 +1,7 @@
 from flask import jsonify
 from DAO.UserDAO import UserDAO
 from Handler import DictionaryBuilder
+import datetime
 
 dao = UserDAO()
 
@@ -160,6 +161,32 @@ def getAdminByChatID(cid):
         return jsonify(Error = "No Admin Found")
     mapped_result = DictionaryBuilder.build_user_dict(result)
     return jsonify(Users = mapped_result)
+
+
+def getUsersPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    userperday = dict()
+    userperday['1'] = usersPerDayHelper(weekBefore, oneDay)
+    userperday['2'] = usersPerDayHelper(weekBefore+oneDay, oneDay)
+    userperday['3'] = usersPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    userperday['4'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    userperday['5'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    userperday['6'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    userperday['7'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    return jsonify(Topic=userperday)
+
+
+def usersPerDayHelper(day, oneday):
+    usersinday = []
+    topics = dao.getUsersPerDay(day - oneday, day)
+    for row in topics:
+        result = DictionaryBuilder.build_dash_user_dict(row)
+        print(result)
+        usersinday.append(result)
+    return usersinday
+
 
 def loginUser(json):
     #print(jsonify(json))

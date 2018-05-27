@@ -308,6 +308,84 @@ def topicsPerDayHelper(day, oneday):
     return topicsinday
 
 
+def getMessagesPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    messperday = dict()
+    messperday['1'] = messagesPerDayHelper(weekBefore, oneDay)
+    messperday['2'] = messagesPerDayHelper(weekBefore+oneDay, oneDay)
+    messperday['3'] = messagesPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    messperday['4'] = messagesPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    messperday['5'] = messagesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    messperday['6'] = messagesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    messperday['7'] = messagesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    return jsonify(Messages=messperday)
+
+
+def messagesPerDayHelper(day, oneday):
+    messages = dao.getMessagesPerDay(day - oneday, day)
+    return messages
+
+
+def getReplyPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    messperday = dict()
+    messperday['1'] = replyPerDayHelper(weekBefore, oneDay)
+    messperday['2'] = replyPerDayHelper(weekBefore+oneDay, oneDay)
+    messperday['3'] = replyPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    messperday['4'] = replyPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    messperday['5'] = replyPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    messperday['6'] = replyPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    messperday['7'] = replyPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    return jsonify(Messages=messperday)
+
+
+def replyPerDayHelper(day, oneday):
+    messages = dao.getRepliesPerDay(day - oneday, day)
+    return messages
+
+def getLikesPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    likesperday = dict()
+    likesperday['1'] = likesPerDayHelper(weekBefore, oneDay)
+    likesperday['2'] = likesPerDayHelper(weekBefore+oneDay, oneDay)
+    likesperday['3'] = likesPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    likesperday['4'] = likesPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    likesperday['5'] = likesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    likesperday['6'] = likesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    likesperday['7'] = likesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    return jsonify(Likes=likesperday)
+
+
+def likesPerDayHelper(day, oneday):
+    messages = dao.getLikesPerDay(day - oneday, day)
+    return messages
+
+def getDislikesPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    dislikesperday = dict()
+    dislikesperday['1'] = dislikesPerDayHelper(weekBefore, oneDay)
+    dislikesperday['2'] = dislikesPerDayHelper(weekBefore+oneDay, oneDay)
+    dislikesperday['3'] = dislikesPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    dislikesperday['4'] = dislikesPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    dislikesperday['5'] = dislikesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    dislikesperday['6'] = dislikesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    dislikesperday['7'] = dislikesPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    return jsonify(Dislikes=dislikesperday)
+
+
+def dislikesPerDayHelper(day, oneday):
+    messages = dao.getDislikesPerDay(day - oneday, day)
+    return messages
+
+
 def insertMessage(json):
     if len(json) != 4:
         return jsonify(Error = " Malformed post request, missing or extra data")

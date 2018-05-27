@@ -526,9 +526,47 @@ def getTopicsPerDay():
     else:
         return jsonify(Error="Method not allowed"), 404
 
+@app.route('/dashboard/messages', methods=['GET'])
+def getMessagesPerDay():
+    if request.method == 'GET':
+        result = Message.getMessagesPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
 
+
+@app.route('/dashboard/replies', methods=['GET'])
+def getRepliesPerDay():
+    if request.method == 'GET':
+        result = Message.getReplyPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/likes', methods=['GET'])
+def getLikesPerDay():
+    if request.method == 'GET':
+        result = Message.getLikesPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/dislikes', methods=['GET'])
+def getDisikesPerDay():
+    if request.method == 'GET':
+        result = Message.getDislikesPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/users', methods=['GET'])
+def getUsersPerDay():
+    if request.method == 'GET':
+        result = User.getUsersPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
 # ========================Insert methods=========================================#
-
 
 
 if __name__ == '__main__':
