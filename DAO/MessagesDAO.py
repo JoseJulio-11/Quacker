@@ -34,6 +34,10 @@ class MessagesDAO:
             cursor.execute(query3, (str(text), str(mtime), str(uid), str(cid), str(rid)))
             self.conn.commit()
             mid = cursor.fetchone()
+            listOfStrings = str(text).split()
+            for word in listOfStrings:
+                if word.find('#'):
+                    self.insertTopic(mid, word)
             return mid
 
     def insertReacted(self, uid, mid, vote):
@@ -52,9 +56,14 @@ class MessagesDAO:
             rtime = cursor.fetchone()
             return rtime
 
-    def insertTopic(self, mID, hashtag):
-        # Create a topic in a message
-        return mID, hashtag
+    def insertTopic(self, mid, hashtag):
+        # Create a message to a chat
+        cursor = self.conn.cursor()
+        query1 = "insert into topics(hashtag, mid) values(%s, %s) returning tid"
+        cursor.execute(query1, (str(hashtag), str(mid)))
+        self.conn.commit()
+        tid = cursor.fetchone()
+        return tid
 
     def insertMedia(self, mID, isVideo, location):
         # Add media to a message
