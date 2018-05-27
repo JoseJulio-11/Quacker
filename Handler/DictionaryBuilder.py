@@ -114,3 +114,10 @@ def build_media_dict(messageMedia):
     media["isVideo"] = messageMedia[1]
     media["location"] = messageMedia[2]
     return media
+
+
+def build_dash_topic_dict(topicsInDay):
+    topic = {}
+    topic["hashtag"] = topicsInDay[0]
+    topic["total"] = topicsInDay[1]
+    return topic

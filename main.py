@@ -511,7 +511,18 @@ def getMessageDisLikeReactionsCountByID(mid):
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+# ======================= Dashboard ========================== #
+@app.route('/dashboard/topics', methods=['GET'])
+def getTopicsPerDay():
+    if request.method == 'GET':
+        result = Message.getTopicsPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
 # ========================Insert methods=========================================#
+
 
 
 if __name__ == '__main__':

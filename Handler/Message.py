@@ -286,18 +286,27 @@ def getAllMediaByUser(uid):
 
 def getTopicsPerDay():
     today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=7)
-    dayBefore = datetime.timedelta(days=1)
-    topicperday = []
-    for day in dateutil.rrule.rrule(dateutil.rrule.MONTHLY, dtstart=weekBefore, until=today):
-        topicsinday = []
-        topics = dao.getTopicsPerDay(day - dayBefore, day)
-        for row in topics:
-            result = Dic.build_topic_dict(row)
-            topicsinday.append(result)
-        topicperday.append(topicsinday)
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    topicperday = dict()
+    topicperday['1'] = topicsPerDayHelper(weekBefore, oneDay)
+    topicperday['2'] = topicsPerDayHelper(weekBefore+oneDay, oneDay)
+    topicperday['3'] = topicsPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    topicperday['4'] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    topicperday['5'] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    topicperday['6'] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    topicperday['7'] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
     return jsonify(Topic=topicperday)
 
+
+def topicsPerDayHelper(day, oneday):
+    topicsinday = []
+    topics = dao.getTopicsPerDay(day - oneday, day)
+    for row in topics:
+        result = Dic.build_dash_topic_dict(row)
+        print(result)
+        topicsinday.append(result)
+    return topicsinday
 
 
 def insertMessage(mid,form):

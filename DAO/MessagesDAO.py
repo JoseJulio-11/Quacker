@@ -799,10 +799,12 @@ class MessagesDAO:
         cursor = self.conn.cursor()
         query = "select hashtag, count(*) as Usage from topics where ttime > %s" \
                 " and ttime < %s group by hashtag order by Usage desc;"
+        print(btime, atime)
         cursor.execute(query, (btime, atime))
         result = []
         for row in cursor:
             result.append(row)
+            print(row)
         return result
 
     def getMessagesPerDay(self, btime, atime):
