@@ -148,13 +148,11 @@ def insertParticipant(json):
         print(cid)
         print(uid)
         print(contact)
-       # ptime = json['ptime']
-        isContact = dao.checkIfContact(contact,uid)
 
-        if cid and uid and isContact:
-         pid = dao.insertParticipant(cid,uid)
-         ptime = dao.getTimeForParticipantInsertion(uid)
-         if pid:
+        if cid and uid and contact:
+         ptime = dao.insertParticipant(cid,uid,contact)
+        #ptime = dao.getTimeForParticipantInsertion(uid)
+         if ptime:
             result = Dic.build_participants_dict([cid,uid,ptime])
             return jsonify(Participant = result)
          else:

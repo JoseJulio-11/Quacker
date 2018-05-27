@@ -27,21 +27,38 @@ class ChatDAO:
        self.conn.commit()
        return cid
 
-    def insertParticipant(self, cID, uID,ptime):
+    def insertParticipant(self, cID, uID,contact):
         #TODO make sure that this method works, it is done as in the PartApp of professor
         # Insert a participant to a chat
         cursor = self.conn.cursor()
-        query = "insert into participants(cid,uid,ptime) values(%s,%s,%s) returning uid"
-        cursor.execute(query,(cID,uID,ptime,))
-        uid =  cursor.fetchone()
+        query = "select count(*) from contacts where uid = %s and memberid = %s"
+        cursor.execute(query,(uID,contact))
+        isContact = cursor.fetchone()
         self.conn.commit()
-        return uid
-    def checkIfContact(self,uid,contact):
-        cursor = self.conn.cursor()
-        query = "select uid from contacts where uid = %s and memeberid = %s"
-        uid = cursor.fetchone()
-        cursor.execute(query,(uid,contact))
-        return uid
+        if isContact==0:
+            return None
+        else:
+            query2 = "select count(*) from participants where uid = %s and cid = %s"
+            cursor.execute(query2,(uID,cID))
+            isParticipant = cursor.fetchone()
+            self.conn.commit()
+            if isParticipant!=0:
+                return None
+            else:
+                query3 = "insert into participants(cid,uid,ptime) values(%s,%s,'now') returning ptime"
+                cursor.execute(query3,(cID,uID))
+                ptime =  cursor.fetchone()
+                self.conn.commit()
+        return ptime
+
+    # def checkIfContact(self,uid,contact):
+    #     cursor = self.conn.cursor()
+    #     query = "select uid from contacts where uid = %s and memberid = %s"
+    #     cursor.execute(query,(uid,contact))
+    #     #cursor.fetchone()
+    #     #uid = cursor.fetchone()
+    #     return uid
+
 
     def getTimeForParticipantInsertion(self,uid):
         #This method returns the time the user was added to the system

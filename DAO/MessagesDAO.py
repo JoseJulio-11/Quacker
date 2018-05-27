@@ -17,12 +17,12 @@ class MessagesDAO:
     def insertMessage(self, text, mtime, uid, cid, isDeleted):
         # Create a message to a chat
         cursor = self.conn.cursor()
-        query = "select count(*)from participants where cid = %s and uid = %s "
+        query = "select count(*) from participants where cid = %s and uid = %s "
         cursor.execute(query,(cid,uid))
         count = cursor.fetchone()
         self.conn.commit()
         if count == 0:
-            return count
+            return None
         else:
            # print("else inside the DAO" + count)
             query2 = "insert into messages(text,mtime,uid,cid,isDeleted) values(%s,%s,%s,%s,%s) returning mid "
