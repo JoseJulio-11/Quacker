@@ -121,3 +121,9 @@ def build_dash_topic_dict(topicsInDay):
     topic["hashtag"] = topicsInDay[0]
     topic["total"] = topicsInDay[1]
     return topic
+
+def build_dash_message_dict(topicsInDay):
+    topic = {}
+    topic["Message"] = topicsInDay[0]
+    topic["total"] = topicsInDay[1]
+    return topic
