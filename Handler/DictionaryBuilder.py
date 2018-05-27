@@ -99,11 +99,12 @@ def build_reacted_dict(messageReaction):
     return reaction
 
 def build_topic_dict(messageTopic):
-    # tid, hashtag, mid
+    # tid, hashtag, mid, ttime
     topic = {}
-    topic["tid"] = messageTopic[0]
+    topic["tID"] = messageTopic[0]
     topic["hashtag"] = messageTopic[1]
     topic["mID"] = messageTopic[2]
+    topic["ttime"] = messageTopic[3]
     return topic
 
 def build_media_dict(messageMedia):

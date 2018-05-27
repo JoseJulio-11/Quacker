@@ -37,7 +37,7 @@ class MessagesDAO:
             listOfStrings = str(text).split()
             for word in listOfStrings:
                 if word.find('#'):
-                    self.insertTopic(mid, word)
+                    self.insertTopic(mid, word.replace('#', ''))
             return mid
 
     def insertReacted(self, uid, mid, vote):
@@ -59,7 +59,7 @@ class MessagesDAO:
     def insertTopic(self, mid, hashtag):
         # Create a message to a chat
         cursor = self.conn.cursor()
-        query1 = "insert into topics(hashtag, mid) values(%s, %s) returning tid"
+        query1 = "insert into topics(hashtag, mid, ttime) values(%s, %s, 'now') returning tid"
         cursor.execute(query1, (str(hashtag), str(mid)))
         self.conn.commit()
         tid = cursor.fetchone()
@@ -792,40 +792,9 @@ class MessagesDAO:
             result.append(row)
         return result
 
-    # ============================== Update Methods =============================== #
-    def updateMessage(self, mID, text, cdate, ctime, uid, cid, isDeleted, rid):
-        # it will update a message by saying if it deleted or not
-        return mID
-
-    def updateReacted(self, uID, mID, rdate, rtime, vote):
-        # It will change the reaction of the message, 1 liked, -1 disliked
-        return uID, mID
 
 
-    def updateTopic(self, mID, hashtag):
-        # Update a topic record
-        return mID, hashtag
 
-    def updateMedia(self, mID, medID, isVideo, location):
-        # The application may need to change a media's location
-        return mID, medID
 
-    # ============================== Delete Methods =============================== #
-    def deleteMessage(self, mID):
-        # Delete a message
-        return mID
-
-    def deleteReacted(self, uID, mID):
-        # Delete a made reaction
-        return uID, mID
-
-    def deleteTopic(self, hashtag, mID):
-        # Delete a topic hashtag
-        return hashtag, mID
-
-    def deleteMedia(self, mID):
-        # The application may need to change a media's location
-        medID = 3
-        return mID, medID
 
 
