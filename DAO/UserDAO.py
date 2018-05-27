@@ -51,18 +51,27 @@ class UserDAO:
         self.conn.commit()
         return user
 
-    def insertCredential(self, uID, username, password, uemail, cuphone):
-        # Create credentials for user
-        return uID, username
-
     def insertActivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
         # Create activity for user
         aid = uID
         return aid
 
-    def insertContact(self, ownerid, memberid):
+    def addContact(self, uid, newContact):
         #Create contacts for user
-        return ownerid, memberid
+        print(uid)
+        print(newContact)
+        cursor = self.conn.cursor()
+        query = "select count(*) from users where uid = %s"
+        cursor.execute(query,(str(newContact),))
+        isInSystem = cursor.fetchone()
+        self.conn.commit()
+        if isInSystem ==0:
+            return None
+        else:
+            query2 = "insert into contacts values(%s,%s) "
+            cursor.execute(query2,(uid,newContact))
+            self.conn.commit()
+            return uid
 
     # =================================== Read Methods =============================== #
     #Returns the list of all users
