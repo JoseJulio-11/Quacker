@@ -200,3 +200,15 @@ def addUser(json):
         else:
             return jsonify(Error='Unexpected attributes in post request'), 400
 
+def addContact(json):
+    #This method will add a user to the contaact list of another user
+    if len(json)!=2:
+        return jsonify(Error="Missing or extra information given")
+    else:
+        uid = json['uid']
+        newContact = json['newContact']
+
+        if uid and newContact:
+            uid = dao.addContact(uid,newContact)
+    return uid
+

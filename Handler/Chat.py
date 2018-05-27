@@ -139,17 +139,34 @@ def insertChat(json):
 def insertParticipant(json):
     if len(json) != 3:
         return jsonify(Error = "Malformed post request, missing or extra data")
+
     else:
         print( 'working on insert participants')
         cid = json['cid']
         uid = json['uid']
-        ptime = json['ptime']
-        if cid and uid and ptime:
-         pid = dao.insertParticipant(cid,uid,ptime)
-         if pid:
+        contact =  json['contact']
+        print(cid)
+        print(uid)
+        print(contact)
+
+        if cid and uid and contact:
+         ptime = dao.insertParticipant(cid,uid,contact)
+        #ptime = dao.getTimeForParticipantInsertion(uid)
+         if ptime:
             result = Dic.build_participants_dict([cid,uid,ptime])
             return jsonify(Participant = result)
          else:
             return jsonify(Error = "Could not insert the participant")
         else:
             return jsonify(Error='Unexpected attributes in post request'), 400
+
+def addContactToChat(json):
+    if len(json)!=2:
+        return jsonify(Error = " Malformed request, missing arguments")
+    else:
+        cid = json['cid']
+        uid = json['uid']
+        if cid and uid:
+            return[]
+
+    return[]

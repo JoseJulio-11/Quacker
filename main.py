@@ -149,15 +149,17 @@ def getAllContacts():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/contacts/user/<int:uid>', methods=['GET'])
+@app.route('/contacts/user/<int:uid>', methods=['GET','POST'])
 #WORKSS
 def getUserContactsByID(uid):
     if request.method == 'GET':
         result = User.getUserContacts(uid)
         return result
+    elif request.method == 'POST':
+        result = User.addContact(request.json)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
-
 
 # ================= Chat Methods ===================== #
 @app.route('/chats', methods=['GET', 'POST'])
@@ -305,8 +307,8 @@ def getMessageByUserID(uid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/messages/chat/<int:cid>/search/<str:search>', methods=['GET'])
-def getMessageInChatByUser(cid, search):
+@app.route('/messages/chat/<int:cid>/search/<string:search>', methods=['GET'])
+def getMessageInChat(cid, search):
     #WORKSSS
     if request.method == 'GET':
         result = Message.searchAllChatMessage(cid, search)
