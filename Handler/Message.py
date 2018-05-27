@@ -1,5 +1,7 @@
 from flask import jsonify
 from Handler import DictionaryBuilder as Dic
+import datetime
+import dateutil
 from DAO.MessagesDAO import MessagesDAO
 dao = MessagesDAO()
 
@@ -280,6 +282,23 @@ def getAllMediaByUser(uid):
         result = Dic.build_media_dict(row)
         result_list.append(result)
     return jsonify(Media=result_list)
+
+
+def getTopicsPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=7)
+    dayBefore = datetime.timedelta(days=1)
+    topicperday = []
+    for day in dateutil.rrule.rrule(dateutil.rrule.MONTHLY, dtstart=weekBefore, until=today):
+        topicsinday = []
+        topics = dao.getTopicsPerDay(day - dayBefore, day)
+        for row in topics:
+            result = Dic.build_topic_dict(row)
+            topicsinday.append(result)
+        topicperday.append(topicsinday)
+    return jsonify(Topic=topicperday)
+
+
 
 def insertMessage(mid,form):
     if len(form) != 5:
