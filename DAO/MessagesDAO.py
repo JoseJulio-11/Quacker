@@ -596,6 +596,7 @@ class MessagesDAO:
             result.append(row)
         return result
 
+
     # =================================== Get Reactions =================================== #
 
     def getAllReactions(self):
@@ -792,7 +793,55 @@ class MessagesDAO:
             result.append(row)
         return result
 
+    # ~~~~~~~~~~~~~~~~~ Dashboard ~~~~~~~~~~~~~~~~~~~~~~~~~~~~``` #
 
+    def getTopicsPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select hashtag, count(*) as Usage from topics where ttime > %s" \
+                " and ttime < %s group by hashtag order by Usage desc;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getMessagesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mtime > %s and mtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getRepliesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select * from messages where rid is not NULL and mtime > %s and mtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getLikesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s and vote = 1 and rtime > %s and rtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getDislikesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where mid = %s and vote = -1 and rtime > %s and rtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
 
 
