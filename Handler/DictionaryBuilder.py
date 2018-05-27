@@ -122,8 +122,17 @@ def build_dash_topic_dict(topicsInDay):
     topic["total"] = topicsInDay[1]
     return topic
 
+
 def build_dash_message_dict(topicsInDay):
     topic = {}
     topic["Message"] = topicsInDay[0]
     topic["total"] = topicsInDay[1]
     return topic
+
+
+def build_dash_user_dict(usersInDay):
+    users = {}
+    users["uid"] = usersInDay[0]
+    users["pseudonym"] = usersInDay[1]
+    users["totalmessages"] = usersInDay[2]
+    return users

@@ -270,15 +270,26 @@ class UserDAO:
         # the user can edit its credential when needed
         return uID, username
 
-    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime):
-        # This method is used to update the user last db access
-        # After 30 days of last time active in the app the user will be establish as inactive
-        # Also if the user decides to close the account it will be set to false
-        return aid
+    def updateActivity(self, uid):
+        query = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+        self.conn.cursor.execute(query, (uid, ))
+        self.conn.commit()
 
     def updateContact(self, uID, ownerid, memberid):
         # the user can update its contact list when needed
         return uID, ownerid, memberid
+
+    # ============ Dash Board ============= #
+    def getUsersPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select uid, pseudonym, count(text) as Total_Messages from activities natural" \
+                " inner join users natural inner join messages where isactive = 't'" \
+                " and mtime > %s and mtime < %s group by uid, pseudonym;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # =================================== Delete Methods ============================= #
     def deleteUser(self, uID):

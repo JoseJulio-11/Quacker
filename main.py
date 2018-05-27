@@ -552,6 +552,14 @@ def getDisikesPerDay():
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/users', methods=['GET'])
+def getUsersPerDay():
+    if request.method == 'GET':
+        result = User.getUsersPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
 # ========================Insert methods=========================================#
 
 

@@ -36,6 +36,12 @@ class MessagesDAO:
             cursor.execute(query3, (str(text), uid, cid, rid))
             self.conn.commit()
             mid = cursor.fetchone()
+            query4 = " into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
+            cursor.execute(query4, (str(text), uid, cid, rid))
+            self.conn.commit()
+            query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+            self.conn.cursor.execute(query5, (uid,))
+            self.conn.commit()
             listOfStrings = str(text).split()
             for word in listOfStrings:
                 if word.find('#') != -1:
@@ -56,6 +62,9 @@ class MessagesDAO:
             cursor.execute(query2, (str(uid), str(mid), str(vote)))
             self.conn.commit()
             rtime = cursor.fetchone()
+            query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+            self.conn.cursor.execute(query5, (uid,))
+            self.conn.commit()
             return rtime
 
     def insertTopic(self, mid, hashtag):
