@@ -422,11 +422,14 @@ def getAllReactions():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/reactions/like', methods=['GET'])
+@app.route('/reactions/like', methods=['GET','POST'])
 def getAllLikes():
     #WORKS
     if request.method == 'GET':
         result = Message.getAllLikes()
+        return result
+    elif request.method == 'POST':
+        result = Message.insertLikeDislike(request.json)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404

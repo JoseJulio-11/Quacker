@@ -327,6 +327,18 @@ def insertMessage(json):
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
 
-def insertTopic():
-
-    return[]
+def insertLikeDislike(json):
+    if len(json)!=3:
+        return jsonify(Error="Could not react to message due to missing information")
+    else:
+        uid = json['uid']
+        mid = json['mid']
+        vote = json['vote']
+        if uid and mid and vote:
+            rid= dao.insertLikeDislike(uid,mid,vote)
+            if rid:
+                return jsonify(Message = "Like/Dislike successful")
+            else:
+                return jsonify(Error = "Could not like message")
+        else:
+            return jsonify(Error="Could not like message")

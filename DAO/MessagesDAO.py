@@ -71,6 +71,16 @@ class MessagesDAO:
         medID = 3
         return mID, medID
 
+    def insertLikeDislike(self,uid,mid,vote):
+        cursor = self.conn.cursor()
+        query = "insert into reacted(uid,mid,rtime,vote) values(%s,%s,'now',%s) returning rtime;"
+        cursor.execute(query,(uid,mid,vote))
+        rtime = cursor.fetchone()
+        self.conn.commit()
+
+        return rtime
+
+
     # ====================== Get Message Records ============================================ #
     # =============== Single Record Queries ==================== #
     def getMessageInfo(self, mID):
