@@ -14,26 +14,43 @@ class MessagesDAO:
         self.conn = psycopg2._connect(connection_url)
 
     # ====================== Create Method ================================================== #
-    def insertMessage(self, text, mtime, uid, cid, isDeleted):
+    def insertMessage(self, text, mtime, uid, cid, rid):
         # Create a message to a chat
         cursor = self.conn.cursor()
         query = "select count(*)from participants where cid = %s and uid = %s "
-        cursor.execute(query,(cid,uid))
+        cursor.execute(query,(cid, uid))
         count = cursor.fetchone()
         self.conn.commit()
         if count == 0:
-            return count
+            return None
         else:
-           # print("else inside the DAO" + count)
-            query2 = "insert into messages(text,mtime,uid,cid,isDeleted) values(%s,%s,%s,%s,%s) returning mid "
-            cursor.execute(query2, (str(text), str(mtime), str(uid), str(cid), str(isDeleted)))
+            if rid != 'NULL':
+                query2 = "select text from messages where mid = %s"
+                cursor.execute(query2, (rid))
+                rtext = cursor.fetchone()
+                self.conn.commit()
+                text = "RE:\"" + rtext + "\" " + text
+            query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,%s,%s,%s,'t',%s) returning mid "
+            cursor.execute(query3, (str(text), str(mtime), str(uid), str(cid), str(rid)))
             self.conn.commit()
             mid = cursor.fetchone()
             return mid
 
-    def insertReacted(self, uID, mID, rdate, rtime, vote):
-        # Create an user reaction to a message
-        return uID, mID
+    def insertReacted(self, uid, mid, vote):
+        # Create a message to a chat
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted where uid = %s and mid = %s "
+        cursor.execute(query, (uid, mid))
+        count = cursor.fetchone()
+        self.conn.commit()
+        if count != 0:
+            return None
+        else:
+            query2 = "insert into reacted values(%s, %s, 'now', %s) returning rtime"
+            cursor.execute(query2, (str(uid), str(mid), str(vote)))
+            self.conn.commit()
+            rtime = cursor.fetchone()
+            return rtime
 
     def insertTopic(self, mID, hashtag):
         # Create a topic in a message
