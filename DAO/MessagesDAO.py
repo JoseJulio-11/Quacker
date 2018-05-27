@@ -14,11 +14,11 @@ class MessagesDAO:
         self.conn = psycopg2._connect(connection_url)
 
     # ====================== Create Method ================================================== #
-    def insertMessage(self, text, mtime, uid, cid, rid):
+    def insertMessage(self, text, uid, cid, rid):
         # Create a message to a chat
         cursor = self.conn.cursor()
-        query = "select count(*)from participants where cid = %s and uid = %s "
-        cursor.execute(query,(cid, uid))
+        query = "select count(*) from participants where cid = %s and uid = %s "
+        cursor.execute(query, (cid, uid))
         count = cursor.fetchone()
         self.conn.commit()
         if count == 0:

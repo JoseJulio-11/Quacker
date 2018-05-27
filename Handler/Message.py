@@ -309,23 +309,22 @@ def topicsPerDayHelper(day, oneday):
     return topicsinday
 
 
-def insertMessage(mid,form):
-    if len(form) != 5:
+def insertMessage(json):
+    if len(json) != 4:
         return jsonify(Error = " Malformed post request, missing or extra data")
     else:
-        text = form['text']
-        mtime = form['mtime']
-        uid = form['uid']
-        cid = form['cid']
-        isDeleted = form['isDeleted']
+        text = json['text']
+        rid = json['rid']
+        uid = json['uid']
+        cid = json['cid']
 
-        if text and mtime and uid and cid and isDeleted:
-           mid = dao.insertMessage(text,mtime,uid,cid,isDeleted)
-           if mid:
-            result = Dic.build_message_dict([mid,text,mtime,uid,cid,isDeleted,"null"])
-            return jsonify(Chat = result)
-           else:
-               return jsonify(ERROR = 'Could not create group')
+
+        if text and rid and uid and cid:
+            mid = dao.insertMessage(text,uid,cid,rid)
+            if mid:
+                return jsonify(Chat = "Insert Successful!")
+            else:
+                return jsonify(ERROR = 'Could not create group')
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
 
