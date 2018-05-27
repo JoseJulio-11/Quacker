@@ -1,7 +1,6 @@
 from flask import jsonify
 from Handler import DictionaryBuilder as Dic
 import datetime
-import dateutil
 from DAO.MessagesDAO import MessagesDAO
 dao = MessagesDAO()
 
@@ -319,7 +318,7 @@ def insertMessage(json):
         cid = json['cid']
 
 
-        if text and rid and uid and cid:
+        if text and uid and cid:
             mid = dao.insertMessage(text,uid,cid,rid)
             if mid:
                 return jsonify(Chat = "Insert Successful!")

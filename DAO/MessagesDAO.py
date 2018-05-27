@@ -17,26 +17,27 @@ class MessagesDAO:
     def insertMessage(self, text, uid, cid, rid):
         # Create a message to a chat
         cursor = self.conn.cursor()
-        query = "select count(*) from participants where cid = %s and uid = %s "
+        query = "select count(*) from participants where cid = %s and uid = %s;"
         cursor.execute(query, (cid, uid))
         count = cursor.fetchone()
         self.conn.commit()
         if count == 0:
             return None
         else:
-            if rid != 'NULL':
-                query2 = "select text from messages where mid = %s"
-                cursor.execute(query2, (rid))
+            if rid:
+                query2 = "select text from messages where mid = %s;"
+                cursor.execute(query2, (rid,))
                 rtext = cursor.fetchone()
                 self.conn.commit()
                 text = "RE:\"" + rtext + "\" " + text
-            query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,%s,%s,%s,'t',%s) returning mid "
-            cursor.execute(query3, (str(text), str(mtime), str(uid), str(cid), str(rid)))
+
+            query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
+            cursor.execute(query3, (str(text), uid, cid, rid))
             self.conn.commit()
             mid = cursor.fetchone()
             listOfStrings = str(text).split()
             for word in listOfStrings:
-                if word.find('#'):
+                if word.find('#') != -1:
                     self.insertTopic(mid, word.replace('#', ''))
             return mid
 
@@ -60,7 +61,7 @@ class MessagesDAO:
         # Create a message to a chat
         cursor = self.conn.cursor()
         query1 = "insert into topics(hashtag, mid, ttime) values(%s, %s, 'now') returning tid"
-        cursor.execute(query1, (str(hashtag), str(mid)))
+        cursor.execute(query1, (str(hashtag), mid))
         self.conn.commit()
         tid = cursor.fetchone()
         return tid
