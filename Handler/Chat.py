@@ -168,5 +168,22 @@ def addContactToChat(json):
         uid = json['uid']
         if cid and uid:
             return[]
-
     return[]
+
+def removeParticipant(json):
+    print(json)
+    if len(json)!=3:
+        return jsonify(Error="Missing arguments to delete participant")
+    else:
+        cid = json['cid']
+        uid = json['uid']
+        admin = json['admin']
+        if uid and cid and admin:
+            print("gonna call DAO")
+            result = dao.deleteParticipant(cid,uid,admin)
+            if result:
+                return jsonify("Participant removed")
+            else:
+                return jsonify(Error="Could not remove participant becuase admin is not granting permission")
+        else:
+            return jsonify(Error= "Could not remove participant due to missing arguments")
