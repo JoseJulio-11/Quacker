@@ -15,7 +15,7 @@ class UserDAO:
 
 
     # ============================== Create Methods =========================== #
-    def addUser(self, fname, lname, pseudonym,):
+    def addUser(self, fname, lname, pseudonym):
         # Create a new user
         cursor = self.conn.cursor()
         query = "insert into users(fname,lname,utime,pseudonym) values(%s,%s,%s,%s) returning uid;"
@@ -24,21 +24,11 @@ class UserDAO:
         self.conn.commit()
         return uid
 
-    def getTimeForUserINsertion(self,uid):
-        #This method returns the time the user was added to the system
-        cursor = self.conn.cursor()
-        query2 = "select utime from users where uid = %s"
-        cursor.execute(query2,uid)
-        utime = cursor.fetchone()
-        self.conn.commit()
-        return utime
-
     def addCredentials(self,uid,username,password,uemail,uphone):
       #This method adds the credentials of a new user to the credentials table
         cursor = self.conn.cursor()
         query = "insert into credentials(uid,username,password,uemail,uphone) values(%s,%s,%s,%s,%s) "
         cursor.execute(query,(uid,username,password,uemail,uphone))
-        #uid = cursor.fetchone()
         self.conn.commit()
         return uid
 
@@ -51,10 +41,13 @@ class UserDAO:
         self.conn.commit()
         return user
 
-    def insertActivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
-        # Create activity for user
-        aid = uID
-        return aid
+    def addActivity(self, uid):
+        cursor = self.conn.cursor()
+        query = "insert into activities values (%s, 'now' , 't') returning lastdbaccesstimestamp;"
+        cursor.execute(query, (uid, ))
+        utime = cursor.fetchone()
+        self.conn.commit()
+        return utime
 
     def addContact(self, uid, newContact):
         #Create contacts for user

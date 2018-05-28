@@ -251,13 +251,13 @@ def addUser(json):
 
         if fname and lname and pseudonym and username and password and uemail and uphone:
             uid = dao.addUser(fname,lname,pseudonym)
-            utime = dao.getTimeForUserINsertion(uid)
             dao.addCredentials(uid,username,password,uemail,uphone)
+            utime = dao.addActivity(uid)
             if uid:
-                result = DictionaryBuilder.build_user_dict([uid,fname,lname,utime,pseudonym])
+                result = DictionaryBuilder.build_user_dict([uid, fname, lname, utime, pseudonym])
                 return jsonify(User = result)
             else:
-                return jsonify(Error = 'Missing parameters')
+                return jsonify(Error = 'InsertFailed')
         else:
             return jsonify(Error='Unexpected attributes in post request'), 400
 
