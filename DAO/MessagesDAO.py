@@ -52,14 +52,12 @@ class MessagesDAO:
         cursor.execute(query3,(mid,uid))
         userInCHat = cursor.fetchone()
         self.conn.commit()
-        print("user is in chat")
-        print(userInCHat)
         query = "select count(*) from reacted where uid = %s and mid = %s "
         cursor.execute(query, (uid, mid))
         count = cursor.fetchone()
         self.conn.commit()
         print(count)
-        if count[0] == 0 and userInCHat==None:
+        if count[0] != 0 or not userInCHat:
             return None
         else:
             query2 = "insert into reacted values(%s, %s, 'now', %s) returning rtime"
