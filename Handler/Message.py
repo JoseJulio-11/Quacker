@@ -75,13 +75,19 @@ def getMessageByID(mID):
     return jsonify(Message=message)
 
 
-def searchAllChatMessage(cID, search):
-    # This method return the message requested by its ID
-    row = dao.searchAllChatMessages(cID, search)
-    if not row:
-        return jsonify(Error="Message not found"), 404
-    message = Dic.build_extended_message_dict(row)
-    return jsonify(Message=message)
+def searchAllChatMessage(cid, json):
+    if len(json) != 1:
+        return jsonify(Error = " Malformed post request, missing or extra data")
+    else:
+        search = json['search']
+        result = dao.searchAllChatMessages(cid, search)
+        if not result:
+            return jsonify(Error="No Chat Messages Found")
+        mapped_result = []
+        for r in result:
+            mapped_result.append(Dic.build_user_dict(r))
+        return jsonify(Messages = mapped_result)
+
 
 def getAllReactionsInMessage(mID):
     # This method return the reaction of a determined message
@@ -394,14 +400,12 @@ def insertMessage(json):
         rid = json['rid']
         uid = json['uid']
         cid = json['cid']
-
-
         if text and uid and cid:
             mid = dao.insertMessage(text,uid,cid,rid)
             if mid:
                 return jsonify(Chat = "Insert Successful!")
             else:
-                return jsonify(ERROR = 'Could not create group')
+                return jsonify(ERROR = 'Could send message')
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
 
@@ -413,7 +417,7 @@ def insertLikeDislike(json):
         mid = json['mid']
         vote = json['vote']
         if uid and mid and vote:
-            rid= dao.insertLikeDislike(uid,mid,vote)
+            rid= dao.insertReacted(uid,mid,vote)
             if rid:
                 return jsonify(Message = "Like/Dislike successful")
             else:

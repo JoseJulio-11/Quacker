@@ -21,7 +21,7 @@ class MessagesDAO:
         cursor.execute(query, (cid, uid))
         count = cursor.fetchone()
         self.conn.commit()
-        if count == 0:
+        if count[0] == 0:
             return None
         else:
             if rid:
@@ -32,15 +32,12 @@ class MessagesDAO:
                 if rtext:
                     text = "RE:\"" + str(rtext[0]) + "\" " + text
 
-            query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
+            query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'f',%s) returning mid;"
             cursor.execute(query3, (str(text), uid, cid, rid))
             self.conn.commit()
             mid = cursor.fetchone()
-            query4 = " into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
-            cursor.execute(query4, (str(text), uid, cid, rid))
-            self.conn.commit()
             query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
-            self.conn.cursor.execute(query5, (uid,))
+            cursor.execute(query5, (uid,))
             self.conn.commit()
             listOfStrings = str(text).split()
             for word in listOfStrings:
@@ -51,11 +48,18 @@ class MessagesDAO:
     def insertReacted(self, uid, mid, vote):
         # Create a message to a chat
         cursor = self.conn.cursor()
+        query3 = "select * from participants where cid = (select cid from messages where mid =%s ) and uid =%s;"
+        cursor.execute(query3,(mid,uid))
+        userInCHat = cursor.fetchone()
+        self.conn.commit()
+        print("user is in chat")
+        print(userInCHat)
         query = "select count(*) from reacted where uid = %s and mid = %s "
         cursor.execute(query, (uid, mid))
         count = cursor.fetchone()
         self.conn.commit()
-        if count != 0:
+        print(count)
+        if count[0] == 0 and userInCHat==None:
             return None
         else:
             query2 = "insert into reacted values(%s, %s, 'now', %s) returning rtime"
@@ -63,7 +67,7 @@ class MessagesDAO:
             self.conn.commit()
             rtime = cursor.fetchone()
             query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
-            self.conn.cursor.execute(query5, (uid,))
+            cursor.execute(query5, (uid,))
             self.conn.commit()
             return rtime
 
@@ -80,16 +84,6 @@ class MessagesDAO:
         # Add media to a message
         medID = 3
         return mID, medID
-
-    def insertLikeDislike(self,uid,mid,vote):
-        cursor = self.conn.cursor()
-        query = "insert into reacted(uid,mid,rtime,vote) values(%s,%s,'now',%s) returning rtime;"
-        cursor.execute(query,(uid,mid,vote))
-        rtime = cursor.fetchone()
-        self.conn.commit()
-
-        return rtime
-
 
     # ====================== Get Message Records ============================================ #
     # =============== Single Record Queries ==================== #
@@ -760,7 +754,7 @@ class MessagesDAO:
     def getCountDislikesInMessage(self, mID):
         cursor = self.conn.cursor()
         query = "select count(*) from reacted" \
-                " where mid = %s and vote = 1;"
+                " where mid = %s and vote = -1;"
         cursor.execute(query, (mID,))
         result = []
         for row in cursor:
