@@ -149,15 +149,17 @@ def getAllContacts():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/contacts/user/<int:uid>', methods=['GET'])
+@app.route('/contacts/user/<int:uid>', methods=['GET','POST'])
 #WORKSS
 def getUserContactsByID(uid):
     if request.method == 'GET':
         result = User.getUserContacts(uid)
         return result
+    elif request.method == 'POST':
+        result = User.addContact(request.json)
+        return result
     else:
         return jsonify(Error="Method not allowed"), 404
-
 
 # ================= Chat Methods ===================== #
 @app.route('/chats', methods=['GET', 'POST'])
@@ -242,11 +244,14 @@ def getAllParticipants():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/participants/chat/<int:cid>', methods=['GET'])
+@app.route('/participants/chat/<int:cid>', methods=['GET','DELETE'])
 #WORKSSS
 def getChatParticipantsByID(cid):
     if request.method == 'GET':
         result = Chat.getParticipantsByChatID(cid)
+        return result
+    elif request.method == 'DELETE':
+        result = Chat.removeParticipant(request.json)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -280,7 +285,7 @@ def getMessageByChatID(cid):
         result = Message.getAllChatMessages(cid)
         return result
     elif request.method == 'POST':
-        result = Message.insertMessage(cid,request.form)
+        result = Message.insertMessage(request.json)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -305,8 +310,8 @@ def getMessageByUserID(uid):
     else:
         return jsonify(Error="Method not allowed"), 404
 
-@app.route('/messages/chat/<int:cid>/search/<str:search>', methods=['GET'])
-def getMessageInChatByUser(cid, search):
+@app.route('/messages/chat/<int:cid>/search/<string:search>', methods=['GET'])
+def getMessageInChat(cid, search):
     #WORKSSS
     if request.method == 'GET':
         result = Message.searchAllChatMessage(cid, search)
@@ -420,11 +425,14 @@ def getAllReactions():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/reactions/like', methods=['GET'])
+@app.route('/reactions/like', methods=['GET','POST'])
 def getAllLikes():
     #WORKS
     if request.method == 'GET':
         result = Message.getAllLikes()
+        return result
+    elif request.method == 'POST':
+        result = Message.insertLikeDislike(request.json)
         return result
     else:
         return jsonify(Error="Method not allowed"), 404
@@ -506,6 +514,55 @@ def getMessageDisLikeReactionsCountByID(mid):
     #displays a positive number
     if request.method == 'GET':
         result = Message.getMessageDislikesCountByID(mid)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+# ======================= Dashboard ========================== #
+@app.route('/dashboard/topics', methods=['GET'])
+def getTopicsPerDay():
+    if request.method == 'GET':
+        result = Message.getTopicsPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/messages', methods=['GET'])
+def getMessagesPerDay():
+    if request.method == 'GET':
+        result = Message.getMessagesPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/dashboard/replies', methods=['GET'])
+def getRepliesPerDay():
+    if request.method == 'GET':
+        result = Message.getReplyPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/likes', methods=['GET'])
+def getLikesPerDay():
+    if request.method == 'GET':
+        result = Message.getLikesPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/dislikes', methods=['GET'])
+def getDisikesPerDay():
+    if request.method == 'GET':
+        result = Message.getDislikesPerDay()
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+@app.route('/dashboard/users', methods=['GET'])
+def getUsersPerDay():
+    if request.method == 'GET':
+        result = User.getUsersPerDay()
         return result
     else:
         return jsonify(Error="Method not allowed"), 404

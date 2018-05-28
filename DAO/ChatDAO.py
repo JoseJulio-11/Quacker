@@ -19,23 +19,48 @@ class ChatDAO:
     def insertChat(self, cName, cTime, isGroupChat,isActive, adminID):
         #THis method creates a new chat on the database
         #TODO make sure that this method works, it is done as in the PartsApp of professor
-       cursor = self.conn.cursor()
-       query = " insert into chats(cname,ctime,isGroupChat,isActive,uid)"\
+        cursor = self.conn.cursor()
+        query = " insert into chats(cname,ctime,isGroupChat,isActive,uid)"\
                 "values(%s,%s,%s,%s,%s) returning cid"
-       cursor.execute(query,(str(cName),str(cTime),str(isGroupChat),str(isActive),str(adminID)))
-       cid = cursor.fetchone()
-       self.conn.commit()
-       return cid
+        cursor.execute(query,(str(cName),str(cTime),str(isGroupChat),str(isActive),str(adminID)))
+        cid = cursor.fetchone()
+        self.conn.commit()
+        query2="insert into participants(cid,uid,ptime) values(%s,%s,'now');"
+        cursor.execute(query2,(cid,adminID))
+        return cid
 
-    def insertParticipant(self, cID, uID,ptime):
+    def insertParticipant(self, cID, uID,contact):
         #TODO make sure that this method works, it is done as in the PartApp of professor
         # Insert a participant to a chat
         cursor = self.conn.cursor()
-        query = "insert into participants(cid,uid,ptime) values(%s,%s,%s) returning uid"
-        cursor.execute(query,(cID,uID,ptime,))
-        uid =  cursor.fetchone()
+        query = "select count(*) from contacts where uid = %s and memberid = %s"
+        cursor.execute(query,(uID,contact))
+        isContact = cursor.fetchone()
         self.conn.commit()
-        return uid
+        if isContact==0:
+            return None
+        else:
+            query2 = "select count(*) from participants where uid = %s and cid = %s"
+            cursor.execute(query2,(uID,cID))
+            isParticipant = cursor.fetchone()
+            self.conn.commit()
+            if isParticipant!=0:
+                return None
+            else:
+                query3 = "insert into participants(cid,uid,ptime) values(%s,%s,'now') returning ptime"
+                cursor.execute(query3,(cID,uID))
+                ptime =  cursor.fetchone()
+                self.conn.commit()
+        return ptime
+
+    def getTimeForParticipantInsertion(self,uid):
+        #This method returns the time the user was added to the system
+        cursor = self.conn.cursor()
+        query2 = "select ptime from participants where uid = %s"
+        cursor.execute(query2,uid)
+        ptime = cursor.fetchone()
+        self.conn.commit()
+        return ptime
 
     # ============================= Get Methods ================================= #
     def getAllChats(self):
@@ -194,7 +219,22 @@ class ChatDAO:
         # Remove a chat
         return cID
 
-    def deleteParticipant(self, cID, uID):
-        # Remove an user from a chat
-        return cID, uID
+    def deleteParticipant(self, cID, uID,admin):
+        # Remove an user from a chat,only by the admin of the chat
+        cursor = self.conn.cursor()
+        query = "select count(*) from chats where cid = %s and uid = %s;"
+        print("query1")
+        cursor.execute(query,(cID,admin))
+        isAdmin = cursor.fetchone()
+        self.conn.commit()
+        print(isAdmin)
+        if isAdmin[0]==1:
+            query2 = "DELETE from participants where cid = %s and uid = %s returning uid;"
+            print("query2")
+            cursor.execute(query2,(cID,uID))
+            userDeleted = cursor.fetchone()
+            self.conn.commit()
+            return userDeleted
+        else:
+         return None
 

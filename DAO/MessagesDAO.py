@@ -14,35 +14,82 @@ class MessagesDAO:
         self.conn = psycopg2._connect(connection_url)
 
     # ====================== Create Method ================================================== #
-    def insertMessage(self, text, mtime, uid, cid, isDeleted):
+    def insertMessage(self, text, uid, cid, rid):
         # Create a message to a chat
         cursor = self.conn.cursor()
-        query = "select count(*)from participants where cid = %s and uid = %s "
-        cursor.execute(query,(cid,uid))
+        query = "select count(*) from participants where cid = %s and uid = %s;"
+        cursor.execute(query, (cid, uid))
         count = cursor.fetchone()
         self.conn.commit()
         if count == 0:
-            return count
+            return None
         else:
-           # print("else inside the DAO" + count)
-            query2 = "insert into messages(text,mtime,uid,cid,isDeleted) values(%s,%s,%s,%s,%s) returning mid "
-            cursor.execute(query2, (str(text), str(mtime), str(uid), str(cid), str(isDeleted)))
+            if rid:
+                query2 = "select text from messages where mid = %s;"
+                cursor.execute(query2, (rid,))
+                rtext = cursor.fetchone()
+                self.conn.commit()
+                if rtext:
+                    text = "RE:\"" + str(rtext[0]) + "\" " + text
+
+            query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
+            cursor.execute(query3, (str(text), uid, cid, rid))
             self.conn.commit()
             mid = cursor.fetchone()
+            query4 = " into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'t',%s) returning mid;"
+            cursor.execute(query4, (str(text), uid, cid, rid))
+            self.conn.commit()
+            query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+            self.conn.cursor.execute(query5, (uid,))
+            self.conn.commit()
+            listOfStrings = str(text).split()
+            for word in listOfStrings:
+                if word.find('#') != -1:
+                    self.insertTopic(mid, word.replace('#', ''))
             return mid
 
-    def insertReacted(self, uID, mID, rdate, rtime, vote):
-        # Create an user reaction to a message
-        return uID, mID
+    def insertReacted(self, uid, mid, vote):
+        # Create a message to a chat
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted where uid = %s and mid = %s "
+        cursor.execute(query, (uid, mid))
+        count = cursor.fetchone()
+        self.conn.commit()
+        if count != 0:
+            return None
+        else:
+            query2 = "insert into reacted values(%s, %s, 'now', %s) returning rtime"
+            cursor.execute(query2, (str(uid), str(mid), str(vote)))
+            self.conn.commit()
+            rtime = cursor.fetchone()
+            query5 = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+            self.conn.cursor.execute(query5, (uid,))
+            self.conn.commit()
+            return rtime
 
-    def insertTopic(self, mID, hashtag):
-        # Create a topic in a message
-        return mID, hashtag
+    def insertTopic(self, mid, hashtag):
+        # Create a message to a chat
+        cursor = self.conn.cursor()
+        query1 = "insert into topics(hashtag, mid, ttime) values(%s, %s, 'now') returning tid"
+        cursor.execute(query1, (str(hashtag), mid))
+        self.conn.commit()
+        tid = cursor.fetchone()
+        return tid
 
     def insertMedia(self, mID, isVideo, location):
         # Add media to a message
         medID = 3
         return mID, medID
+
+    def insertLikeDislike(self,uid,mid,vote):
+        cursor = self.conn.cursor()
+        query = "insert into reacted(uid,mid,rtime,vote) values(%s,%s,'now',%s) returning rtime;"
+        cursor.execute(query,(uid,mid,vote))
+        rtime = cursor.fetchone()
+        self.conn.commit()
+
+        return rtime
+
 
     # ====================== Get Message Records ============================================ #
     # =============== Single Record Queries ==================== #
@@ -570,6 +617,7 @@ class MessagesDAO:
             result.append(row)
         return result
 
+
     # =================================== Get Reactions =================================== #
 
     def getAllReactions(self):
@@ -766,40 +814,59 @@ class MessagesDAO:
             result.append(row)
         return result
 
-    # ============================== Update Methods =============================== #
-    def updateMessage(self, mID, text, cdate, ctime, uid, cid, isDeleted, rid):
-        # it will update a message by saying if it deleted or not
-        return mID
+    # ~~~~~~~~~~~~~~~~~ Dashboard ~~~~~~~~~~~~~~~~~~~~~~~~~~~~``` #
 
-    def updateReacted(self, uID, mID, rdate, rtime, vote):
-        # It will change the reaction of the message, 1 liked, -1 disliked
-        return uID, mID
+    def getTopicsPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select hashtag, count(*) as Usage from topics where ttime > %s" \
+                " and ttime < %s group by hashtag order by Usage desc;"
+        print(btime, atime)
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+            print(row)
+        return result
+
+    def getMessagesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select count(*) from messages where mtime > %s and mtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result[0]
+
+    def getRepliesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select count(*) from messages where rid is not NULL and mtime > %s and mtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result[0]
+
+    def getLikesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where vote = 1 and rtime > %s and rtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result[0]
+
+    def getDislikesPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reacted" \
+                " where vote = -1 and rtime > %s and rtime < %s;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result[0]
 
 
-    def updateTopic(self, mID, hashtag):
-        # Update a topic record
-        return mID, hashtag
 
-    def updateMedia(self, mID, medID, isVideo, location):
-        # The application may need to change a media's location
-        return mID, medID
-
-    # ============================== Delete Methods =============================== #
-    def deleteMessage(self, mID):
-        # Delete a message
-        return mID
-
-    def deleteReacted(self, uID, mID):
-        # Delete a made reaction
-        return uID, mID
-
-    def deleteTopic(self, hashtag, mID):
-        # Delete a topic hashtag
-        return hashtag, mID
-
-    def deleteMedia(self, mID):
-        # The application may need to change a media's location
-        medID = 3
-        return mID, medID
 
 

@@ -1,6 +1,7 @@
 from flask import jsonify
 from DAO.UserDAO import UserDAO
 from Handler import DictionaryBuilder
+import datetime
 
 dao = UserDAO()
 
@@ -161,6 +162,32 @@ def getAdminByChatID(cid):
     mapped_result = DictionaryBuilder.build_user_dict(result)
     return jsonify(Users = mapped_result)
 
+
+def getUsersPerDay():
+    today = datetime.datetime.now()
+    weekBefore = today - datetime.timedelta(days=5)
+    oneDay = datetime.timedelta(days=1)
+    userperday = dict()
+    userperday['1'] = usersPerDayHelper(weekBefore, oneDay)
+    userperday['2'] = usersPerDayHelper(weekBefore+oneDay, oneDay)
+    userperday['3'] = usersPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
+    userperday['4'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
+    userperday['5'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
+    userperday['6'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    userperday['7'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
+    return jsonify(Topic=userperday)
+
+
+def usersPerDayHelper(day, oneday):
+    usersinday = []
+    topics = dao.getUsersPerDay(day - oneday, day)
+    for row in topics:
+        result = DictionaryBuilder.build_dash_user_dict(row)
+        print(result)
+        usersinday.append(result)
+    return usersinday
+
+
 def loginUser(json):
     #print(jsonify(json))
     username = json['username']
@@ -199,4 +226,16 @@ def addUser(json):
                 return jsonify(Error = 'Missing parameters')
         else:
             return jsonify(Error='Unexpected attributes in post request'), 400
+
+def addContact(json):
+    #This method will add a user to the contaact list of another user
+    if len(json)!=2:
+        return jsonify(Error="Missing or extra information given")
+    else:
+        uid = json['uid']
+        newContact = json['newContact']
+
+        if uid and newContact:
+            uid = dao.addContact(uid,newContact)
+    return uid
 

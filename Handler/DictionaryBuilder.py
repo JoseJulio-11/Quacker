@@ -99,10 +99,12 @@ def build_reacted_dict(messageReaction):
     return reaction
 
 def build_topic_dict(messageTopic):
-    # hashtag, mid
+    # tid, hashtag, mid, ttime
     topic = {}
-    topic["hashtag"] = messageTopic[0]
-    topic["mID"] = messageTopic[1]
+    topic["tID"] = messageTopic[0]
+    topic["hashtag"] = messageTopic[1]
+    topic["mID"] = messageTopic[2]
+    topic["ttime"] = messageTopic[3]
     return topic
 
 def build_media_dict(messageMedia):
@@ -112,3 +114,25 @@ def build_media_dict(messageMedia):
     media["isVideo"] = messageMedia[1]
     media["location"] = messageMedia[2]
     return media
+
+
+def build_dash_topic_dict(topicsInDay):
+    topic = {}
+    topic["hashtag"] = topicsInDay[0]
+    topic["total"] = topicsInDay[1]
+    return topic
+
+
+def build_dash_message_dict(topicsInDay):
+    topic = {}
+    topic["Message"] = topicsInDay[0]
+    topic["total"] = topicsInDay[1]
+    return topic
+
+
+def build_dash_user_dict(usersInDay):
+    users = {}
+    users["uid"] = usersInDay[0]
+    users["pseudonym"] = usersInDay[1]
+    users["totalmessages"] = usersInDay[2]
+    return users

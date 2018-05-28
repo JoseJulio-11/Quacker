@@ -51,18 +51,27 @@ class UserDAO:
         self.conn.commit()
         return user
 
-    def insertCredential(self, uID, username, password, uemail, cuphone):
-        # Create credentials for user
-        return uID, username
-
     def insertActivity(self, isActive, lasDbAccessDate, lastDbAccessTime, uID):
         # Create activity for user
         aid = uID
         return aid
 
-    def insertContact(self, ownerid, memberid):
+    def addContact(self, uid, newContact):
         #Create contacts for user
-        return ownerid, memberid
+        print(uid)
+        print(newContact)
+        cursor = self.conn.cursor()
+        query = "select count(*) from users where uid = %s"
+        cursor.execute(query,(str(newContact),))
+        isInSystem = cursor.fetchone()
+        self.conn.commit()
+        if isInSystem ==0:
+            return None
+        else:
+            query2 = "insert into contacts values(%s,%s) "
+            cursor.execute(query2,(uid,newContact))
+            self.conn.commit()
+            return uid
 
     # =================================== Read Methods =============================== #
     #Returns the list of all users
@@ -261,15 +270,26 @@ class UserDAO:
         # the user can edit its credential when needed
         return uID, username
 
-    def updateActivity(self, aid, isActive, lasDbAccessDate, lastDbAccessTime):
-        # This method is used to update the user last db access
-        # After 30 days of last time active in the app the user will be establish as inactive
-        # Also if the user decides to close the account it will be set to false
-        return aid
+    def updateActivity(self, uid):
+        query = "update activities set lastdbaccesstimestamp = 'now', isactive = 't' where uid = %s;"
+        self.conn.cursor.execute(query, (uid, ))
+        self.conn.commit()
 
     def updateContact(self, uID, ownerid, memberid):
         # the user can update its contact list when needed
         return uID, ownerid, memberid
+
+    # ============ Dash Board ============= #
+    def getUsersPerDay(self, btime, atime):
+        cursor = self.conn.cursor()
+        query = "select uid, pseudonym, count(text) as Total_Messages from activities natural" \
+                " inner join users natural inner join messages where isactive = 't'" \
+                " and mtime > %s and mtime < %s group by uid, pseudonym;"
+        cursor.execute(query, (btime, atime))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     # =================================== Delete Methods ============================= #
     def deleteUser(self, uID):
