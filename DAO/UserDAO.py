@@ -30,7 +30,7 @@ class UserDAO:
         query = "insert into credentials(uid,username,password,uemail,uphone) values(%s,%s,%s,%s,%s) "
         cursor.execute(query,(uid,username,password,uemail,uphone))
         self.conn.commit()
-        return uid[0]
+        return uid
 
     def loginUser(self,username,password):
         #This method makes sure that the user inserts the correct credentials
