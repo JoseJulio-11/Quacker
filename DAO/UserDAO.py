@@ -211,7 +211,7 @@ class UserDAO:
 
     def getUserByUsernameOrEmail(self, username, email):
         cursor = self.conn.cursor()
-        query = "select * from credentials where username = %s AND uemail = %s;"
+        query = "select * from credentials where username = %s OR uemail = %s;"
         cursor.execute(query, (username, email))
         result = cursor.fetchone()
         return result
