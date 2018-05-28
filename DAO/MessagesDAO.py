@@ -119,7 +119,7 @@ class MessagesDAO:
                 "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
                 " from like_messages inner join dislike_messages using(mid) inner join users on " \
                 "users.uid = like_messages.uid where like_messages.cid = %s and like_messages.isdeleted = 'f'" \
-                " and STRPOS(lower(like_messages.text), lower(%s)) > 0"
+                " and STRPOS(lower(like_messages.text), lower(%s)) > 0 order by mtime desc"
         cursor.execute(query, (cID, search))
         result = []
         for row in cursor:
@@ -143,7 +143,7 @@ class MessagesDAO:
         "select mid, like_messages.text, like_messages.mtime, pseudonym, like_messages.uid, " \
         "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
         " from like_messages inner join dislike_messages using(mid) inner join users on " \
-        "users.uid = like_messages.uid"
+        "users.uid = like_messages.uid order by mtime desc"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -298,7 +298,8 @@ class MessagesDAO:
                 "select mid, like_messages.text, like_messages.mtime, pseudonym, like_messages.uid, " \
                 "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
                 " from like_messages inner join dislike_messages using(mid) inner join users on " \
-                "users.uid = like_messages.uid where like_messages.cid = %s and like_messages.isdeleted = 'f'"
+                "users.uid = like_messages.uid where like_messages.cid = %s and like_messages.isdeleted = 'f'" \
+                " order by mtime desc"
         cursor.execute(query, (cID,))
         result = []
         for row in cursor:
