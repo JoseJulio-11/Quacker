@@ -264,15 +264,15 @@ def searchAllParticipants(uid):
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/participants/chat/<int:cid>', methods=['GET','DELETE'])
+@app.route('/participants/chat/<int:cid>', methods=['GET'])
 #WORKSSS
 def getChatParticipantsByID(cid):
     if request.method == 'GET':
         result = Chat.getParticipantsByChatID(cid)
         return result
-    elif request.method == 'DELETE':
-        result = Chat.removeParticipant(request.json)
-        return result
+    #elif request.method == 'DELETE':
+    #   result = Chat.removeParticipant(request.json)
+    #    return result
     else:
         return jsonify(Error="Method not allowed"), 404
 
