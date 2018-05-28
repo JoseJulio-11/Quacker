@@ -22,7 +22,7 @@ class UserDAO:
         cursor.execute(query,(str(fname),str(lname),'now',str(pseudonym)))
         uid = cursor.fetchone()
         self.conn.commit()
-        return uid
+        return uid[0]
 
     def addCredentials(self,uid,username,password,uemail,uphone):
       #This method adds the credentials of a new user to the credentials table
@@ -30,7 +30,7 @@ class UserDAO:
         query = "insert into credentials(uid,username,password,uemail,uphone) values(%s,%s,%s,%s,%s) "
         cursor.execute(query,(uid,username,password,uemail,uphone))
         self.conn.commit()
-        return uid
+        return uid[0]
 
     def loginUser(self,username,password):
         #This method makes sure that the user inserts the correct credentials
@@ -47,7 +47,7 @@ class UserDAO:
         cursor.execute(query, (uid, ))
         utime = cursor.fetchone()
         self.conn.commit()
-        return utime
+        return utime[0]
 
     def addContact(self, uid, newContact):
         #Create contacts for user
