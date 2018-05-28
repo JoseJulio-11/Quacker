@@ -760,7 +760,7 @@ class MessagesDAO:
     def getCountDislikesInMessage(self, mID):
         cursor = self.conn.cursor()
         query = "select count(*) from reacted" \
-                " where mid = %s and vote = 1;"
+                " where mid = %s and vote = -1;"
         cursor.execute(query, (mID,))
         result = []
         for row in cursor:
