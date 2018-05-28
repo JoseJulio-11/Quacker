@@ -209,6 +209,13 @@ class UserDAO:
         result = cursor.fetchone()
         return result
 
+    def getUserByUsernameOrEmail(self, username, email):
+        cursor = self.conn.cursor()
+        query = "select * from credentials where username = %s AND uemail = %s;"
+        cursor.execute(query, (username, email))
+        result = cursor.fetchone()
+        return result
+
     # Returns the user with email and password specified
     def getUserByEmailAndPassword(self, uemail, password):
         cursor = self.conn.cursor()

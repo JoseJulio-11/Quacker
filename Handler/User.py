@@ -250,8 +250,11 @@ def addUser(json):
         uphone = json['uphone']
 
         if fname and lname and pseudonym and username and password and uemail and uphone:
+            test = dao.getUserByUsernameOrEmail(username, uemail)
+            if test:
+                return jsonify(Error= 'User already exists.' )
             uid = dao.addUser(fname,lname,pseudonym)
-            dao.addCredentials(uid,username,password,uemail,uphone)
+            dao.addCredentials(uid, username, password, uemail, uphone)
             utime = dao.addActivity(uid)
             if uid:
                 result = DictionaryBuilder.build_user_dict([uid, fname, lname, utime, pseudonym])
