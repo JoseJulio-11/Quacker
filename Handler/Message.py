@@ -221,7 +221,7 @@ def getAllChatMessages(cID):
         return jsonify(Error="No Messages Found")
     result_messages = []
     for row in chat_messages:
-        result = Dic.build_message_dict(row)
+        result = Dic.build_extended_message_dict(row)
         result_messages.append(result)
     return jsonify(Messages=result_messages)
 
