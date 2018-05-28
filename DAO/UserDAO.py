@@ -261,6 +261,31 @@ class UserDAO:
         result = cursor.fetchone()
         return result
 
+    def searchAllUsers(self, fname, lname, search):
+        cursor = self.conn.cursor()
+        query = "select * from users natural inner join credentials where " \
+                "STRPOS(lower(fname), lower(%s)) > 0  and STRPOS(lower(lname), lower(%s)) > 0 " \
+                " and uid in (select uid from credentials where STRPOS(Lower(username), lower(%s))" \
+                " > 0 or STRPOS(lower(uphone), lower(%s)) > 0 or STRPOS(lower(uemail), lower(%s)) > 0);"
+        cursor.execute(query, (fname, lname, search, search, search))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def searchAllContact(self,uid ,fname, lname, search):
+        cursor = self.conn.cursor()
+        query = "select * from users natural inner join credentials where " \
+                "STRPOS(lower(fname), lower(%s)) > 0  and STRPOS(lower(lname), lower(%s)) > 0 " \
+                " and uid in (select uid from credentials where STRPOS(Lower(username), lower(%s))" \
+                " > 0 or STRPOS(lower(uphone), lower(%s)) > 0 or STRPOS(lower(uemail), lower(%s)) > 0)" \
+                " and uid in (select memberid from contacts where uid = %s);"
+        cursor.execute(query, (fname, lname, search, search, search, uid))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
     # =========================== Update Methods ================================= #
     def updateUser(self, uID, fName, lName, ctime, cdate, pseudonym):
         # the user has the option of updating its own information
