@@ -163,6 +163,38 @@ def getAdminByChatID(cid):
     return jsonify(Users = mapped_result)
 
 
+def searchAllUser(json):
+    if len(json) != 3:
+        return jsonify(Error = " Malformed post request, missing or extra data")
+    else:
+        fname = json['fname']
+        lname = json['lname']
+        search = json['search']
+        result = dao.searchAllUsers(fname, lname, search)
+        if not result:
+            return jsonify(Error="No Active Users Found")
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_user_dict(r))
+        return jsonify(Users = mapped_result)
+
+
+def searchAllContact(uid, json):
+    if len(json) != 3:
+        return jsonify(Error = " Malformed post request, missing or extra data")
+    else:
+        fname = json['fname']
+        lname = json['lname']
+        search = json['search']
+        result = dao.searchAllContact(uid, fname, lname, search)
+        if not result:
+            return jsonify(Error="No Active Users Found")
+        mapped_result = []
+        for r in result:
+            mapped_result.append(DictionaryBuilder.build_user_dict(r))
+        return jsonify(Users = mapped_result)
+
+
 def getUsersPerDay():
     today = datetime.datetime.now()
     weekBefore = today - datetime.timedelta(days=5)

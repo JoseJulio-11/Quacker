@@ -125,7 +125,7 @@ class MessagesDAO:
                 "like_messages.cid, like_messages.isdeleted, like_messages.rid, likes, dislikes" \
                 " from like_messages inner join dislike_messages using(mid) inner join users on " \
                 "users.uid = like_messages.uid where like_messages.cid = %s and like_messages.isdeleted = 'f'" \
-                " and STRPOS(like_messages.text, %s) > 0"
+                " and STRPOS(lower(like_messages.text), lower(%s)) > 0"
         cursor.execute(query, (cID, search))
         result = []
         for row in cursor:

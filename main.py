@@ -149,7 +149,17 @@ def getAllContacts():
         return jsonify(Error="Method not allowed"), 404
 
 
-@app.route('/contacts/user/<int:uid>', methods=['GET','POST'])
+@app.route('/contacts/search', methods=['POST'])
+#WORKSSSS
+def searchAllContacts():
+    if request.method == 'POST':
+        result = User.searchAllUser(request.json)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
+@app.route('/contacts/user/<int:uid>', methods=['GET', 'POST'])
 #WORKSS
 def getUserContactsByID(uid):
     if request.method == 'GET':
@@ -244,6 +254,16 @@ def getAllParticipants():
         return jsonify(Error="Method not allowed"), 404
 
 
+@app.route('/participants/user/<int:uid>/search', methods=['POST'])
+#WORKSSSS
+def searchAllParticipants(uid):
+    if request.method == 'POST':
+        result = User.searchAllContact(uid, request.json)
+        return result
+    else:
+        return jsonify(Error="Method not allowed"), 404
+
+
 @app.route('/participants/chat/<int:cid>', methods=['GET','DELETE'])
 #WORKSSS
 def getChatParticipantsByID(cid):
@@ -330,15 +350,12 @@ def getMessageInChatByUser(cid, uid):
 
 
 # =============== Topic Methods ======================== #
-@app.route('/topics', methods=['GET','POST'])
+@app.route('/topics', methods=['GET'])
 #WORKS
 def getAllTopics():
     if request.method == 'GET':
         result = Message.getAllTopics()
         return result
-    elif request.method == 'POST':
-        result = Message.insertTopic()
-
     else:
         return jsonify(Error="Method not allowed"), 404
 
