@@ -238,4 +238,3 @@ def addContact(json):
         if uid and newContact:
             uid = dao.addContact(uid,newContact)
     return uid
-

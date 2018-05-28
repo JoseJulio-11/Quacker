@@ -44,12 +44,12 @@ class ChatDAO:
             cursor.execute(query2,(uID,cID))
             isParticipant = cursor.fetchone()
             self.conn.commit()
-            if isParticipant!=0:
+            if isParticipant[0]!=1:
                 return None
             else:
                 query3 = "insert into participants(cid,uid,ptime) values(%s,%s,'now') returning ptime"
-                cursor.execute(query3,(cID,uID))
-                ptime =  cursor.fetchone()
+                cursor.execute(query3,(cID,contact))
+                ptime = cursor.fetchone()
                 self.conn.commit()
         return ptime
 

@@ -144,13 +144,15 @@ def insertParticipant(json):
         print( 'working on insert participants')
         cid = json['cid']
         uid = json['uid']
-        contact =  json['contact']
+        contact = json['contact']
         print(cid)
         print(uid)
         print(contact)
 
         if cid and uid and contact:
+
          ptime = dao.insertParticipant(cid,uid,contact)
+         print(ptime)
         #ptime = dao.getTimeForParticipantInsertion(uid)
          if ptime:
             result = Dic.build_participants_dict([cid,uid,ptime])
@@ -160,15 +162,6 @@ def insertParticipant(json):
         else:
             return jsonify(Error='Unexpected attributes in post request'), 400
 
-def addContactToChat(json):
-    if len(json)!=2:
-        return jsonify(Error = " Malformed request, missing arguments")
-    else:
-        cid = json['cid']
-        uid = json['uid']
-        if cid and uid:
-            return[]
-    return[]
 
 def removeParticipant(json):
     print(json)

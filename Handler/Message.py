@@ -394,14 +394,12 @@ def insertMessage(json):
         rid = json['rid']
         uid = json['uid']
         cid = json['cid']
-
-
         if text and uid and cid:
             mid = dao.insertMessage(text,uid,cid,rid)
             if mid:
                 return jsonify(Chat = "Insert Successful!")
             else:
-                return jsonify(ERROR = 'Could not create group')
+                return jsonify(ERROR = 'Could send message')
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
 
@@ -413,7 +411,7 @@ def insertLikeDislike(json):
         mid = json['mid']
         vote = json['vote']
         if uid and mid and vote:
-            rid= dao.insertLikeDislike(uid,mid,vote)
+            rid= dao.insertReacted(uid,mid,vote)
             if rid:
                 return jsonify(Message = "Like/Dislike successful")
             else:

@@ -45,7 +45,7 @@ class UserDAO:
     def loginUser(self,username,password):
         #This method makes sure that the user inserts the correct credentials
         cursor = self.conn.cursor()
-        query = "select * from credentials where username = %s and password = %s "
+        query = "select * from users where uid = (select uid from credentials where username = %s and password = %s);"
         cursor.execute(query,(username,password))
         user = cursor.fetchone()
         self.conn.commit()
