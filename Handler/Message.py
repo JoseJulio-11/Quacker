@@ -85,7 +85,7 @@ def searchAllChatMessage(cid, json):
             return jsonify(Error="No Chat Messages Found")
         mapped_result = []
         for r in result:
-            mapped_result.append(Dic.build_user_dict(r))
+            mapped_result.append(Dic.build_extended_message_dict(r))
         return jsonify(Messages = mapped_result)
 
 
@@ -405,7 +405,7 @@ def insertMessage(json):
             if mid:
                 return jsonify(Chat = "Insert Successful!")
             else:
-                return jsonify(ERROR = 'Could send message')
+                return jsonify(ERROR = 'Could not send message')
         else:
             return jsonify(Error = 'Unexpected attributes in post request'), 400
 

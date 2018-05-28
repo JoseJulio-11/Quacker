@@ -227,7 +227,7 @@ def getActiveChats():
         return jsonify(Error="Method not allowed"), 404
 
 @app.route('/chats/groupchats', methods = ['GET'])
-#workd
+#works
 def getGroupChats():
     if request.method == 'GET':
         result = Chat.getGroupChats()
