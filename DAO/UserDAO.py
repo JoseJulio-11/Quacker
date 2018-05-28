@@ -61,11 +61,11 @@ class UserDAO:
         print(uid)
         print(newContact)
         cursor = self.conn.cursor()
-        query = "select count(*) from users where uid = %s"
-        cursor.execute(query,(str(newContact),))
+        query = "select count(*) from contacts where uid = %s and memberid = %s"
+        cursor.execute(query,((uid),(newContact)),)
         isInSystem = cursor.fetchone()
         self.conn.commit()
-        if isInSystem ==0:
+        if isInSystem[0] !=0:
             return None
         else:
             query2 = "insert into contacts values(%s,%s) "
