@@ -592,7 +592,7 @@ class MessagesDAO:
 
     def getAllTopicsInChat(self, cID):
         cursor = self.conn.cursor()
-        query = "select hashtag, mid from topics natural inner join messages where cid = %s;"
+        query = "select tid, hashtag, mid, ttime from topics natural inner join messages where cid = %s;"
         cursor.execute(query, (cID,))
         result = []
         for row in cursor:
@@ -601,7 +601,7 @@ class MessagesDAO:
 
     def getAllTopicsByUser(self, uID):
         cursor = self.conn.cursor()
-        query = "select hashtag, mid from topics natural inner join messages where uid = %s;"
+        query = "select tid, hashtag, mid, ttime from topics natural inner join messages where uid = %s;"
         cursor.execute(query, (uID,))
         result = []
         for row in cursor:
