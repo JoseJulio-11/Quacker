@@ -221,18 +221,20 @@ def usersPerDayHelper(day, oneday):
 
 
 def loginUser(json):
-    #print(jsonify(json))
     username = json['username']
     print(username)
     password = json['password']
     print(password)
 
-    if not username and password:
-        return jsonify(Error="Wrong username or password")
+    if username and password:
+        user = dao.loginUser(username, password)
+        if user:
+            return jsonify(User=user)
+        else:
+            return jsonify(Error="Wrong username or password")
 
     else:
-        user = dao.loginUser(username, password)
-        return jsonify(User = user)
+        return jsonify(Error="Wrong username or password")
 
 def addUser(json):
     #This method adds a need user of the app to the system
@@ -265,8 +267,13 @@ def addContact(json):
         return jsonify(Error="Missing or extra information given")
     else:
         uid = json['uid']
-        newContact = json['newContact']
+        newContact = json['memberid']
 
         if uid and newContact:
-            uid = dao.addContact(uid,newContact)
-    return uid
+            uid = dao.addContact(uid, newContact)
+            if uid:
+                return jsonify(Success="Contact Added")
+            else:
+                return jsonify(Error="Contact already added")
+        else:
+            return jsonify(Error="Wrong information given")
