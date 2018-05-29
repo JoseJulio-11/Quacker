@@ -308,9 +308,9 @@ class UserDAO:
     # ============ Dash Board ============= #
     def getUsersPerDay(self, btime, atime):
         cursor = self.conn.cursor()
-        query = "select uid, pseudonym, count(text) as Total_Messages from activities natural" \
-                " inner join users natural inner join messages where isactive = 't'" \
-                " and mtime > %s and mtime < %s group by uid, pseudonym;"
+        query = "select username, count(text) as Total_Messages from activities natural" \
+                " inner join users natural inner join messages natural inner join credentials where isactive = 't'" \
+                " and mtime > %s and mtime < %s group by username;"
         cursor.execute(query, (btime, atime))
         result = []
         for row in cursor:

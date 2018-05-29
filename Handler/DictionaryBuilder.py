@@ -132,7 +132,6 @@ def build_dash_message_dict(topicsInDay):
 
 def build_dash_user_dict(usersInDay):
     users = {}
-    users["uid"] = usersInDay[0]
-    users["pseudonym"] = usersInDay[1]
-    users["totalmessages"] = usersInDay[2]
+    users["username"] = usersInDay[0]
+    users["totalmessages"] = usersInDay[1]
     return users
