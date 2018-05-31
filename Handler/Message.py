@@ -289,29 +289,15 @@ def getAllMediaByUser(uid):
     return jsonify(Media=result_list)
 
 
-def getTopicsPerDay():
-    today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=5)
-    oneDay = datetime.timedelta(days=1)
-    topicperday = dict()
-    topicperday[str(weekBefore.date())] = topicsPerDayHelper(weekBefore, oneDay)
-    topicperday[str((weekBefore+oneDay).date())] = topicsPerDayHelper(weekBefore+oneDay, oneDay)
-    topicperday[str((weekBefore+oneDay+oneDay).date())] = topicsPerDayHelper(weekBefore+oneDay+oneDay, oneDay)
-    topicperday[str((weekBefore+oneDay+oneDay+oneDay).date())] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay, oneDay)
-    topicperday[str((weekBefore+oneDay+oneDay+oneDay+oneDay).date())] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
-    topicperday[str((weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay).date())] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
-    topicperday[str((weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay).date())] = topicsPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
-    return jsonify(Topic=topicperday)
-
-
-def topicsPerDayHelper(day, oneday):
-    topicsinday = []
-    topics = dao.getTopicsPerDay(day - oneday, day)
+def getTopTopics():
+    toptopics = []
+    topics = dao.getTopTopics()
     for row in topics:
         result = Dic.build_dash_topic_dict(row)
         print(result)
-        topicsinday.append(result)
-    return topicsinday
+        toptopics.append(result)
+    return jsonify(Topics=toptopics)
+
 
 
 def getMessagesPerDay():

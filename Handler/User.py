@@ -134,7 +134,7 @@ def getUsersByLikedMessage(mid):
         return jsonify(Error="No Users Found")
     mapped_result = []
     for r in result:
-        mapped_result.append(DictionaryBuilder.build_user_dict(r))
+        mapped_result.append(DictionaryBuilder.build_reacted_user_dict(r))
     return jsonify(Users = mapped_result)
 
 def getUsersByDislikedMessage(mid):

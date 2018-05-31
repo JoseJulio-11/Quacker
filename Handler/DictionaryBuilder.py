@@ -9,6 +9,18 @@ def build_user_dict(userInfo):
     user["pseudonym"] = userInfo[4]
     return user
 
+def build_reacted_user_dict(userInfo):
+    # UID, FNAME, LNAME, CDATE, CTIME, PSEUDONYM
+    user = {}
+    print(userInfo)
+    user["uID"] = userInfo[0]
+    user["fName"] = userInfo[1]
+    user["lName"] = userInfo[2]
+    user["utime"] = userInfo[3]
+    user["pseudonym"] = userInfo[4]
+    user["rtime"] = userInfo[5]
+    return user
+
 def build_credential_dict(userCredential):
     # UID, Username, Password, UEmail, UPhone
     cred = {}
