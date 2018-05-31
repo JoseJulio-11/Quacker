@@ -63,6 +63,15 @@ class ChatDAO:
         self.conn.commit()
         return ptime
 
+    def getChatParticipant(self,cid, uid):
+        #This method returns the time the user was added to the system
+        cursor = self.conn.cursor()
+        query2 = "select * from participants where uid = %s and cid = %s"
+        cursor.execute(query2, (uid, cid))
+        result = cursor.fetchone()
+        self.conn.commit()
+        return result
+
     # ============================= Get Methods ================================= #
     def getAllChats(self):
         # This method will return all the chats

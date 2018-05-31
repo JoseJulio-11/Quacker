@@ -140,24 +140,22 @@ def insertParticipant(json):
         return jsonify(Error = "Malformed post request, missing or extra data")
 
     else:
-        print( 'working on insert participants')
         cid = json['cid']
         uid = json['uid']
         contact = json['contact']
-        print(cid)
-        print(uid)
-        print(contact)
 
         if cid and uid and contact:
+            test = dao.getChatParticipant(cid, contact)
+            if test:
+                return jsonify(Error="User already a participant")
+            ptime = dao.insertParticipant(cid,uid,contact)
+            print(ptime)
 
-         ptime = dao.insertParticipant(cid,uid,contact)
-         print(ptime)
-        #ptime = dao.getTimeForParticipantInsertion(uid)
-         if ptime:
-            result = Dic.build_participants_dict([cid,uid,ptime])
-            return jsonify(Participant = result)
-         else:
-            return jsonify(Error = "Could not insert the participant")
+            if ptime:
+                result = Dic.build_participants_dict([cid,uid,ptime[0]])
+                return jsonify(Participant = result)
+            else:
+                return jsonify(Error = "Could not insert the participant")
         else:
             return jsonify(Error='Unexpected attributes in post request'), 400
 
