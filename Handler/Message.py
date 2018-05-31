@@ -302,7 +302,7 @@ def getTopTopics():
 
 def getMessagesPerDay():
     today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=5)
+    weekBefore = today - datetime.timedelta(days=6)
     oneDay = datetime.timedelta(days=1)
     messperday = dict()
     messperday[str((weekBefore).date())] = messagesPerDayHelper(weekBefore, oneDay)
@@ -322,7 +322,7 @@ def messagesPerDayHelper(day, oneday):
 
 def getReplyPerDay():
     today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=5)
+    weekBefore = today - datetime.timedelta(days=6)
     oneDay = datetime.timedelta(days=1)
     messperday = dict()
     messperday[str(weekBefore.date())] = replyPerDayHelper(weekBefore, oneDay)
@@ -341,7 +341,7 @@ def replyPerDayHelper(day, oneday):
 
 def getLikesPerDay():
     today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=5)
+    weekBefore = today - datetime.timedelta(days=6)
     oneDay = datetime.timedelta(days=1)
     likesperday = dict()
     likesperday[str(weekBefore.date())] = likesPerDayHelper(weekBefore, oneDay)
@@ -360,7 +360,7 @@ def likesPerDayHelper(day, oneday):
 
 def getDislikesPerDay():
     today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=5)
+    weekBefore = today - datetime.timedelta(days=6)
     oneDay = datetime.timedelta(days=1)
     dislikesperday = dict()
     dislikesperday[str(weekBefore.date())] = dislikesPerDayHelper(weekBefore, oneDay)

@@ -30,7 +30,7 @@ class MessagesDAO:
                 rtext = cursor.fetchone()
                 self.conn.commit()
                 if rtext:
-                    text = "RE:\"" + str(rtext[0]) + "\" " + text
+                    text = "RE:\" " + str(rtext[0]) + " \" " + text
 
             query3 = "insert into messages(text,mtime,uid,cid,isDeleted, rid) values(%s,'now',%s,%s,'f',%s) returning mid;"
             cursor.execute(query3, (str(text), uid, cid, rid))

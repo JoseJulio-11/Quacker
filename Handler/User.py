@@ -197,7 +197,7 @@ def searchAllContact(uid, json):
 
 def getUsersPerDay():
     today = datetime.datetime.now()
-    weekBefore = today - datetime.timedelta(days=5)
+    weekBefore = today - datetime.timedelta(days=6)
     oneDay = datetime.timedelta(days=1)
     userperday = dict()
     userperday['1'] = usersPerDayHelper(weekBefore, oneDay)
@@ -207,7 +207,7 @@ def getUsersPerDay():
     userperday['5'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay, oneDay)
     userperday['6'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
     userperday['7'] = usersPerDayHelper(weekBefore+oneDay+oneDay+oneDay+oneDay+oneDay+oneDay, oneDay)
-    return jsonify(Topic=userperday)
+    return jsonify(Users=userperday)
 
 
 def usersPerDayHelper(day, oneday):
